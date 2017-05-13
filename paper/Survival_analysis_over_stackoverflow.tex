@@ -21,14 +21,14 @@
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
-\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{paralist} % very flexible & customizable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
 \pagestyle{fancy} % options: empty , plain , fancy
-\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\renewcommand{\headrulewidth}{0pt} % customize the layout...
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
 
@@ -57,29 +57,30 @@
 
 \section{Introduction \& main goals}
 
-Many studies have been done over the Stackexchange community [such as], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
+Many studies have been done over the Stackexchange community [such as], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community. This analysis is justified
+
 
 \subsection{Main technologies}
 
 As one of the biggest Q\&A communities, Stackexchange has large amount of data of each interaction.
-Stackexchange is separated in several communities, regarding diferent topics. These communities can be small, as [] or really big, as Stackoverflow, the developers community. This particularity makes necessary the use technologies prepared to process large amounts of data, in the later case.
+Stackexchange is separated in several communities, regarding different topics. These communities can be small, as [] or really big, as Stackoverflow, the developers community. This particularity makes necessary the use technologies prepared to process large amounts of data, in the later case.
 
 Among the available big data technologies, the
 
 For this purpose, Apache Spark, the latest distributed open-source processing technology, has been chosen to parallelize the operations on the data.
 
-Spark ML is the machine learning library of spark, which contains lots of algorithms. It also includes some Survival Analysis algorithms, but just for parametric modelling. This gives an excuse to use the recently adopted by the Apache Foundation SystemML, a machine learning library developed by IBM, which has non, semi and parametric algorithms for survival analysis.
+Spark ML is the machine learning library of spark, which contains lots of algorithms. It also includes some Survival Analysis algorithms, but just for parametric modeling. This gives an excuse to use the recently adopted by the Apache Foundation SystemML, a machine learning library developed by IBM, which has non, semi and parametric algorithms for survival analysis.
 
 
 \subsubsection{Apache Spark}
 
-Apache Spark is a distributed processing technology developed in Scala by Databricks that represents the next step of Apache Hadoop, including the best parts of it, such as the Hadoop File System, but under a complete new paradigm that allows operations diferent from the famous map-reduce, using RAM as storage for results rather than writting to disk and lazy and optimized execution of tasks, to mention some of the main features.
+Apache Spark is a distributed processing technology developed in Scala by Databricks that represents the next step of Apache Hadoop, including the best parts of it, such as the Hadoop File System, but under a complete new paradigm that allows operations different from the famous map-reduce, using RAM as storage for results rather than writing to disk and lazy and optimized execution of tasks, to mention some of the main features.
 
 \subsubsection{Apache SystemML}
 
-Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning library that works over distributed frameworks, Spark or Hadoop, written in a self made language, Distributed Machine Learning (dml) and with a python, scala or R like syntaxis API.
+Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning library that works over distributed frameworks, Spark or Hadoop, written in a self made language, Distributed Machine Learning (dml) and with a Python, Scala or R like sintaxis API.
 
-This library provides many distributed implementations of important algorithms as well as a syntaxis to create new algorithms in a distributed mode.
+This library provides many distributed implementations of important algorithms as well as a sintaxis to create new algorithms in a distributed mode.
 
 \subsection{The Stackexchange data}
 
@@ -97,17 +98,17 @@ For this study several objectives have been proposed:
 
   \item Verify SystemML integration with Spark for further research and scalability.
 
-  \item Use SystemML survival analysis algorithms to analize Stackexchange's data and obtain conclussions on the main variables affecting the time taken by the community to answer a question.
+  \item Use SystemML survival analysis algorithms to analyze Stackexchange's data and obtain conclusions on the main variables affecting the time taken by the community to answer a question.
 
 \end{itemize}
 
 \section{Technologies}
 
-The downloaded data from Stackexchange for the analysis [weights?] 40 GB, wich is enough ammount [size] to consider distributed processing.
+The downloaded data from Stackexchange for the analysis [weights?] 40 GB, which is enough amount [size] to consider distributed processing.
 
 \subsection{Apache Spark}
 
-The latest distributed processing technology for data processing is Apache Spark, born in [2015] in [Ucla?], wich is the predecesor of the well known processing framework Apache Hadoop, with all it's ecosystem.
+The latest distributed processing technology for data processing is Apache Spark, born in [2015] in [Ucla?], which is the predecesor of the well known processing framework Apache Hadoop, with all it's ecosystem.
 
 Comparing to Hadoop, Spark is able to speedup calculations using RAM instead of disk, with a higher variety of operations, not limited to Map-Reduce,  and [].
 
@@ -147,7 +148,7 @@ SystemML is coded in a self-made programming language, Distributed Machine Learn
 
 \subsection{Cox Proportional Hazards Model}
 
-\section{Conclussions}
+\section{Conclusions}
 
 \subsection{Most important results}
 
