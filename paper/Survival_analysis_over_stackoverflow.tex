@@ -57,7 +57,7 @@
 
 \section{Introduction \& main goals}
 
-Many studies have been done over the Stackexchange community [such as], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community. This analysis is justified
+Many studies have been done over the Stackexchange community [such as], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
 
 
 \subsection{Main technologies}
@@ -128,17 +128,48 @@ SystemML is coded in a self-made programming language, Distributed Machine Learn
 
 \subsection{Reproducible research with Python, Scala and Jupyter}
 
+Going down to the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions, it is easy to use and configure and it can be easily integrated with Spark.
+
+To configure the same environment as the one used in this study, some steps have to be followed:
+
+\subsubsection{Environment setup}
+
+
+\begin{table}
+\centering
+\begin{tabular}{| c | c |}
+\hline
+Technology & Version \\ \hline
+Jupyter Notebook & 4.3.1 \\ \hline
+Python & 3.5 \\ \hline
+Scala & 2.11 \\ \hline
+Toree kernel & 0.2.0.dev1 \\ \hline
+Spark & 2.1 \\ \hline
+SystemML & 0.12.0 \\ \hline
+\end{tabular}
+\caption{Technologies and versions used}
+\end{table}
+
+The first step is to setup Jupyter Notebook, either running it in a Docker container or installing it directly on the machine. The docker image can be obtained entering the following command in a shell: \emph{docker pull jupyter/notebook}. Regarding the other option, installing it, the instructions can be found in the following link: \emph{http://jupyter.readthedocs.io/en/latest/install.html}.
+
+Once Jupyter Notebook running, the kernels have to be configured.
+
+For the python kernel, the SystemML library has to be installed, to do so,
+
 
 
 \section{Infrastructure and resources}
 
-
+As commented before, selecting an environment that
 
 \subsection{Architecture scheme}
 
 \subsection{Configuration}
 
 \subsection{Workflow}
+
+The first step is to clean the data and make the feature selection
+
 
 \section{Results}
 
