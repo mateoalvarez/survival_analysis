@@ -8,20 +8,15 @@
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 
-%%% Examples of Article customizations
-% These packages are optional, depending whether you want the features they provide.
-% See the LaTeX Companion or other references for full information.
-
 %%% PAGE DIMENSIONS
-\usepackage{geometry} % to change the page dimensions
-\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\usepackage{geometry}
+\geometry{a4paper}
 % \geometry{margin=2in} % for example, change the margins to 2 inches all round
 % \geometry{landscape} % set up the page for landscape
 %   read geometry.pdf for detailed page layout information
 
-\usepackage{graphicx} % support the \includegraphics command and options
-
-% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
 \usepackage{booktabs} % for much better looking tables
@@ -29,7 +24,6 @@
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
-% These packages are all incorporated in the memoir class to one degree or another...
 
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
@@ -40,18 +34,13 @@
 
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
-\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
-% (This matches ConTeXt defaults)
+\allsectionsfont{\sffamily\mdseries\upshape}
 
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
-
-%%% END Article customizations
-
-%%% The "real" document content comes below...
 
 \title{Survival Analysis with Apache Spark and Apache SystemML on Stackexchange}
 \author{Mateo Álvarez Calvo}
@@ -61,8 +50,10 @@
 \begin{document}
 
 \maketitle
-% \makesummary
 
+\newpage
+\tableofcontents
+\newpage
 
 \section{Introduction \& main goals}
 
@@ -106,7 +97,7 @@ For this study several objectives have been proposed:
 
   \item Verify SystemML integration with Spark for further research and scalability.
 
-  \item Use SystemML survival analysis algorithms to analize Stackexchange's data and obtain conclussions on the main variables affecting the fast resolution of questions.
+  \item Use SystemML survival analysis algorithms to analize Stackexchange's data and obtain conclussions on the main variables affecting the time taken by the community to answer a question.
 
 \end{itemize}
 
@@ -116,9 +107,9 @@ The downloaded data from Stackexchange for the analysis [weights?] 40 GB, wich i
 
 \subsection{Apache Spark}
 
-The latest distributed processing technology for data processing is Apache Spark, born in [2015] in [Ucla?], wich is the precursor of the well known processing framework Apache Hadoop, with all it's ecosystem.
+The latest distributed processing technology for data processing is Apache Spark, born in [2015] in [Ucla?], wich is the predecesor of the well known processing framework Apache Hadoop, with all it's ecosystem.
 
-Comparing to Hadoop, Spark is able to speedup calculations, with a higher variety of operations, not limited to Map-Reduce, preserving the fault tolerance and [].
+Comparing to Hadoop, Spark is able to speedup calculations using RAM instead of disk, with a higher variety of operations, not limited to Map-Reduce,  and [].
 
 \subsubsection{Apache Spark Structure}
 
@@ -140,7 +131,9 @@ SystemML is coded in a self-made programming language, Distributed Machine Learn
 
 \section{Infrastructure and resources}
 
-\subsection{Architecture scheme
+
+
+\subsection{Architecture scheme}
 
 \subsection{Configuration}
 
