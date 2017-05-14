@@ -47,6 +47,11 @@
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed
 
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}   %% centered
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}  %% right aligned
+
+
+
 \begin{document}
 
 \maketitle
@@ -56,7 +61,7 @@
 \newpage
 
 \section{Introduction \& main goals}
-
+  \label{sec:introduction}
   Many studies have been done over the Stackexchange community [such as], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
 
 
@@ -89,15 +94,221 @@
 
     Selecting just the data from Scyfy community, it weights around 110 MB in a 7z compressed format. The uncompressed data is divided in 8 files, regarding different information:
 
-    \begin{table}
+    \begin{table}[!h]
       \centering
-      \begin{tabular}{|c|c|}
+      \begin{tabular}{|c|p{0.3\textwidth}|c|}
         \hline
-        cosa & cosa \\ \hline
+
+        File & Description & Size \\ \hline
+        Votes.xml & Voting results for each question and more cosas & 84,1 MB \\ \hline
+        Tags.xml & Relational table for tags on each question & 169 KB \\ \hline
+        Users.xml & Users on the net & 16,7 MB \\ \hline
+        PostLinks.xml & links to posts & 1,5 MB \\ \hline
+        Posts.xml & List of all questions & 137,3 MB \\ \hline
+        PostHistory.xml & All interactions of each post & 268,6 MB \\ \hline
+        Comments.xml & List of all comments of each post & 66,3 MB \\ \hline
+        Badges.xml & All users' badges & 16,1 MB \\
+
+        \hline
       \end{tabular}
-      \caption{}
-      \label{}
+      \caption{List of files from the compressed Scyfy folder}
+      \label{tab:list_of_files}
     \end{table}
+
+    Further details about the relational database structure is explained below, the objective is to show the variables obtained from the dataset so that the later variable selection is understood.
+
+    \subsubsection{Votes.xml}
+
+      This file contains information about votes of the users to each question. The file has the following structure:
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|c|p{0.3\textwidth}|}
+          \hline
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique vote identifier \\ \hline
+          PostId & Integer & Foreign key that indicates the post that was voted \\ \hline
+          VoteTypeId & Integer & Type of vote, 1 for Downvote and 2 for Upvote \\ \hline
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of votation \\ \hline
+        \end{tabular}
+        \caption{Votes table}
+        \label{tab:votes}
+      \end{table}
+
+    \subsubsection{Tags.xml}
+
+      This file contains all tags and the posts that contains them. The file has the following structure:
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|c|p{0.3\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique tag identifier \\ \hline
+          TagName & Text & Name of the tag \\ \hline
+          Count & Integer & Number of times used \\ \hline
+          ExcerptPostId & Integer & \\ \hline
+          WikiPostId & Integer & \\
+
+          \hline
+        \end{tabular}
+        \caption{Tags table}
+        \label{tab:tags}
+      \end{table}
+\newpage
+    \subsubsection{Users.xml}
+
+      This file contains information about users. The file has the following structure:
+
+      \begin{table}[!h]
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique user identifier \\
+          Reputation & Integer & Reputation level of the user \\ \hline
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & User creation date \\ \hline
+          DisplayName & Text & Alias to display on question \\ \hline
+          LastAccessDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last login date \\ \hline
+          WebsiteUrl & Text & Site where the user signed up to \\ \hline
+          Location & Text & Location of the user \\ \hline
+          AboutMe & Text & Information user provided \\ \hline
+          Views & Integer & User views count \\ \hline
+          UpVotes & Integer & User upvotes count \\ \hline
+          DownVotes & Integer & User downvotes count \\ \hline
+          AccountIf & Integer & Unique user identifier \\
+
+          \hline
+        \end{tabular}
+        \caption{Users table}
+        \label{tab:users}
+      \end{table}
+
+    \subsubsection{PostLinks.xml}
+
+      This file contains information about relation between posts. The file has the following structure:
+
+      \begin{table}[!h]
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique post links identifier \\
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Post links creation date \\ \hline
+          PostId & Integer & Post unique identifier \\ \hline
+          RelatedPostId & Integer & Unique identifier of the post related to the PostId \\ \hline
+          LinkTypeId & Integer & Type of relation between posts \\
+
+          \hline
+        \end{tabular}
+        \caption{Post links table}
+        \label{tab:postlins}
+      \end{table}
+
+    \subsubsection{Posts.xml}
+
+      This file contains all questions posted along with the accepted answers and other info related to the time and user who posted the question. The file has the following structure:
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique question identifier \\ \hline
+          PostTypeId & Integer & Type of post codified as integer \\ \hline
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question creation in extended format \\ \hline
+          Score & Integer & Question's score, calculated from the users' votes \\ \hline
+          ViewCount & Integer & Count of all visualizations of the question \\ \hline
+          Body & Text & The question itself, in utf8 format \\ \hline
+          OwnerUserId & Integer & Id of the user who posted the question \\ \hline
+          LastEditorUserId & Integer & \\ \hline
+          LastEditDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last edition date \\ \hline
+          LastActivityDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last interaction with the question time \\ \hline
+          Title & Text & Title of the question \\ \hline
+          Tags & Text & Tags added to the question \\ \hline
+          AnswerCount & Integer & Number of answers to the question \\ \hline
+          CommentCount & Integer & Number of comments to the question posted \\ \hline
+          FavoriteCount & Integer & Number of times the question has been added to favorite by another user \\ \hline
+          ClosedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the question has been closed \\ \hline
+          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time \\
+
+          \hline
+        \end{tabular}
+        \caption{Posts table}
+        \label{tab:posts}
+      \end{table}
+
+    \subsubsection{PostHistory.xml}
+
+      This file contains information about the interactions with each post. The file has the following structure:
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique interaction identifier \\ \hline
+          PostHistoryTypeId & Integer & Type of interaction with the post () \\ \hline
+          PostId & Integer & Unique identifier of the post this interaction is related to \\ \hline
+          RevisionGUID & Text &  \\ \hline
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question creation in extended format \\ \hline
+          UserId & Integer & Unique identifier of the user that created the interaction with the post \\ \hline
+          Text & Text & Text the user introduced on the interaction \\ \hline
+
+          \hline
+        \end{tabular}
+        \caption{Post history table}
+        \label{tab:posthistory}
+      \end{table}
+
+    \subsubsection{Comments.xml}
+
+      This file contains the comments posted for every question created. The file has the following structure:
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique comment identifier \\ \hline
+          PostId & Integer & Unique identifier of the post this comment is related to \\ \hline
+          Score & Integer & Total score of the comment \\ \hline
+          Text & Text & Comment text \\ \hline
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of comment creation in extended format \\ \hline
+          UserId & Integer & Unique identifier of the user who posted the comment \\
+
+          \hline
+        \end{tabular}
+        \caption{Comments table}
+        \label{tab:comments}
+      \end{table}
+
+    \subsubsection{Badges.xml}
+
+      This file contains information about the badges the user has obtained.
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique Badge identifier \\ \hline
+          UserId & Integer & Unique identifier of the user who obtained the badge \\ \hline
+          Name & Text & Name of the badge \\ \hline
+          Date & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the user obtained the badge in extended format \\ \hline
+          Class & Integer & Type of the badge \\ \hline
+          TagBased & Boolean & Whether the badge is based on a tag or not \\
+
+          \hline
+        \end{tabular}
+        \caption{Comments table}
+        \label{tab:comments}
+      \end{table}
 
   \subsection{Main Objectives}
 
@@ -114,6 +325,7 @@
     \end{itemize}
 
 \section{Technologies}
+  \label{sec:technologies}
 
   The downloaded data from Stackexchange for the analysis [weights?] 40 GB, which is enough amount [size] to consider distributed processing.
 
@@ -147,18 +359,21 @@
 
 
     \begin{table}
-    \centering
-    \begin{tabular}{| c | c |}
-    \hline
-    Technology & Version \\ \hline
-    Jupyter Notebook & 4.3.1 \\ \hline
-    Python & 3.5 \\ \hline
-    Scala & 2.11 \\ \hline
-    Toree kernel & 0.2.0.dev1 \\ \hline
-    Spark & 2.1 \\ \hline
-    SystemML & 0.12.0 \\ \hline
-    \end{tabular}
-    \caption{Technologies and versions used}
+      \centering
+      \begin{tabular}{| c | c |}
+        \hline
+
+        Technology & Version \\ \hline
+        Jupyter Notebook & 4.3.1 \\ \hline
+        Python & 3.5 \\ \hline
+        Scala & 2.11 \\ \hline
+        Toree kernel & 0.2.0.dev1 \\ \hline
+        Spark & 2.1 \\ \hline
+        SystemML & 0.12.0 \\
+
+        \hline
+      \end{tabular}
+      \caption{Technologies and versions used}
     \end{table}
 
     The first step is to setup Jupyter Notebook, either running it in a Docker container or installing it directly on the machine. The docker image can be obtained entering the following command in a shell: \emph{docker pull jupyter/notebook}. Regarding the other option, installing it, the instructions can be found in the following link: \emph{http://jupyter.readthedocs.io/en/latest/install.html}.
@@ -170,6 +385,7 @@
 
 
 \section{Infrastructure and resources}
+  \label{sec:infrastructure_and_resources}
 
   As commented before, selecting an environment that
 
@@ -183,6 +399,7 @@
 
 
 \section{Results}
+  \label{sec:results}
 
   \subsection{Used data}
 
@@ -191,6 +408,7 @@
   \subsection{Cox Proportional Hazards Model}
 
 \section{Conclusions}
+  \label{sec:conclusions}
 
   \subsection{Most important results}
 
