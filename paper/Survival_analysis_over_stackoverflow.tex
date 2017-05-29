@@ -327,15 +327,57 @@
 \section{Technologies}
   \label{sec:technologies}
 
-  The downloaded data from Stackexchange for the analysis [weights?] 40 GB, which is enough amount [size] to consider distributed processing.
+  The downloaded data from Stackexchange for the analysis weights about 40 GB, which is enough amount to consider distributed processing. Going down to the distributed processing frameworks, Apache Spark was chosen
 
   \subsection{Apache Spark}
 
-    The latest distributed processing technology for data processing is Apache Spark, born in [2015] in [Ucla?], which is the predecesor of the well known processing framework Apache Hadoop, with all it's ecosystem.
 
-    Comparing to Hadoop, Spark is able to speedup calculations using RAM instead of disk, with a higher variety of operations, not limited to Map-Reduce,  and [].
+    Apache Spark is a fast and general-purpose cluster computing system, widely used for data processing. It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs. It also supports a rich set of higher-level tools including Spark SQL for SQL and structured data processing, MLlib and SparkML for machine learning and pipelines, GraphX for graph processing, and Spark Streaming.
+
+    Apache Hadoop presented some limitations that Apache Spark tried to solve:
+
+    \begin{itemize}
+      \item It is difficult to write most of the algorithms in a MapReduce form.
+      \item It is very slow to write each iteration to disk, which, for example makes difficult to use Hadoop to process streaming.
+      \item Apache Hadoop's support for iterative jobs and Machine Learning restricts it's use for this task.
+      \item Apache Hadoop's SQL tools doesn't work well on complex queries, sometimes it doesn't work at all and other times it is quite slow as it writes on HDD each iteration.
+    \end{itemize}
+
+    Some solutions Apache Spark provides to these problems are:
+
+    \begin{itemize}
+      \item Lazy computation, Spark only executes a set of tasks when a result is required. This gives the opportunity to optimize jobs before executing them.
+      \item In-memory data caching, Spark scans HDD only once to read the input data and then uses RAM as much as it can, which is faster than scanning disk on every step.
+      \item
+    \end{itemize}
+
+    \subsubsection{Spark Data Structure}
+
+
+
 
     \subsubsection{Apache Spark Structure}
+
+      Apache Spark is formed by the Spark Core API, available in R, SQL, Python, Scala and Java languages, and built up on it four main libraries: Spark SQL + DataFrames, Spark Streaming, Spark MLlib, Spark ML and GraphX, that complements functionality for Spark, specially on the parts Hadoop failed, Machine Learning, SQL and Streaming.
+
+
+
+      \subsubsection*{Spark Core API}
+
+        The core API represents the basic structure of Spark, it can be addressed form any of the supported languages, scala, python, R and java.
+
+      \subsubsection*{Spark SQL + DataFrames}
+
+        The SQL layer over data is known as Spark SQL
+
+      \subsubsection*{Spark MLlib + Spark ML}
+
+        Spark has two main Machine Learning libraries, the first one, Spark MLlib, which is the basic library, that includes the main algorithms and is addressed with RDDs, the second one, Spark ML, which uses Spark MLlib but through DataFrames, and includes further functionality, such as Pipelines, a set of operations performed over data, that allows the user to build sequences of actions over Data Frames.
+
+      \subsubsection*{Spark GraphX}
+
+        GraphX is Spark's graph library, which is used to interact with graphs.
+
 
 
 
@@ -351,7 +393,7 @@
 
   \subsection{Reproducible research with Python, Scala and Jupyter}
 
-    Going down to the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions, it is easy to use and configure and it can be easily integrated with Spark.
+    Regarding the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions. Jupyter Notebook is easy to use and configure and it can be easily integrated with Spark. It has interactive interpreters for many languages, including python, ruby, scala, R, etc
 
     To configure the same environment as the one used in this study, some steps have to be followed:
 
@@ -378,7 +420,30 @@
 
     The first step is to setup Jupyter Notebook, either running it in a Docker container or installing it directly on the machine. The docker image can be obtained entering the following command in a shell: \emph{docker pull jupyter/notebook}. Regarding the other option, installing it, the instructions can be found in the following link: \emph{http://jupyter.readthedocs.io/en/latest/install.html}.
 
-    Once Jupyter Notebook running, the kernels have to be configured.
+    Once Jupyter Notebook is running, the kernels have to be configured. In this study, Scala and Python were used for the data processing, so both kernels were configured. The python kernel is usually configured, as it comes with the IPython kernel installation, if not, follow the guide[][][][][]. To install the scala kernel, several options can be considered, as there are several implementations of the scala kernel. The chosen one was Scala Toree.
+
+    Appart from the kernels, some dependencies must be installed to do the data processing in python, those dependencies are:
+
+    \begin{itemize}
+      \item appnope==0.1.0
+      \item bokeh==0.12.4
+      \item botocore==1.5.43
+      \item findspark==1.1.0
+      \item ipykernel==4.5.2
+      \item ipython==5.3.0
+      \item ipython-genutils==0.1.0
+      \item matplotlib==2.0.0
+      \item notebook==4.3.1
+      \item numpy==1.12.0
+      \item pandas==0.19.2
+      \item py4j==0.10.4
+      \item pyparsing==2.2.0
+      \item python-dateutil==2.6.0
+      \item scipy==0.18.1
+      \item systemml==0.14.0
+      \item toree==0.2.0.dev1
+      \item traitlets==4.3.2
+    \end{itemize}
 
     For the python kernel, the SystemML library has to be installed, to do so,
 
@@ -387,9 +452,11 @@
 \section{Infrastructure and resources}
   \label{sec:infrastructure_and_resources}
 
-  As commented before, selecting an environment that
+  As commented before, selecting an environment to be used is the first step
 
   \subsection{Architecture scheme}
+
+
 
   \subsection{Configuration}
 
