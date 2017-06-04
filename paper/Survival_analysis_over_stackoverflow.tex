@@ -331,8 +331,9 @@
 
   \subsection{Apache Spark}
 
-
     Apache Spark is a fast and general-purpose cluster computing system, widely used for data processing. It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs. It also supports a rich set of higher-level tools including Spark SQL for SQL and structured data processing, MLlib and SparkML for machine learning and pipelines, GraphX for graph processing, and Spark Streaming.
+
+    This distributed data processing framework was initially developed at the University of California, Berkeley's AMPLab, and donated to the Apache Software Foundation in February 2014, the first release was on May 30th 2014.
 
     Apache Hadoop presented some limitations that Apache Spark tried to solve:
 
@@ -357,6 +358,12 @@
 
 
     \subsubsection{Apache Spark Structure}
+
+      Spark has a master-slave architecture and supports various resource managers: standalone, Mesos and YARN. The resource manager will only be in charge of identify the resources. Independently of the resource manager chosen, the Apache Spark architecture doesn't change.
+
+      All Spark processes share the same architecture, the driver process takes care of calculating the job's parallelism and calculates every job's stage. Each stage is divided on a series of tasks, which will be sent to the executors, where will be executed. The communication between the Spark application and the resource manager will be done through a SparkContext.
+
+      The deployment of Spark has two variants, client and cluster mode. On the client mode, the Driver is launched on the machine the process has been invoked, and it can be inside or outside the cluster. On cluster mode, the cluster manager is assigned to control the Driver process, and the process itself will be launched inside the cluster. In case Mesos is the cluster manager, it will require an additional service.[][][][][][][]
 
       Apache Spark is formed by the Spark Core API, available in R, SQL, Python, Scala and Java languages, and built up on it four main libraries: Spark SQL + DataFrames, Spark Streaming, Spark MLlib, Spark ML and GraphX, that complements functionality for Spark, specially on the parts Hadoop failed, Machine Learning, SQL and Streaming.
 
