@@ -84,15 +84,26 @@
 
     Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning library that works over distributed frameworks, Spark or Hadoop, written in Java.
 
-    This library provides many distributed implementations of important algorithms as well as a sintaxis to create new algorithms in a distributed mode. It provides a high-level declarative machine learning language, which has two variations, the R-like sintaxis, DML, and the Python-like sintaxis, Py-DML. All the
+    This library provides many distributed implementations of important algorithms as well as a sintaxis to create new algorithms in a distributed mode. It provides a high-level declarative machine learning language, which has two variations, the R-like sintaxis, DML, and the Python-like sintaxis, Py-DML. These self made algorithms pass through a compilation process and are optimized for a distributed environment.
+
+    It can be executed in a variety of distributed and non distributed modes, with it's standalone mode, and the integration with Hadoop, and Spark via SystemML context, which allows the interaction through Scala, Python and R.
+
 
   \subsection{The Stackexchange data}
 
-    Stackexchange facilitates raw {partially processed?} data from the communities database every once in a while {or every three months?} for data scientists and people in general to download and analyze. The data is available in a torrent file and each package has about 35 - 40 GB of compressed information.
+    \subsubsection{Stack Exchange}
 
-    This compressed file has data from different communities for a certain period of time. In this case, the analysis is done over Scyfy community, which is a median size community for science-fiction Q\&A.
+    Stack Exchange is a network of Q\&A websites created in 2009 after the great success the creators obtained with \emph{Stack Overflow} community in 2008, a Q\&A community website for computer programming.
 
-    Selecting just the data from Scyfy community, it weights around 110 MB in a 7z compressed format. The uncompressed data is divided in 8 files, regarding different information:
+    Each community covers a different topic, from physics to software, and is structured in a reputation award format. Each site has questions, answers and users, all subjected to this reputation award process.
+
+    All these communities generate large amounts of data, data thet Stackexchange facilitates every once in a while for data scientists and people in general to download and analyze. The data is available in a torrent file and each package has about 35 - 40 GB of compressed information.
+
+    This compressed file has data from different communities for a certain period of time. In this case, the analysis is done over the Scifi community, which is a median size community for science-fiction Q\&A.
+
+    \subsubsection{Scifi community}
+
+    Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster, as the data structure is common to al other communities. The data is divided in 8 files, regarding different information:
 
     \begin{table}[!h]
       \centering
@@ -111,7 +122,7 @@
 
         \hline
       \end{tabular}
-      \caption{List of files from the compressed Scyfy folder}
+      \caption{List of files from the compressed Scifi folder}
       \label{tab:list_of_files}
     \end{table}
 
@@ -175,8 +186,8 @@
           Location & Text & Location of the user \\ \hline
           AboutMe & Text & Information user provided \\ \hline
           Views & Integer & User views count \\ \hline
-          UpVotes & Integer & User upvotes count \\ \hline
-          DownVotes & Integer & User downvotes count \\ \hline
+          UpVotes & Integer & User up votes count \\ \hline
+          DownVotes & Integer & User down votes count \\ \hline
           AccountIf & Integer & Unique user identifier \\
 
           \hline
@@ -203,7 +214,7 @@
           \hline
         \end{tabular}
         \caption{Post links table}
-        \label{tab:postlins}
+        \label{tab:postlinks}
       \end{table}
 
     \subsubsection{Posts.xml}
@@ -429,7 +440,7 @@
 
     Once Jupyter Notebook is running, the kernels have to be configured. In this study, Scala and Python were used for the data processing, so both kernels were configured. The python kernel is usually configured, as it comes with the IPython kernel installation, if not, follow the guide[][][][][]. To install the scala kernel, several options can be considered, as there are several implementations of the scala kernel. The chosen one was Scala Toree.
 
-    Appart from the kernels, some dependencies must be installed to do the data processing in python, those dependencies are:
+    Apart from the kernels, some dependencies must be installed to do the data processing in python, those dependencies are:
 
     \begin{itemize}
       \item appnope==0.1.0
