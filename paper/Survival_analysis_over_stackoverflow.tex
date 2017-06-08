@@ -90,6 +90,7 @@
 
 
   \subsection{The Stackexchange data}
+  \label{subsec:data_structure}
 
     \subsubsection{Stack Exchange}
 
@@ -318,7 +319,7 @@
           \hline
         \end{tabular}
         \caption{Comments table}
-        \label{tab:comments}
+        \label{tab:badges}
       \end{table}
 
   \subsection{Main Objectives}
@@ -465,24 +466,28 @@
       \item traitlets==4.3.2
     \end{itemize}
 
-    For the python kernel, the SystemML library has to be installed, to do so,
+    For the python kernel, the SystemML library has to be installed, instructions for the installation can be found in the Apache SystemML's get started documentation: https://systemml.apache.org/install-systemml.html
 
+    The scala Toree kernel was used just for the preprocessing of the data, so the SystemML installation didn't have to be installed for this kernel.
 
 
 \section{Infrastructure and resources}
   \label{sec:infrastructure_and_resources}
 
-  As commented before, selecting an environment to be used is the first step
+  As commented before, selecting an environment to be used is the first step, and it is a essential part.
 
   \subsection{Architecture scheme}
 
-
+    The whole study has been executed in a standalone model, with a MacBookPro Retina 2015.
 
   \subsection{Configuration}
 
   \subsection{Workflow}
 
-    The first step is to clean the data and make the feature selection
+    The first step is to clean the data and make the feature selection. One the data is clean, it is used as the input for the models training, both Kaplan-Meier model and Cox Proportional Hazards Model.
+
+  \subsubsection{Data cleaning}
+    The data provided by StackOverflow comes in a reasonably clean xml set of files, which were previously described, on section \ref{subsec:data_structure}.
 
 
 \section{Results}
