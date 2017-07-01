@@ -519,7 +519,7 @@
 
       Data censoring refers to a situation where some data of the instance is known but some event times are not known, for example when the event occurs after the end of the observation period. Data truncation refers to the lack of information of some variables outside of the time period considered in the study.
 
-      \begin{figure}
+      \begin{figure}[!h]
         \includegraphics[width=\textwidth]{Data_censoring.png}
         \caption{Censored and uncensored data}
         \label{img:data_censoring}
@@ -527,7 +527,7 @@
 
       There are different situations of data censoring, right, left and interval censoring. \emph{Right censoring} refers to the situation when the event doesn't occur during the observation period and occurs time after the end of the observation time interval. On the other hand, \emph{left censoring} occurs when the subjects of the study have already experienced the event when the study starts, but it is not clear exactly when. \emph{Interval censoring} refers to the case when the event has occurred during the interval but the information about the time it happened is not available.
 
-      Truncation 
+      Truncation is when there is a period of time when there is no information, inside the observation period. There are also three different types of truncations, right and left truncation, and interval truncation, being the most usual left or interval truncation, and the rarest right truncation.
 
     \subsubsection{Data structure}
 
