@@ -503,9 +503,13 @@
 
     Survival analysis is a set of different techniques and algorithms used to estimate the time passed until the occurrence of an event. All of these methods are based on the conditional probability of an event occurring in a certain period of time, usually called \emph{Hazard Rate}. This basic idea can be applied to numerous environments, such as time of failure of a component in the industry, time of occurrence of an event in economics, and others, but the main field of application of these methodologies is the medical, where the time until some event is usually important.
 
-    As in every statistic methodology, there are dependent and independent variables, usually called covariates. In this case, the dependent variable is, as mentioned before, the hazard rate, the conditional probability of an event occurring in a certain period of time, but the analysis is not only restricted to assess the effect of the covariates in the time to an event, but also the impact of these variables on the hazard rate.
+    The survival analysis techniques provide with important features other regression methods does not. The main difference between other regression models and survival analysis is the importance of the time in which the events take place, which adds information not only on whether the event has occurred or not, but also the moment it happened. This crucial feature makes possible to take into account the data censoring, that will be explained below, on section \ref{subsubsec:censoring}, and the comparison of survival between different groups, also analyzing the relationship between the covariates and the survival time.
 
-      Among the collection of methods included under Survival Analysis, two have special interest for different reasons, these two models are introduced here and explained in detail below.
+    As in every statistic methodology, there are dependent and independent variables, usually called covariates. In this case, the dependent variable is, as mentioned before, the hazard rate, the conditional probability of an event occurring in a certain period of time giving survival up to this point, but the analysis is not only restricted to assess the effect of the covariates in the time to an event, but also the impact of these variables on the hazard rate.
+
+    Among the collection of methods included under Survival Analysis, three groups have to be taken into account: non-, semi- and parametric models. This classification responds to the assumption about the shape of the \emph{hazard rate function}, and implies the complexity of the model itself, as
+
+    , two have special interest for different reasons, these two models are introduced here and explained in detail below.
 
     The first one is the Kaplan-Meier model, which is a simple, Non-parametric model used for simple and fast analysis, and the representation of the survivor curve. This method in particular, along with the \emph{Life Table} are classic methods useful for a fast but imprecise analysis of the data. Kaplan-Meier's use is more extended although it is more suitable for small samples.
 
@@ -516,6 +520,7 @@
     The data used for the analysis has already been presented on section \ref{subsec:data_structure}, so the point of view of this section is to present the input data format necessary for the \emph{Survival Analysis} methods and how has the study's data transformed for it.
 
     \subsubsection{Data censoring and truncation}
+      \label{subsubsec:censoring}
 
       Data censoring refers to a situation where some data of the instance is known but some event times are not known, for example when the event occurs after the end of the observation period. Data truncation refers to the lack of information of some variables outside of the time period considered in the study.
 
