@@ -488,10 +488,13 @@
 
   \subsection{Workflow}
 
-    The first step is to clean the data and make the feature selection. One the data is clean, it is used as the input for the models training, both Kaplan-Meier model and Cox Proportional Hazards Model.
+    The first step is to clean the data and make the feature selection. One the data is clean, it is used as the input for the models training, both Kaplan-Meier Estimator model and Cox Proportional Hazards Model.
 
   \subsubsection{Data cleaning}
-    The data provided by StackOverflow comes in a reasonably clean xml set of files, which were previously described, on section \ref{subsec:data_structure}.
+    The data provided by StackOverflow comes in a reasonably clean xml set of files, which were previously described, on section \ref{subsec:data_structure}. From these files, the Scyfy Community directory has been chosen for the analysis. This is divided on the files described above.
+
+    As the input format for the survival analysis methods are quite specific, there is some formatting to do joining and combining the tables from the files:
+
 
 
 
@@ -501,15 +504,19 @@
 
   \subsection{Survival Analysis}
 
-    Survival analysis is a set of different techniques and algorithms used to estimate the time passed until the occurrence of an event. All of these methods are based on the conditional probability of an event occurring in a certain period of time, usually called \emph{Hazard Rate}. This basic idea can be applied to numerous environments, such as time of failure of a component in the industry, time of occurrence of an event in economics, and others, but the main field of application of these methodologies is the medical, where the time until some event is usually important.
+    Survival analysis is a set of different techniques and algorithms used to estimate the time passed until the occurrence of an event. All of these methods are based on the conditional probability of an event occurring in a certain period of time, usually called \emph{Hazard Rate}. This basic idea can be applied to numerous environments, such as time of failure of a component in the industry, time of occurrence of an event in economics, and others, but the main field of application of these methodologies is the medical, where the time until some event is usually the main point of interest.
 
     The survival analysis techniques provide with important features other regression methods does not. The main difference between other regression models and survival analysis is the importance of the time in which the events take place, which adds information not only on whether the event has occurred or not, but also the moment it happened. This crucial feature makes possible to take into account the data censoring, that will be explained below, on section \ref{subsubsec:censoring}, and the comparison of survival between different groups, also analyzing the relationship between the covariates and the survival time.
 
     As in every statistic methodology, there are dependent and independent variables, usually called covariates. In this case, the dependent variable is, as mentioned before, the hazard rate, the conditional probability of an event occurring in a certain period of time giving survival up to this point, but the analysis is not only restricted to assess the effect of the covariates in the time to an event, but also the impact of these variables on the hazard rate.
 
-    Among the collection of methods included under Survival Analysis, three groups have to be taken into account: non-, semi- and parametric models. This classification responds to the assumption about the shape of the \emph{hazard rate function}, and implies the complexity of the model itself, as
+    Among the collection of methods included under Survival Analysis, three groups have to be taken into account: non-, semi- and parametric models. This classification responds to the assumption about the shape of the \emph{hazard function}.
 
-    , two have special interest for different reasons, these two models are introduced here and explained in detail below.
+    The non-parametric models are simple and fast models used for the initial estimate of the hazard rate, usually applied for initial analysis on groups thanks to their simplicity, although they do not accept the inclusion of covariates and only provide the hazard rate as function of the time via probabilistic estimation on the training subjects.
+
+    The semi-parametric methods are more flexible and complex, but have an important advantage over the parametric models, which is that they do no require a specified baseline hazard function before application.
+
+    Finally there are parametric models, which make an assumption over the form the hazard rate takes, making them less flexible, as the function form is already defined. Among all the survival analysis methods two have special interest:
 
     The first one is the Kaplan-Meier model, which is a simple, Non-parametric model used for simple and fast analysis, and the representation of the survivor curve. This method in particular, along with the \emph{Life Table} are classic methods useful for a fast but imprecise analysis of the data. Kaplan-Meier's use is more extended although it is more suitable for small samples.
 
@@ -536,9 +543,35 @@
 
     \subsubsection{Data structure}
 
+      As commented before, there is a specific format for the data input in the survival analysis models, this format is briefly explained below.
 
-  \subsection{Kaplan-Meier model}
+      There are three main structures of data input: single-episode or subject-based, multi-episode based and person or subject-period files, also called discrete-time data files.
 
+      \subsubsection*{Single-episode data}
+
+        In single-episode structured files, each row corresponds to a different subject, and the columns represent the variables and the events occurred.
+
+      \subsubsection*{Multi-episode data}
+
+        Multi-episode file represents a subjects that experiment the event more than one time, and the data from each subject is separated in different rows for each subject, depending on the number of events the subject experiments.
+
+    \subsubsection{SystemML input format}
+
+      >>>>>>>>>> The input format for the SystemML library is quite different, it has some particularities such
+
+
+
+
+
+  \subsection{Kaplan-Meier Estimator model}
+
+    Most survival analysis studies start with a non-parametric method as they are simple and fast, and provide with an intuitive graphical form of understanding the data. The two main non-parametric methods, as mentioned before are the Life Tables and the Kaplan-Meier Estimator model. The first is more adequated for large datasets and when the time is not measured with precision. On the other hand, the KM Estimates method is great for when the time is precisely measured, and is widely used, more than the life tables.
+
+    The main idea of the KM method is to estimate the survival function at a time 't' $ $, which is the probability of a subject surviving until this time 't'. It can be calculated by obtaining the conditional probability of not experiencing the event on time 't', not having experienced it in previous failure times:
+
+    \begin{equation}
+      S(t_{j}) = S(t_{j-1}) \times Pr(T>t_{j}|T \geq t_{j})
+    \end{equation}
 
 
   \subsection{Cox Proportional Hazards Model}
