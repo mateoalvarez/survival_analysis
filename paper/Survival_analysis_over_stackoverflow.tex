@@ -570,7 +570,14 @@
     The main idea of the KM method is to estimate the survival function at a time 't' $ $, which is the probability of a subject surviving until this time 't'. It can be calculated by obtaining the conditional probability of not experiencing the event on time 't', not having experienced it in previous failure times:
 
     \begin{equation}
-      S(t_{j}) = S(t_{j-1}) \times Pr(T>t_{j}|T \geq t_{j})
+      S(t_{(j)}) = S(t_{(j-1)}) \times Pr(T>t_{(j)}|T \geq t_{(j)})
+      \label{eq:KM-eq-1}
+    \end{equation}
+
+    The previous equation can also be written as follows, in terms of conditional probability for a specific time:
+
+    \begin{equation}
+
     \end{equation}
 
 
