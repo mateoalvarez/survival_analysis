@@ -567,21 +567,26 @@
 
     Most survival analysis studies start with a non-parametric method as they are simple and fast, and provide with an intuitive graphical form of understanding the data. The two main non-parametric methods, as mentioned before are the Life Tables and the Kaplan-Meier Estimator model. The first is more adequated for large datasets and when the time is not measured with precision. On the other hand, the KM Estimates method is great for when the time is precisely measured, and is widely used, more than the life tables.
 
-    The main idea of the KM method is to estimate the survival function at a time 't' $ $, which is the probability of a subject surviving until this time 't'. It can be calculated by obtaining the conditional probability of not experiencing the event on time 't', not having experienced it in previous failure times:
+    The main idea of the KM method is to estimate the survival function at a time 't' $\hat{S}(t)$, which is the probability of a subject surviving until this time 't'. It can be calculated by obtaining the conditional probability of not experiencing the event on time 't', not having experienced it in previous failure times:
 
     \begin{equation}
-      S(t_{(j)}) = S(t_{(j-1)}) \times Pr(T>t_{(j)}|T \geq t_{(j)})
-      \label{eq:KM-eq-1}
+      \hat{S}(t_{(j)}) = \hat{S}(t_{(j-1)}) \times Pr(T>t_{(j)}|T \geq t_{(j)})
+      \label{eq:KM-eq-surv}
     \end{equation}
 
     The previous equation can also be written as follows, in terms of conditional probability for a specific time:
 
     \begin{equation}
-
+      \hat{S}(t_{(j)}) = \prod_{i=1}^{j-1} Pr(T>t_{(i)}|T\geq t_{(i)})
+      \label{eq:KM-eq-probab}
     \end{equation}
+
+    Some advantages of this method are that it takes account for the right censored data, giving more precise and realistic survival times, it is also quite simple and easy to calculate, and gives useful graphs for interpreting the general behavior of the population
 
 
   \subsection{Cox Proportional Hazards Model}
+
+    Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced some key features, in first place, the proportional hazards model, in second place the method of partial likelihood estimation.
 
 \section{Conclusions}
   \label{sec:conclusions}
