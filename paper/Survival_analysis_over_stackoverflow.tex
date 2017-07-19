@@ -63,31 +63,37 @@
 
 \section{Introduction \& main goals}
   \label{sec:introduction}
-  Many studies have been done over the Stackexchange community [such as], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
+  Many studies have been done over the Stackexchange community [Mamykina, Manoim et al 2011], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
 
 
   \subsection{Main technologies}
 
     As one of the biggest Q\&A communities, Stackexchange has large amount of data of each interaction.
-    Stackexchange is separated in several communities, regarding different topics. These communities can be small, as [] or really big, as Stackoverflow, the developers community. This particularity makes necessary the use of technologies prepared to process large amounts of data, in the later case.
+    Stackexchange is separated in several communities, regarding different topics. These communities can be small, as \emph{DevOps} and \emph{InternetOfThings} or really big, as \emph{AskUbuntu} and \emph{Stackoverflow}, the main developers community. This particularity makes necessary the use of technologies prepared to process large amounts of data, in the later case.
 
-    The purpose of the present study is to analyze this big community, so a distributed processing technology has to be used. For this purpose, Apache Spark, the latest distributed open-source processing technology, has been chosen to parallelize the operations on the data.
+    The purpose of the present study is to analyze a medium size community, so a distributed processing technology has to be used. For this purpose, Apache Spark, the latest distributed open-source processing technology, has been chosen to parallelize the operations on the data.
 
-    Spark ML is the machine learning library of spark, which contains lots of algorithms. It also includes some Survival Analysis algorithms, but just for parametric modeling. This gives an excuse to use the recently adopted by the Apache Foundation SystemML, a machine learning library developed by IBM, which has non, semi and parametric algorithms for survival analysis.
+    Spark ML is the machine learning library of spark, which contains the ML algorithms. Although it includes some Survival Analysis algorithms, all of them are parametric models, which require to specify a hazard function shape in order to be used. This rests flexibility to the models, and for this study the hazard function is not known, so it is wise to start exploring the data with a non-parametric model, KM estimates, for example, and then apply some semi-parametric model, in this case Cox Proportional Hazards model. The absence of non or semi parametric models in Spark ML gives an excuse to use SystemML, a machine learning library developed by IBM and recently adopted as an Apache Foundation project, which has non, semi and parametric algorithms for survival analysis, and is compatible with distributed processing frameworks as Spark or Hadoop.
 
     Regarding the development environment, Jupyter Notebook provides a simple and flexible interface for this analysis, and can also be integrated with Spark, allowing the complete development in just one environment.
 
+  \subsubsection{Survival Analysis}
+
+    Survival Analysis is a group of ML models used to predict the time passed until the occurrence of an event. Is a method widely used, specially in the medical and pharmaceutical environments, where the prediction of time until an event is frequently used.
+
+    In this case, the objective of using these techniques is to understand the behavior of the variables with the time and to predict when will a posted question be answered. This idea has multiple uses, such as optimizations of the questions themselves, hour of the day, tags added, reputation of the user... or using for example StackOverflow as technical support for problems with software instead of paying the provider's technical support service.
+
   \subsubsection{Apache Spark}
 
-    Apache Spark is a distributed processing technology developed in Scala by Databricks that represents the next step of Apache Hadoop, including the best parts of it, such as the Hadoop File System, but under a complete new paradigm that allows operations different from the famous map-reduce, using RAM as storage for results rather than writing to disk, lazy and optimized execution of tasks, and special focus on machine learning and SQL-like language, to mention some of the main features.
+    Apache Spark is a distributed processing technology developed in Scala by Databricks that represents the next step of Apache Hadoop. It includes the best parts of it, such as the Hadoop File System, but under a complete new paradigm that allows operations different from the famous map-reduce, using RAM as storage for results rather than writing to disk, lazy and optimized execution of tasks, and special focus on Machine Learning and SQL-like language, to mention some of the main features.
 
   \subsubsection{Apache SystemML}
 
     Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning library that works over distributed frameworks, Spark or Hadoop, written in Java.
 
-    This library provides many distributed implementations of important algorithms as well as a sintaxis to create new algorithms in a distributed mode. It provides a high-level declarative machine learning language, which has two variations, the R-like sintaxis, DML, and the Python-like sintaxis, Py-DML. These self made algorithms pass through a compilation process and are optimized for a distributed environment.
+    This library provides many distributed implementations of commonly used algorithms as well as a sintaxis to create new algorithms in a distributed mode. It provides a high-level declarative machine learning language, which comes in two sintaxis, the R-like sintaxis, DML, and the Python-like sintaxis, Py-DML. These self made algorithms pass through a compilation process and are optimized for a distributed environment.
 
-    It can be executed in a variety of distributed and non distributed modes, with it's standalone mode, and the integration with Hadoop, and Spark via SystemML context, which allows the interaction through Scala, Python and R.
+    System ML can be executed in a variety of distributed and non distributed modes, with it's standalone mode, and the integration with Hadoop, and Spark via SystemML context, which allows the interaction through Scala, Python and R.
 
 
   \subsection{The Stackexchange data}
@@ -586,7 +592,9 @@
 
   \subsection{Cox Proportional Hazards Model}
 
-    Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced some key features, in first place, the proportional hazards model, in second place the method of partial likelihood estimation.
+    Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced two key features, in first place, the proportional hazards model, in second place the method of partial likelihood estimation.
+
+    The
 
 \section{Conclusions}
   \label{sec:conclusions}
