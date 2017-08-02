@@ -1,0 +1,73 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.7 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{nty/global/}
+    \entry{big_data_analytics_spark}{book}{}
+      \name{author}{1}{}{%
+        {{hash=aaddd21fe8530bb68e4055b240f27111}{%
+           family={Guller},
+           family_i={G\bibinitperiod},
+           given={Mohammed},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Science+Business Media New York}%
+      }
+      \strng{namehash}{aaddd21fe8530bb68e4055b240f27111}
+      \strng{fullhash}{aaddd21fe8530bb68e4055b240f27111}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-4842-0964-6}
+      \field{title}{Big Data Analytics with Spark}
+      \field{year}{2015}
+    \endentry
+    \entry{tungsten_databricks}{article}{}
+      \name{author}{2}{}{%
+        {{hash=bb100a3a376ef739847a7cf759a29718}{%
+           prefix={by},
+           prefix_i={b\bibinitperiod},
+           family={Reynold\bibnamedelima Xin},
+           family_i={R\bibinitperiod\bibinitdelim X\bibinitperiod}}}%
+        {{hash=365d3ec4a85f5051e18fc7c1e63b210b}{%
+           family={Rosen},
+           family_i={R\bibinitperiod},
+           given={Josh},
+           given_i={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{172138be15335e0b4d526bb90993a0c9}
+      \strng{fullhash}{172138be15335e0b4d526bb90993a0c9}
+      \field{sortinit}{R}
+      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Databricks Blog}
+      \field{month}{04}
+      \field{title}{{Project Tungsten: Bringing Apache Spark Closer to Bare Metal}. ({English})}
+      \field{year}{2015}
+      \verb{doi}
+      \verb https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
