@@ -33,6 +33,10 @@
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
 
+%%% BIBLIOGRAPHY
+\usepackage{biblatex}
+\addbibresource{sample.bib}
+
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
 \allsectionsfont{\sffamily\mdseries\upshape}
@@ -59,6 +63,10 @@
 
 \newpage
 \tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
 \newpage
 
 \section{Introduction \& main goals}
@@ -376,7 +384,7 @@
       \item Lazy computation, Spark only executes a set of tasks when a result is required. This gives the opportunity to optimize jobs before executing them, even at physical level the queries to the data are optimized.
       \item In-memory data caching, Spark scans HDD only once to read the input data and then uses RAM as much as it can, which is faster than scanning disk on every step.
       \item Specific Machine Learning libraries, Spark ML and Spark MLlib, including numerous algorithms prepared to run in a distributed mode.
-      \item Spark SQL provides structured (SQL-like) query language for structured and not structured data in SQL or Dataframe API. One of the advantages of this library is the unified access to datastores with the same language, it even provides SQL functionality with streaming data.
+      \item Spark SQL provides structured (SQL-like) query language for structured and not structured data in SQL or Dataframe API. One of the advantages of this library is the unified access to datastores with the same language, it even provides SQL functionality with streaming data. Other interesting advantages are at an optimization level, using Dataframe API, Spark can optimize operations and queries to the database, using the \emph{Catalyst} optimizer.
       \item Spark Streaming library allows users to process streaming data using microbatches
     \end{itemize}
 
@@ -409,6 +417,21 @@
       \subsubsection*{Graphframes}
 
         Graphframes are structures used for graph storage and operations. Graphframes are composed by two dataframes, the first one contains all the vertices and the second one contains all the edges. This is useful as dataframes can be optimized by Catalyst.
+
+      \subsubsection*{Catalyst and Tungsten}
+
+        As mentioned before, Spark has some specific tools to optimize the workflow when using dataframes and datasets.
+
+        On one hand, Catalyst is the query optimizer, included in the Spark SQL API. As the execution is not done until an action is called, for example a calculation of a result, Spark can analyze the code and choose the order of operations, which means that, for example, when querying to a database to apply filters, those filters can sometimes, if the database is relational, be applied natively in the database, moreover the sequence of subsequent filters is analyzed in order to reduce the I/O on the database, which can lead to a significant reduction of time and resources, as usually the data available is abundant, but the data used for a process is significantly less. Catalyst works in four phases:
+
+        \begin{itemize}
+          \item The \emph{analysis phase} returns a logical plan where all the metadata from the data involved in the operation is known
+          \item The \emph{logical optimization phase} consists on the optimization of the operations performed over the data using ruled-based optimizations
+          \item The \emph{physical planning phase} uses cost-based models to select the best execution plan from the ones available after the logical optimization phase
+          \item The \emph{code generation phase} is the final phase, where Spark compiles parts of the query code to Java bytecode, this speeds up the process as there is no need to use the Scala compiler at runtime to generate bytecode.
+        \end{itemize}
+
+        On the other hand, Spark has Tungsten
 
 
 
@@ -650,6 +673,7 @@
 
   \subsection{Lessons learnt}
 
-
+\nocite{tungsten_databricks, big_data_analytics_spark}
+\printbibliography
 
 \end{document}
