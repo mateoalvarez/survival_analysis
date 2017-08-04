@@ -2098,6 +2098,9 @@
   <bcf:section number="0">
     <bcf:citekey order="1">tungsten_databricks</bcf:citekey>
     <bcf:citekey order="2">big_data_analytics_spark</bcf:citekey>
+    <bcf:citekey order="3">survival_analysis_book</bcf:citekey>
+    <bcf:citekey order="4">spark_documentation</bcf:citekey>
+    <bcf:citekey order="5">systemml_documentation</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty/global/" type="entry" sortscheme="nty" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>
