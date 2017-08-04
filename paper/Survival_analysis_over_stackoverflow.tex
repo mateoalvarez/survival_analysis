@@ -388,7 +388,35 @@
       \item Spark Streaming library allows users to process streaming data using microbatches
     \end{itemize}
 
+    \subsubsection{Apache Spark Structure}
 
+      Spark has a master-slave architecture and supports various resource managers: standalone, Mesos and YARN. The resource manager will only be in charge of identify the resources. Independently of the resource manager chosen, the Apache Spark architecture doesn't change.
+
+      The deployment of Spark has two variants, client and cluster mode. On the client mode, the Driver is launched on the machine the process has been invoked, and it can be inside or outside the cluster. On cluster mode, the cluster manager is assigned to control the Driver process, and the process itself will be launched inside the cluster. In case Mesos is the cluster manager, it will require an additional service.
+
+      Focusing on the Spark cluster mode\footnote{The architecture for client mode is the same, but running all the programs and processes in the same machine.}, the architecture is as follows \footnote{As explained on the Official Spark documentation \cite{spark_documentation}}:
+
+      All the Spark applications run on the cluster nodes as independent sets of processes, all coordinated by the main program, called \emph{driver program}, that coordinates all the others through the \emph{sparkContext}.
+
+      The driver program deploys executor programs on the worker nodes of the cluster via a resource manager, already installed and running on the cluster, which provides the resources needed for the execution of the jobs. The driver first converts the user program into tasks and after that it schedules the tasks on the executors.
+
+      The executor programs are in charge of running individual tasks in a given Spark job, all sent by the driver program through the sparkContext. They are launched at the beginning of a Spark application and typically run for the entire lifetime of an application. Once they have run the task they send the results to the driver. They also provide in-memory storage for RDDs that are cached by user programs through Block Manager.
+
+      Spark driver program has to be in continuous contact with the executors, as the results calculated by them will return to the driver at the end. The driver can run in an external machine of the cluster, but, as it has to be in continuous communication with the executor programs, it has to be running all the time the executors are calculating, it can not be disconnected to the cluster and it is important to have a good connection in order not to lose performance.
+
+
+      More than one application can run in the same cluster, as long as there are enough resources .Each application gets its own executor processes and run tasks in multiple threads. This has the benefit of isolating applications from each other, on both the scheduling side (each driver schedules its own tasks) and executor side (tasks from different applications run in different JVMs), all of them running in different java processes, in general in different machines. However, it also means that data cannot be shared across different Spark applications (instances of SparkContext) without writing it to an external storage system.
+
+      \begin{figure}[!h]
+        \centering
+        \includegraphics[width=\textwidth]{cluster-overview.png}
+        \caption{Spark Cluster Mode Architecture, from \cite{spark_documentation}}
+        \label{img:spark_architecture}
+      \end{figure}
+
+      Apache Spark is formed by the Spark Core API, available in R, SQL, Python, Scala and Java languages, and built up on it four main libraries: Spark SQL + DataFrames, Spark Streaming, Spark MLlib, Spark ML and GraphX, that complements functionality for Spark, specially on the parts Hadoop failed, Machine Learning, SQL and Streaming. There are other libraries but these are the essential.
+
+      These libraries can be imported independently and combined to be used at the same time, for example, Spark SQL can be used in a Streaming environment with Spark Streaming library and this way SQL queries can be launched in
 
     \subsubsection{Apache Spark Data Structure}
 
@@ -413,6 +441,13 @@
         Datasets are similar to dataframes, but also taking the static typing of the RDDs, combining the best of the two data structures.
 
         This static typing allows datasets to use Tungsten, Spark's optimized memory engine. Tungsten has direct access to off heap memory, to provide even better optimization, and uses data types to minimize the encoding and decoding of the data.
+
+      \begin{figure}[!h]
+        \centering
+        \includegraphics[width=0.75\textwidth]{RDD_dataframes_datasets_diagram.png}
+        \caption{Differences between RDDs, dataframes and datasets, from \cite{RDD_dataframes_datasets_diagram_blog}}
+        \label{img:RDD_dataframes_datasets_diagram}
+      \end{figure}
 
       \subsubsection*{Graphframes}
 
@@ -439,17 +474,7 @@
           \item Code generation: Spark dynamically generates bytecode to evaluate expressions, such as SQL expressions rather than using an intermediate interpreter. Using some specific data structures such as dataframes, built from RDDs is an advantage, as data types are already known and specific code can be generate to treat the serialization as there are more information available.
         \end{itemize}
 
-    \subsubsection{Apache Spark Structure}
 
-      Spark has a master-slave architecture and supports various resource managers: standalone, Mesos and YARN. The resource manager will only be in charge of identify the resources. Independently of the resource manager chosen, the Apache Spark architecture doesn't change.
-
-      All Spark processes share the same architecture, the driver process takes care of calculating the job's parallelism and calculates every job's stage. Each stage is divided on a series of tasks, which will be sent to the executors to be executed. The communication between the Spark application and the resource manager is done through a SparkContext.
-
-      The deployment of Spark has two variants, client and cluster mode. On the client mode, the Driver is launched on the machine the process has been invoked, and it can be inside or outside the cluster. On cluster mode, the cluster manager is assigned to control the Driver process, and the process itself will be launched inside the cluster. In case Mesos is the cluster manager, it will require an additional service.[][][][][][][]
-
-      Apache Spark is formed by the Spark Core API, available in R, SQL, Python, Scala and Java languages, and built up on it four main libraries: Spark SQL + DataFrames, Spark Streaming, Spark MLlib, Spark ML and GraphX, that complements functionality for Spark, specially on the parts Hadoop failed, Machine Learning, SQL and Streaming.
-
-      These libraries can be imported independently and combined to be used at the same time, for example, Spark SQL can be used in a Streaming environment with Spark Streaming library and this way SQL queries can be launched in
 
       \subsubsection*{Spark Core API}
 
