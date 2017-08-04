@@ -28,6 +28,15 @@
       \verb https://spark.apache.org/docs/2.1.0/
       \endverb
     \endentry
+    \entry{RDD_dataframes_datasets_diagram_blog}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Spark : RDD vs DataFrame vs Dataset [Chandan Prakash's Blog]}
+      \verb{url}
+      \verb https://http://why-not-learn-something.blogspot.com.es/
+      \endverb
+    \endentry
     \entry{systemml_documentation}{online}{}
       \field{sortinit}{A}
       \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
