@@ -19,6 +19,24 @@
 
 \refsection{0}
   \sortlist[entry]{nty/global/}
+    \entry{spark_documentation}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Spark Official Documentation}
+      \verb{url}
+      \verb https://spark.apache.org/docs/2.1.0/
+      \endverb
+    \endentry
+    \entry{systemml_documentation}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache SystemML Official Documentation}
+      \verb{url}
+      \verb https://systemml.apache.org/
+      \endverb
+    \endentry
     \entry{big_data_analytics_spark}{book}{}
       \name{author}{1}{}{%
         {{hash=aaddd21fe8530bb68e4055b240f27111}{%
@@ -40,28 +58,49 @@
       \field{title}{Big Data Analytics with Spark}
       \field{year}{2015}
     \endentry
+    \entry{survival_analysis_book}{book}{}
+      \name{author}{1}{}{%
+        {{hash=c8520ca482d0589f870724ffd1c29d38}{%
+           family={Mills},
+           family_i={M\bibinitperiod},
+           given={Melinda},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications, Ltd}%
+      }
+      \strng{namehash}{c8520ca482d0589f870724ffd1c29d38}
+      \strng{fullhash}{c8520ca482d0589f870724ffd1c29d38}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-84860-102-4}
+      \field{title}{Introducing Survival And Event History Analysis}
+      \field{year}{2011}
+    \endentry
     \entry{tungsten_databricks}{article}{}
       \name{author}{2}{}{%
-        {{hash=bb100a3a376ef739847a7cf759a29718}{%
-           prefix={by},
-           prefix_i={b\bibinitperiod},
-           family={Reynold\bibnamedelima Xin},
-           family_i={R\bibinitperiod\bibinitdelim X\bibinitperiod}}}%
+        {{hash=125f074bf46e8a83339101fd94d088e2}{%
+           family={Xin},
+           family_i={X\bibinitperiod},
+           given={Reynold},
+           given_i={R\bibinitperiod}}}%
         {{hash=365d3ec4a85f5051e18fc7c1e63b210b}{%
            family={Rosen},
            family_i={R\bibinitperiod},
            given={Josh},
            given_i={J\bibinitperiod}}}%
       }
-      \strng{namehash}{172138be15335e0b4d526bb90993a0c9}
-      \strng{fullhash}{172138be15335e0b4d526bb90993a0c9}
-      \field{sortinit}{R}
-      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \strng{namehash}{432bf5eb500cb1343ebc7c3cb6798de4}
+      \strng{fullhash}{432bf5eb500cb1343ebc7c3cb6798de4}
+      \field{sortinit}{X}
+      \field{sortinithash}{2999ebab86052e6d71b434385f8b4ed2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Databricks Blog}
       \field{month}{04}
-      \field{title}{{Project Tungsten: Bringing Apache Spark Closer to Bare Metal}. ({English})}
+      \field{title}{Project Tungsten: Bringing Apache Spark Closer to Bare Metal}
       \field{year}{2015}
       \verb{doi}
       \verb https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html
