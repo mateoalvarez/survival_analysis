@@ -1,17 +1,17 @@
 [0] Config.pm:343> INFO - This is Biber 2.5
 [0] Config.pm:346> INFO - Logfile is 'Survival_analysis_over_stackoverflow.blg'
-[39] biber-darwin:290> INFO - === vie ago  4, 2017, 21:00:20
-[55] Biber.pm:351> INFO - Reading 'Survival_analysis_over_stackoverflow.bcf'
-[148] Biber.pm:776> INFO - Found 6 citekeys in bib section 0
-[159] Biber.pm:3493> INFO - Processing section 0
-[174] Biber.pm:3657> INFO - Looking for bibtex format file 'sample.bib' for section 0
-[178] bibtex.pm:1187> INFO - Decoding LaTeX character macros into UTF-8
-[179] bibtex.pm:1048> INFO - Found BibTeX data source 'sample.bib'
-[204] Utils.pm:149> WARN - ISBN '978-84860-102-4' in entry 'survival_analysis_book' is invalid - run biber with '--validate_datamodel' for details.
-[218] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[218] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[219] Biber.pm:3306> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'en-US'
-[219] Biber.pm:3310> INFO - No sort tailoring available for locale 'en-US'
-[225] bbl.pm:526> INFO - Writing 'Survival_analysis_over_stackoverflow.bbl' with encoding 'UTF-8'
-[225] bbl.pm:619> INFO - Output to Survival_analysis_over_stackoverflow.bbl
-[226] Biber.pm:108> INFO - WARNINGS: 1
+[37] biber-darwin:290> INFO - === mar ago  8, 2017, 19:26:10
+[54] Biber.pm:351> INFO - Reading 'Survival_analysis_over_stackoverflow.bcf'
+[137] Biber.pm:773> INFO - Using all citekeys in bib section 0
+[149] Biber.pm:3493> INFO - Processing section 0
+[161] Biber.pm:3657> INFO - Looking for bibtex format file 'sample.bib' for section 0
+[162] bibtex.pm:1187> INFO - Decoding LaTeX character macros into UTF-8
+[163] bibtex.pm:1048> INFO - Found BibTeX data source 'sample.bib'
+[185] Utils.pm:149> WARN - ISBN '978-84860-102-4' in entry 'survival_analysis_book' is invalid - run biber with '--validate_datamodel' for details.
+[198] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[198] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[199] Biber.pm:3306> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'en-US'
+[199] Biber.pm:3310> INFO - No sort tailoring available for locale 'en-US'
+[206] bbl.pm:526> INFO - Writing 'Survival_analysis_over_stackoverflow.bbl' with encoding 'UTF-8'
+[207] bbl.pm:619> INFO - Output to Survival_analysis_over_stackoverflow.bbl
+[207] Biber.pm:108> INFO - WARNINGS: 1
