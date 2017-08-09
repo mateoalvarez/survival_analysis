@@ -67,6 +67,15 @@
       \field{title}{Big Data Analytics with Spark}
       \field{year}{2015}
     \endentry
+    \entry{https://databricks.com/blog/2016/03/03/introducing-graphframes.html}{online}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labeltitlesource}{title}
+      \field{title}{Introducing GraphFrames}
+      \verb{url}
+      \verb https://databricks.com/blog/2016/03/03/introducing-graphframes.html
+      \endverb
+    \endentry
     \entry{survival_analysis_book}{book}{}
       \name{author}{1}{}{%
         {{hash=c8520ca482d0589f870724ffd1c29d38}{%

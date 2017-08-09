@@ -4,4 +4,8 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2}{\ignorespaces Differences between RDDs, dataframes and datasets, from \cite {RDD_dataframes_datasets_diagram_blog}\relax }}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3}{\ignorespaces Censored and uncensored data\relax }}{25}
+\contentsline {figure}{\numberline {3}{\ignorespaces DStream structure, from \cite {spark_documentation}\relax }}{18}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4}{\ignorespaces Spark Streaming workflow\relax }}{21}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5}{\ignorespaces Censored and uncensored data\relax }}{26}
