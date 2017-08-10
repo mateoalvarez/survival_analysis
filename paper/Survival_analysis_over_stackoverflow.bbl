@@ -37,6 +37,15 @@
       \verb https://http://why-not-learn-something.blogspot.com.es/
       \endverb
     \endentry
+    \entry{systemml_github_page}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache SystemML Github Repository}
+      \verb{url}
+      \verb https://github.com/apache/systemml
+      \endverb
+    \endentry
     \entry{systemml_documentation}{online}{}
       \field{sortinit}{A}
       \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
@@ -44,6 +53,34 @@
       \field{title}{Apache SystemML Official Documentation}
       \verb{url}
       \verb https://systemml.apache.org/
+      \endverb
+    \endentry
+    \entry{systemml_paper}{article}{}
+      \name{author}{2}{}{%
+        {{hash=da426737c6db1b917fe8f8496cdfae41}{%
+           family={Boehm},
+           family_i={B\bibinitperiod},
+           given={M.},
+           given_i={M\bibinitperiod}}}%
+        {{hash=fc5d160fed38a297bb21499faf30a8f7}{%
+           prefix={et},
+           prefix_i={e\bibinitperiod},
+           family={al},
+           family_i={a\bibinitperiod},
+           given={D.\bibnamedelimi R.\bibnamedelimi Burdick},
+           given_i={D\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{c24d5293fcd70da3277fd20d45e53463}
+      \strng{fullhash}{c24d5293fcd70da3277fd20d45e53463}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bulletin of the IEEE Computer Society Technical Committee on Data Engineering}
+      \field{title}{SystemML’s Optimizer: Plan Generation for Large-Scale Machine Learning Programs}
+      \field{year}{2014}
+      \verb{url}
+      \verb http://researcher.ibm.com/researcher/files/us-ytian/p52.pdf
       \endverb
     \endentry
     \entry{big_data_analytics_spark}{book}{}
@@ -67,7 +104,16 @@
       \field{title}{Big Data Analytics with Spark}
       \field{year}{2015}
     \endentry
-    \entry{https://databricks.com/blog/2016/03/03/introducing-graphframes.html}{online}{}
+    \entry{systemml_spark_summit_2016}{online}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labeltitlesource}{title}
+      \field{title}{Inside Apache SystemML [Spark Summit talk]}
+      \verb{url}
+      \verb https://www.youtube.com/watch?v=n3JJP6UbH6Q
+      \endverb
+    \endentry
+    \entry{graphFrames_introduction}{online}{}
       \field{sortinit}{I}
       \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
       \field{labeltitlesource}{title}

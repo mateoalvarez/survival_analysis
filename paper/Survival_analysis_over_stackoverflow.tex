@@ -99,9 +99,9 @@
 
   \subsubsection{Apache SystemML}
 
-    Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning library that works over distributed frameworks, Spark or Hadoop, written in Java.
+    Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning framework that works in different modes, on both distributed frameworks, Spark or Hadoop, or stand alone mode, written in Java.
 
-    This library provides many distributed implementations of commonly used algorithms as well as a sintaxis to create new algorithms in a distributed mode. It provides a high-level declarative machine learning language, which comes in two sintaxis, the R-like sintaxis, DML, and the Python-like sintaxis, Py-DML. These self made algorithms pass through a compilation process and are optimized for a distributed environment.
+    This framework provides a language to implement distributed, optimized algorithms ready for big data in a high-level language syntax, for Python and R. Additionally, the framework provides a set of commonly used algorithms already implemented with the sintaxis.
 
     System ML can be executed in a variety of distributed and non distributed modes, with it's standalone mode, and the integration with Hadoop, and Spark via SystemML context, which allows the interaction through Scala, Python and R.
 
@@ -166,6 +166,8 @@
         \label{tab:votes}
       \end{table}
 
+\newpage
+
     \subsubsection{Tags.xml}
 
       This file contains all tags and the posts that contains them. The file has the following structure:
@@ -187,7 +189,7 @@
         \caption{Tags table}
         \label{tab:tags}
       \end{table}
-\newpage
+
     \subsubsection{Users.xml}
 
       This file contains information about users. The file has the following structure:
@@ -216,6 +218,8 @@
         \label{tab:users}
       \end{table}
 
+\newpage
+
     \subsubsection{PostLinks.xml}
 
       This file contains information about relation between posts. The file has the following structure:
@@ -236,7 +240,7 @@
         \caption{Post links table}
         \label{tab:postlinks}
       \end{table}
-
+\newpage
     \subsubsection{Posts.xml}
 
       This file contains all questions posted along with the accepted answers and other info related to the time and user who posted the question. The file has the following structure:
@@ -270,6 +274,8 @@
         \caption{Posts table}
         \label{tab:posts}
       \end{table}
+
+\newpage
 
     \subsubsection{PostHistory.xml}
 
@@ -337,9 +343,11 @@
 
           \hline
         \end{tabular}
-        \caption{Comments table}
+        \caption{Badges table}
         \label{tab:badges}
       \end{table}
+
+\newpage
 
   \subsection{Main Objectives}
 
@@ -536,12 +544,53 @@
 
   \subsection{Apache SystemML}
 
-    Developed by IBM, Apache SystemML is the [precursor] of Spark ML (MLLib), the machine learning libraries of Spark.
-    SystemML is coded in a self-made programming language, Distributed Machine Learning (DML) and it can be used from Spark or Hadoop in a [submit-like execution or in a interactive execution, the one it has been used in this study].
+    Developed by IBM, SystemML started in 2007 as multiple projects involving machine learning with Hadoop, which in 2009 resulted in a single team dedicated to scalable machine learning research. Through 2009 and 2010, the team observed how clients developed machine learning algorithms, the workflow was (and still is) the following:
 
-    SystemML has a high level API which can be addressed from Python-like or R-like sintaxis, and then transformed to the low level DML (Distributed Machine Learning) language.
+    First, a data scientist, working in a single PC, and developing in R or Python, used small amount of data to create a ML algorithm, this part of the process works fine, as the algorithms use small data, and the researchers can iterate fast to refine the algorithms. When the algorithm is ready, the data scientist gives it to a systems programmer who implements the algorithm in an optimized way with low level APIs, usually with a distributed processing framework, such as Spark or Hadoop. When the implementation is ready, the distributed algorithm is tested with big data and then the results return to the data scientist to verify the correct implementation of the distributed algorithm.
 
-    \subsubsection{SystemML Structure}
+    The later part of the process leads to two major problems, the first one is the time spent for each iteration, which can be large, depending on the complexity of the process itself, and the second one is that during the reimplementation of the algorithm in the distributed framework, mistakes can be made, which leads to different results in big and small data, and to the depuration of the distributed code, a time consuming process.
+
+    The objective of Apache SystemML is to attack these two problems, providing the data scientist with a interface in a Python or R like language that optimizes the code to run in a distributed environment, this way, the exact same code is executed in small and big data and the data scientist can verify the behavior of the algorithm on both contexts. The optimization of the code is done by translating this high-level language code written in R or Python to a scalable executable that can run on Spark (or Hadoop), with SystemML compiler and runtime.
+
+    The project went open source on 2015 and entered Apache incubation in November 2015, with the first open-source binary release announced on January 2016. The latest release is from April 19$^{th}$ 2017, with the version \emph{v0.14.0-incubating-rc4}.
+
+    \begin{figure}[!h]
+      \centering
+      \includegraphics[width=0.75\textwidth]{systemml_objective.png}
+      \caption{Apache SystemML workflow}
+      \label{img:systemml_workflow}
+    \end{figure}
+
+    \subsubsection{SystemML Architecture}
+
+      Apache SystemML's architecture involves optimizers that converts code from the high level programming languages to specific code for Spark or Hadoop, for using a distributed infrastructure, or optimized single-node code, when the resources of one machine are enough for the process. All of this is done through three different stages, each one composed by different steps:
+
+      \begin{figure}[!h]
+        \centering
+        \includegraphics[width=0.75\textwidth]{systemml_structure.png}
+        \caption{SystemML Architecture}
+        \label{img:systemml_architecture}
+      \end{figure}
+
+      \subsubsection*{Language}
+
+        The first part is the \emph{language processor}, this piece is in charge of interpret the code written on R and Python and optimize the execution, converting complex and resource consuming operations to more optimized code. This piece is divided in three steps:
+
+        The first step is to convert each operation into a hierarchical representation of statement blocks and statements, which means that the code written by the user is processed and understood by the optimizer, in order to be able to identify the resource and time consuming operations. This step analyzes the code not only lexically and syntactically, but also the order of operations and other basic aspects. The output of this step is the input code translated into the specific DML grammar.
+
+        Once the operations are translated into the DML grammar, variables involved are analyzed, regarding, for example the input and output variables, their size in memory, and the data flow.
+
+        The last step of the language level is to verify the correctness of the code obtained, checking dimensions of variables, necessary variables and parameters for operations among other things. This process is done over the whole program and validates expressions and code blocks, but also simulates the code execution in order to evaluate the resources necessary, analyzing the conditionals and loops, given that the optimizer already knows the size of the variables, as it has been checked on the first step.
+
+      \subsubsection*{Hight-level Operators (HOPs)}
+
+        This phase of the optimization consists on structuring the operations in order to be able to rewrite the code in a more optimized way, for example changing the order of operations when it implies less resource consumption.
+
+      \subsubsection*{Low-level Operators (LOPs)}
+
+
+
+
 
 
 
