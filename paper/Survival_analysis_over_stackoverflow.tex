@@ -572,7 +572,7 @@
         \label{img:systemml_architecture}
       \end{figure}
 
-      \subsubsection*{Language}
+      \subsubsection*{Language level}
 
         The first part is the \emph{language processor}, this piece is in charge of interpret the code written on R and Python and optimize the execution, converting complex and resource consuming operations to more optimized code. This piece is divided in three steps:
 
@@ -584,9 +584,25 @@
 
       \subsubsection*{Hight-level Operators (HOPs)}
 
-        This phase of the optimization consists on structuring the operations in order to be able to rewrite the code in a more optimized way, for example changing the order of operations when it implies less resource consumption.
+        This phase of the optimization consists on structuring the operations in order to be able to rewrite the code in a more optimized way, for example changing the order of operations when it implies less resource consumption. To do so, from each basic block of statements, a high-level operators DAG is created, where the nodes represent operations and their outputs, and edges represent data dependencies between operations.
+
+        As a result of this process, a single operator tree is built with all the statements and operators of the code. This tree represents a data flow graph is then used to build HOP DAG rewrites. These rewrites are size-independent transformations, for example format conversions or algebraic simplifications.
+
+        After this rewrite phase, a simulation of the size of the variables and operations is performed, this way, the program is able to estimate if the execution of all the code is posible or adequated in one machine, otherwise it will be distributed over the machines available.
+
+        The fourth step of this phase is to apply dynamic HOP DAG rewrites, this rewrites comprise simplifications done over the operations when the size is enough and cost-based rewrites, for example, the order of operations in matrix algebra, or the transposition of some matrixes over others depending on the size of them.
 
       \subsubsection*{Low-level Operators (LOPs)}
+
+        The last part of the optimizer focuses on low-level operations, generating again DAGs, representing operations in the nodes and data dependencies on the edges. These operations are optimized at a physical level, taking into account the specific backend and resources available in which the program will run, focusing specially on MR, instructions run in a Map-Reduce paradigm and CP (Control Program), operations executed in-memory.
+
+        At the end of this phase, the main program is compiled and executables are generated for the specific backend used, wether it is in a distributed or a single node execution.
+
+      \subsubsection*{Runtime-Level}
+
+        Apart from the work done by the optimizer in the stages previous to the execution of the code, it will also be available during the execution of the program. This way, the optimizer can analyze the real time execution and re-compile parts of the code. This is specially important when the execution is in a distributed environment and the optimizer have not had access to the data sizes, which will be available during runtime, giving the opportunity to make live changes and re-compilations of the code.
+
+      The use of the optimizer does add an overhead to the execution of the program, typically around $200ms$ per script on the language-level, about $10ms$ per DAG on the HOP-level and $<1ms$ on the recompilation, including LOP-level.
 
 
 
