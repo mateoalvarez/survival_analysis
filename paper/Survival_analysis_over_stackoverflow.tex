@@ -493,45 +493,48 @@
         \end{itemize}
 
 
+      \subsubsection{Spark Main APIs}
 
-      \subsubsection*{Spark Core API}
+        \subsubsection*{Spark Core API}
 
-        The core API represents the basic structure of Spark, it can be addressed from any of the supported languages, scala, python, R and java. This API has the main functionality of Spark, which includes a set of operations, that includes Map-Reduce, but is not limited to them, as Hadoop is.
-        Regarding the data management, This API contains the RDDs, explained above and the basic operations.[][][]
+          The core API represents the basic structure of Spark, it can be addressed from any of the supported languages, scala, python, R and java. This API has the main functionality of Spark, which includes a set of operations, that includes Map-Reduce, but is not limited to them, as Hadoop is.
+          Regarding the data management, This API contains the RDDs, explained above and the basic operations.[][][]
 
-      \subsubsection*{Spark SQL + DataFrames}
+        \subsubsection*{Spark SQL + DataFrames}
 
-        The SQL layer over data is known as Spark SQL. It allows users to use a SQL-like language in Spark programs, to query both structured and not structured databases (SQL \& NoSQL), such as Postgres or MongoDB.
+          The SQL layer over data is known as Spark SQL. It allows users to use a SQL-like language in Spark programs, to query both structured and not structured databases (SQL \& NoSQL), such as Postgres or MongoDB.
 
-        The Spark SQL library also provides a main functionality in Spark that is gaining more importance over the time, the Dataframes.
+          The Spark SQL library also provides a main functionality in Spark that is gaining more importance over the time, the Dataframes.
 
-        A Dataframe is a data structure introduced in the R programming language that has extended to the Data Science world as one of the most easy to use data structures. Dataframes in Spark are the same concept that in a non-distributed processing framework, but the implementation, as it is for a distributed environment is different, it is built from RDDs with a specific structure.
+          A Dataframe is a data structure introduced in the R programming language that has extended to the Data Science world as one of the most easy to use data structures. Dataframes in Spark are the same concept that in a non-distributed processing framework, but the implementation, as it is for a distributed environment is different, it is built from RDDs with a specific structure.
 
-      \subsubsection*{Spark MLlib + Spark ML}
+        \subsubsection*{Spark MLlib + Spark ML}
 
-        Spark has two main Machine Learning libraries, the first one, Spark MLlib, which is the basic library, that includes the main algorithms and is addressed with RDDs, the second one, Spark ML, which uses Spark MLlib but through DataFrames, and includes further functionality, such as Pipelines, a set of operations performed over data, that allows the user to build sequences of actions over Data Frames.
+          Spark has two main Machine Learning libraries, the first one, Spark MLlib, which is the basic library, that includes the main algorithms and is addressed with RDDs, the second one, Spark ML, which uses Spark MLlib but through DataFrames, and includes further functionality, such as Pipelines, a set of operations performed over data, that allows the user to build sequences of actions over Data Frames.
 
-      \subsubsection{Spark Streaming}
+        \subsubsection{Spark Streaming}
 
-        Spark Streaming is the real-time, streaming processing library of Spark. Unlike other streaming processing frameworks such as Apache Flink, Spark Streaming works with microbatches, remaining almost the same structure as Spark itself. The reason is to have the workers processing in time periods, this way the fault tolerance is more robust, as for each microbatch all the operations will be parallelized, and in case any worker falls down, the others complete the work. This way the latency is sacrificed in favor of robustness of fault tolerance.
+          Spark Streaming is the real-time, streaming processing library of Spark. Unlike other streaming processing frameworks such as Apache Flink, Spark Streaming works with microbatches, remaining almost the same structure as Spark itself. The reason is to have the workers processing in time periods, this way the fault tolerance is more robust, as for each microbatch all the operations will be parallelized, and in case any worker falls down, the others complete the work. This way the latency is sacrificed in favor of robustness of fault tolerance.
 
-        Spark Streaming runs on top of Spark, so that the benefits of the distribution, scalability and fault-tolerance are inherited from it, but it also has the advantage of using a similar sintaxis and the interoperability with other Spark libraries such as Spark-SQL, giving the possibility to process information with dataframes, with all the advantages they provide.
+          Spark Streaming runs on top of Spark, so that the benefits of the distribution, scalability and fault-tolerance are inherited from it, but it also has the advantage of using a similar sintaxis and the interoperability with other Spark libraries such as Spark-SQL, giving the possibility to process information with dataframes, with all the advantages they provide.
 
-        Spark Streaming has support for numerous data stream sources, including Apache Kafka, ZeroMQ, TCP Socket or Flume, among others, this gives flexibility to the framework to connect to different applications.
+          Spark Streaming has support for numerous data stream sources, including Apache Kafka, ZeroMQ, TCP Socket or Flume, among others, this gives flexibility to the framework to connect to different applications.
 
-        The workflow in Spark Streaming is the following: data enters at unspecified rate, it can be a specific amount every second or not a constant quantity, Spark Streaming will be in charge of distributing the data along the workers. Data is transformed into DStreams and distributed at a low level into RDDs, using the Spark Core functionalities, processed, and then returned to the microbatch. At the end of the microbatch, the application will return the processed data in DStreams. The schema below is a diagram of the explained workflow.
+          The workflow in Spark Streaming is the following: data enters at unspecified rate, it can be a specific amount every second or not a constant quantity, Spark Streaming will be in charge of distributing the data along the workers. Data is transformed into DStreams and distributed at a low level into RDDs, using the Spark Core functionalities, processed, and then returned to the microbatch. At the end of the microbatch, the application will return the processed data in DStreams. The schema below is a diagram of the explained workflow.
 
-        \begin{figure}[!h]
-          \centering
-          \includegraphics[width=0.75\textwidth]{Spark_Streaming_architecture.png}
-          \caption{Spark Streaming workflow}
-          \label{img:spark_streaming_workflow}
-        \end{figure}
+          \begin{figure}[!h]
+            \centering
+            \includegraphics[width=0.75\textwidth]{Spark_Streaming_architecture.png}
+            \caption{Spark Streaming workflow}
+            \label{img:spark_streaming_workflow}
+          \end{figure}
 
 
-      \subsubsection*{Spark GraphX}
+        \subsubsection*{Spark GraphX}
 
-        GraphX is Spark's graph library
+          GraphX is Spark's graph library, which extends Spark's core API with special functionality for graphs. As commented before, Spark GraphX uses a different data structure, \emph{Graph}, a structure that provides functionality to introduce both vertices and edges for the graph. As all other libraries, the GraphX functionality can be mixed with all the rest of the framework, giving this library high flexibility.
+
+          Unlike other Spark main libraries, GraphX does not provide access with other language than Scala, it can not be addressed with R nor Python, but it provides an increasing amount of distributed algorithms for graph analysis.
 
       \subsubsection{Apache Spark workflow}
       DAGS Y ESAS COSAS>>>>>>>>>>>>>>>>>
