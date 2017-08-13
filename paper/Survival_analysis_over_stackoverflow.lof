@@ -8,8 +8,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4}{\ignorespaces Spark Streaming workflow\relax }}{23}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5}{\ignorespaces Apache SystemML workflow\relax }}{25}
+\contentsline {figure}{\numberline {5}{\ignorespaces Example of translation of DAG to physical plan, for a word count application\relax }}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6}{\ignorespaces SystemML Architecture\relax }}{26}
+\contentsline {figure}{\numberline {6}{\ignorespaces Example of an optimized physical plan from a DAG, using Spark SQL, from \cite {optimized_dag_to_physical}\relax }}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {7}{\ignorespaces Censored and uncensored data\relax }}{32}
+\contentsline {figure}{\numberline {7}{\ignorespaces Apache SystemML workflow\relax }}{27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {8}{\ignorespaces SystemML Architecture\relax }}{27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {9}{\ignorespaces Censored and uncensored data\relax }}{34}

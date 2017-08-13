@@ -410,10 +410,9 @@
 
       The executor programs are in charge of running individual tasks in a given Spark job, all sent by the driver program through the sparkContext. They are launched at the beginning of a Spark application and typically run for the entire lifetime of an application. Once they have run the task they send the results to the driver. They also provide in-memory storage for RDDs that are cached by user programs through Block Manager.
 
-      Spark driver program has to be in continuous contact with the executors, as the results calculated by them will return to the driver at the end. The driver can run in an external machine of the cluster, but, as it has to be in continuous communication with the executor programs, it has to be running all the time the executors are calculating, it can not be disconnected to the cluster and it is important to have a good connection in order not to lose performance.
+      Spark driver program has to be in continuous contact with the executors, as it has to coordinate the workflow and the specific tasks for each executor and monitors the status of them. Moreover, when a result is required by the user, and it is not saved to a datastore, the result will go back to the driver program. The driver can run in an external machine of the cluster, but, as it has to be in continuous communication with the executor programs, it has to be running all the time the executors are calculating and it can not be disconnected to the cluster.
 
-
-      More than one application can run in the same cluster, as long as there are enough resources .Each application gets its own executor processes and run tasks in multiple threads. This has the benefit of isolating applications from each other, on both the scheduling side (each driver schedules its own tasks) and executor side (tasks from different applications run in different JVMs), all of them running in different java processes, in general in different machines. However, it also means that data cannot be shared across different Spark applications (instances of SparkContext) without writing it to an external storage system.
+      More than one application can run in the same cluster, as long as there are enough resources. Each application gets its own executor processes and run tasks in multiple threads. This has the benefit of isolating applications from each other, on both the scheduling side (each driver schedules its own tasks) and executor side (tasks from different applications run in different JVMs), all of them running in different java processes, in general in different machines. However, it also means that data cannot be shared across different Spark applications (instances of SparkContext) without writing it to an external storage system.
 
       \begin{figure}[!h]
         \centering
@@ -536,10 +535,46 @@
 
           Unlike other Spark main libraries, GraphX does not provide access with other language than Scala, it can not be addressed with R nor Python, but it provides an increasing amount of distributed algorithms for graph analysis.
 
-      \subsubsection{Apache Spark workflow}
-      DAGS Y ESAS COSAS>>>>>>>>>>>>>>>>>
+      \subsubsection{Spark workflow}
+
+        There are three main phases on the execution of a program in Spark: definition of a DAG from the user's code, translation of the DAG to an execution physical plan, and scheduling and executing the plan in the cluster.
+
+        \subsubsection*{Definition of a DAG}
+
+          The program defined by the user is a result of a series of operations (transformations and actions) done to a series of RDDs, the first RDD may be the ingest of the data, and the last one, the result the user wants to calculate. This series of operations over RDDs form a graph, an ordered sequence that leads to the final result, therefore the graph is directed, from the first RDD and operation to the last one, and is acyclic, it has a beginning and an end. This DAG is the logical representation of the execution of operations over RDDs and their partitions.
+
+          On a lower level, the RDDs are the ones that contain the logical plan under the DAG, each RDD has one or more pointers to one or more parents, along with metadata about the relationship they maintain. These pointers allow an RDD to be obtained through it's ancestors, for example to be recalculated in case of a node failure.
+
+        \subsubsection*{Creation of physical plan}
+
+          When executing, the DAG is translated to a physical plan which merges multiple operations into tasks. This execution is called whenever an action is called, this execution takes the DAG, looks to the latest RDD and goes backwards to the first ancestor to construct the operations needed. The output of this process is a \emph{job}, composed by a number of \emph{stages}, whose number depend on the operations performed over the RDDs, and \emph{tasks} in every stage.
+
+          Formally, a task is a unit of execution that runs on a single machine, tasks group to form stages, which represent the operations performed over a partitioned data in a parallelized way, namely a stage is a group of tasks that will perform the same operation over a partitioned data.
+
+          The number of stages created depend on the number of repartitions done to the data to obtain the final RDD, every time a shuffle operation is done to repartition the data over the machines, a new stage is created, for this reason, there can be less stages than group of parallelized tasks.
+
+          \begin{figure}[!h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{DAG_to_phisical_plan.png}
+            \caption{Example of translation of DAG to physical plan, for a word count application}
+            \label{img:DAG_to_physical}
+          \end{figure}
+
+          It is interesting to note that, when using Spark SQL, the physical plan will be an optimized DAG, as shown before, using Tungsten and Catalyst.
+
+          \begin{figure}[!h]
+            \centering
+            \includegraphics[width=0.8\textwidth]{spark_logical_to_phisical_plan.jpg}
+            \caption{Example of an optimized physical plan from a DAG, using Spark SQL, from \cite{optimized_dag_to_physical}}
+          \end{figure}
+
+        \subsubsection*{Scheduling and executing the physical plan on the cluster}
+
+          Finally, the stages are executed in order, launching the tasks over the available nodes to compute the resulting RDD. As the execution runs in-memmory, whenever a task fails, the entire sequence of operations of the stage has to be computed for the particular lost partition, but not all the tasks for all partitions. For this reason it is common to \emph{cache} the RDDs after a series of operations, avoiding this way to reacalculate all the previous steps.
 
       \subsubsection{Spark UI}
+
+        All the information regarding the running application is
 
 
 
