@@ -1,19 +1,21 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {1}{\ignorespaces Spark Cluster Mode Architecture, from \cite {spark_documentation}\relax }}{18}
+\contentsline {figure}{\numberline {1}{\ignorespaces Spark Cluster Mode Architecture, from \cite {spark_documentation}\relax }}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2}{\ignorespaces Differences between RDDs, dataframes and datasets, from \cite {RDD_dataframes_datasets_diagram_blog}\relax }}{20}
+\contentsline {figure}{\numberline {2}{\ignorespaces Differences between RDDs, dataframes and datasets, from \cite {RDD_dataframes_datasets_diagram_blog}\relax }}{19}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3}{\ignorespaces DStream structure, from \cite {spark_documentation}\relax }}{20}
+\contentsline {figure}{\numberline {3}{\ignorespaces DStream structure, from \cite {spark_documentation}\relax }}{19}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4}{\ignorespaces Spark Streaming workflow\relax }}{23}
+\contentsline {figure}{\numberline {4}{\ignorespaces Spark Streaming workflow\relax }}{22}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5}{\ignorespaces Example of translation of DAG to physical plan, for a word count application\relax }}{25}
+\contentsline {figure}{\numberline {5}{\ignorespaces Example of translation of DAG to physical plan, for a word count application\relax }}{24}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6}{\ignorespaces Example of an optimized physical plan from a DAG, using Spark SQL, from \cite {optimized_dag_to_physical}\relax }}{25}
+\contentsline {figure}{\numberline {6}{\ignorespaces Example of an optimized physical plan from a DAG, using Spark SQL, from \cite {optimized_dag_to_physical}\relax }}{24}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {7}{\ignorespaces Apache SystemML workflow\relax }}{27}
+\contentsline {figure}{\numberline {7}{\ignorespaces Example of Spark UI\relax }}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {8}{\ignorespaces SystemML Architecture\relax }}{27}
+\contentsline {figure}{\numberline {8}{\ignorespaces Apache SystemML workflow\relax }}{26}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {9}{\ignorespaces Censored and uncensored data\relax }}{34}
+\contentsline {figure}{\numberline {9}{\ignorespaces SystemML Architecture\relax }}{27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {10}{\ignorespaces Censored and uncensored data\relax }}{34}

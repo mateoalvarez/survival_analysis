@@ -240,7 +240,32 @@
         \caption{Post links table}
         \label{tab:postlinks}
       \end{table}
+
+    \subsubsection{Badges.xml}
+
+      This file contains information about the badges the user has obtained.
+
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+          \hline
+
+          Feature & Data type & Description \\ \hline
+          Id & Integer & Unique Badge identifier \\ \hline
+          UserId & Integer & Unique identifier of the user who obtained the badge \\ \hline
+          Name & Text & Name of the badge \\ \hline
+          Date & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the user obtained the badge in extended format \\ \hline
+          Class & Integer & Type of the badge \\ \hline
+          TagBased & Boolean & Whether the badge is based on a tag or not \\
+
+          \hline
+        \end{tabular}
+        \caption{Badges table}
+        \label{tab:badges}
+      \end{table}
+
 \newpage
+
     \subsubsection{Posts.xml}
 
       This file contains all questions posted along with the accepted answers and other info related to the time and user who posted the question. The file has the following structure:
@@ -322,29 +347,6 @@
         \end{tabular}
         \caption{Comments table}
         \label{tab:comments}
-      \end{table}
-
-    \subsubsection{Badges.xml}
-
-      This file contains information about the badges the user has obtained.
-
-      \begin{table}[!h]
-        \centering
-        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
-          \hline
-
-          Feature & Data type & Description \\ \hline
-          Id & Integer & Unique Badge identifier \\ \hline
-          UserId & Integer & Unique identifier of the user who obtained the badge \\ \hline
-          Name & Text & Name of the badge \\ \hline
-          Date & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the user obtained the badge in extended format \\ \hline
-          Class & Integer & Type of the badge \\ \hline
-          TagBased & Boolean & Whether the badge is based on a tag or not \\
-
-          \hline
-        \end{tabular}
-        \caption{Badges table}
-        \label{tab:badges}
       \end{table}
 
 \newpage
@@ -570,15 +572,20 @@
 
         \subsubsection*{Scheduling and executing the physical plan on the cluster}
 
-          Finally, the stages are executed in order, launching the tasks over the available nodes to compute the resulting RDD. As the execution runs in-memmory, whenever a task fails, the entire sequence of operations of the stage has to be computed for the particular lost partition, but not all the tasks for all partitions. For this reason it is common to \emph{cache} the RDDs after a series of operations, avoiding this way to reacalculate all the previous steps.
+          Finally, the stages are executed in order, launching the tasks over the available nodes to compute the resulting RDD. As the execution runs in-memory, whenever a task fails, the entire sequence of operations of the stage has to be computed for the particular lost partition, but not all the tasks for all partitions. For this reason it is common to \emph{cache} the RDDs after a series of operations, avoiding this way to recalculate all the previous steps.
 
       \subsubsection{Spark UI}
 
-        All the information regarding the running application is
+        As seen in the sections above, there is a lot of information of the running process of a Spark application. To help the users monitor the application, configuration and the status of the cluster, Spark has a web user interface, in which all the information, the DAG, the physical plans, the storage with the cached data, the environment variables, the executors available and the SQL options.
 
+        \begin{figure}[!h]
+          \centering
+          \includegraphics[width=0.8\textwidth]{spark_ui.png}
+          \caption{Example of Spark UI}
+          \label{img:spark_ui}
+        \end{figure}
 
-
-
+\newpage
 
   \subsection{Apache SystemML}
 
@@ -642,6 +649,11 @@
 
       The use of the optimizer does add an overhead to the execution of the program, typically around $200ms$ per script on the language-level, about $10ms$ per DAG on the HOP-level and $<1ms$ on the recompilation, including LOP-level.
 
+    \subsubsection{SystemML Algorithms}
+
+      Algorithms catalog for systemml, implementation of distributed cox model and kaplan meier
+
+
 
 
 
@@ -650,7 +662,11 @@
 
   \subsection{Reproducible research with Python, Scala and Jupyter}
 
-    Regarding the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions. Jupyter Notebook is easy to use and configure and it can be easily integrated with Spark. It has interactive interpreters for many languages, including python, ruby, scala, R, etc
+    Regarding the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions. Jupyter Notebook is easy to use and configure, and flexible, as different kernels (code interpreters) can be configured, even for the same language with different set of libraries.It can be easily integrated with Big Data technologies, such as databases or Spark itself.
+
+    Jupyter Notebook is an open-source web application that contains code interpreters and other functionalities that allow users to develop code and write and share documents. It works with a dedicated file type, the .ipynb, notebooks on which the user can write both code and text in a cell distribution, cells that can be executed independently, having, as a result, an interactive shell for the selected code interpreter. It has interactive interpreters for many languages, including python, ruby, scala, R, etc, as well as markdown interpreters.
+
+    Another important advantage of Jupyter Notebook is its simple integration with Spark, it can be launched directly from python via \emph{findspark} library, launching an embebed interactive Spark Shell, to execute the Spark code directly from the cells of the notebook.
 
     To configure the same environment as the one used in this study, some steps have to be followed:
 
