@@ -19,6 +19,15 @@
 
 \refsection{0}
   \sortlist[entry]{nty/global/}
+    \entry{apache_data_structures}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Spark data structures [Beyond the lines blog]}
+      \verb{url}
+      \verb http://www.beyondthelines.net/computing/apache-spark-data-structures/
+      \endverb
+    \endentry
     \entry{spark_documentation}{online}{}
       \field{sortinit}{A}
       \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
@@ -81,6 +90,15 @@
       \field{year}{2014}
       \verb{url}
       \verb http://researcher.ibm.com/researcher/files/us-ytian/p52.pdf
+      \endverb
+    \endentry
+    \entry{optimized_dag_to_physical}{online}{}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labeltitlesource}{title}
+      \field{title}{Databricks: Spark SQL ddata analysis of Liancheng}
+      \verb{url}
+      \verb http://prog3.com/article/2015-06-18/2824958
       \endverb
     \endentry
     \entry{big_data_analytics_spark}{book}{}
