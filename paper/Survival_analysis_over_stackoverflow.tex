@@ -877,40 +877,6 @@
 
         Multi-episode file represents a subjects that experiment the event more than one time, and the data from each subject is separated in different rows for each event, where the first event is in the first row of the instance and the subsequent events, in case there are, are represented on the consecutive rows, having each subject as much rows as events the subject experiences.
 
-    \subsubsection{SystemML input format}
-
-      As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to vi provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. It is also necessary to provide, along with every matrix file, another file with the same name, and the \emph{.mtd} extension, containing the information of the file containing the matrix in JSON format:
-
-      \begin{lstlisting}[label=matrix_metadata_file, language=Python, caption=Example of matrix metadata file in JSON format]
-        {
-          "data_type": "matrix",
-          "value_type": "double",
-          "rows": 10,
-          "cols": 3,
-          "nnz": 10,
-          "format": "csv",
-          "header": false,
-          "sep": ",",
-          "description": {
-              "author": "SystemML"
-          }
-        }
-      \end{lstlisting}
-
-
-      \subsubsection*{Kaplan Meier Estimates}
-
-
-
-      \subsubsection*{Cox Proportional Hazards Model}
-
-
-      >>>>>>>>>> The input format for the SystemML library is quite different, it has some particularities such
-
-
-
-
-
   \subsection{Kaplan-Meier Estimator model}
 
     Most survival analysis studies start with a non-parametric method as they are simple and fast, and provide with an intuitive graphical form of understanding the data. The two main non-parametric methods, as mentioned before are the Life Tables and the Kaplan-Meier Estimator model. The first is more adequated for large datasets and when the time is not measured with precision. On the other hand, the KM Estimates method is great for when the time is precisely measured, and is widely used, more than the life tables.
@@ -937,6 +903,73 @@
     Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced two key features, in first place, the proportional hazards model, in second place the method of partial likelihood estimation.
 
     The
+
+  \subsubsection{SystemML input \& output format}
+
+    As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to be provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. These files are specified on each algorithm's description, as the project is open source, the algorithm implementation can be seen on the project's Github page \cite{systemml_github_page}.
+
+    Apart from the files specified on the oficial documentation and the algorithm implementation, it is also necessary to provide, along with every matrix file, another file with the same name, and the \emph{.mtd} extension, containing the information of the file containing the matrix in JSON format:
+
+    \begin{lstlisting}[label=matrix_metadata_file, language=Python, caption=Example of matrix metadata file in JSON format]
+      {
+        "data_type": "matrix",
+        "value_type": "double",
+        "rows": 10,
+        "cols": 3,
+        "nnz": 10,
+        "format": "csv",
+        "header": false,
+        "sep": ",",
+        "description": {
+            "author": "SystemML"
+        }
+      }
+    \end{lstlisting}
+
+    \subsubsection*{Kaplan Meier Estimates}
+
+
+
+      According to the oficial documentation, the files needed to execute the algorithm are the following:
+
+      \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|c|p{\textwidth}|}
+          \hline
+            File & content \\ \hline
+            X & input matrix with the survival data itself, containing the following variables, separated in columns: timestamps, whether the event occurred $(1)$ or the data is censored $(0)$, columns with categorical features for grouping and/or stratifying \\ \hline
+            TE & input matrix indicating the indexes of the columns where the timestamps and the event information are located on matrix \emph{X} \\ \hline
+            GI & input matrix indicating the indexes of the columns where the categorical values used for grouping are stored on matrix \emph{X} \\ \hline
+            SI & input matrix indicating the indexes of the columns where the categorical values used for stratifying are stored on matrix \emph{X} \\ \hline
+            O & output matrix containing the results of the Kaplan-Meier analysis \\ \hline
+            M & output matrix containing the following statistic: total number of events, median and its confidence intervals \\ \hline
+        \end{tabular}
+        \caption{Input and output files and content for Kaplan-Meier Estimates algorithm}
+        \label{tab:KM_IO_files}
+      \end{table}
+
+    \subsubsection*{Cox Proportional Hazards Model}
+
+      The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates, 
+
+      \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|c|p{\textwidth}|}
+          \hline
+            File & content \\ \hline
+            X & input matrix with the survival data itself,  \\ \hline
+            TE & \\ \hline
+            F &  \\ \hline
+            R & \\ \hline
+            O & \\ \hline
+            M & \\ \hline
+        \end{tabular}
+        \caption{Input and output files and content for Cox Proportional Hazards algorithm}
+        \label{tab:Cox_IO_files}
+      \end{table}
+
+  \subsection{Algorithm invocation}
+
 
 \section{Conclusions}
   \label{sec:conclusions}
