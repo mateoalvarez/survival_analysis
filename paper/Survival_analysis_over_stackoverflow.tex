@@ -37,6 +37,39 @@
 \usepackage{biblatex}
 \addbibresource{sample.bib}
 
+%%% CODE INSERTIONS
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Code}
+\usepackage{color}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  % backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+  % keywordstyle=\color{magenta},
+  % numberstyle=\tiny\color{codegray},
+  % stringstyle=\color{codepurple},
+  % basicstyle=\footnotesize,
+  % breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  % numbers=left,
+  % numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
 \allsectionsfont{\sffamily\mdseries\upshape}
@@ -67,6 +100,8 @@
 \listoffigures
 \newpage
 \listoftables
+\newpage
+\lstlistoflistings
 \newpage
 
 \section{Introduction \& main goals}
@@ -125,7 +160,7 @@
 
     Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster. The data is divided in 8 files, and has the same structure for every community:
 
-    \begin{table}[!h]
+    \begin{table}[!ht]
       \centering
       \begin{tabular}{|c|p{0.3\textwidth}|c|}
         \hline
@@ -152,7 +187,7 @@
 
       This file contains information about votes of the users to each question. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|c|p{0.3\textwidth}|}
           \hline
@@ -172,7 +207,7 @@
 
       This file contains all tags and the posts that contains them. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|c|p{0.3\textwidth}|}
           \hline
@@ -194,7 +229,7 @@
 
       This file contains information about users. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
           \hline
 
@@ -224,7 +259,7 @@
 
       This file contains information about relation between posts. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
           \hline
 
@@ -245,7 +280,7 @@
 
       This file contains information about the badges the user has obtained.
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
           \hline
@@ -270,7 +305,7 @@
 
       This file contains all questions posted along with the accepted answers and other info related to the time and user who posted the question. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
           \hline
@@ -306,7 +341,7 @@
 
       This file contains information about the interactions with each post. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
           \hline
@@ -330,7 +365,7 @@
 
       This file contains the comments posted for every question created. The file has the following structure:
 
-      \begin{table}[!h]
+      \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
           \hline
@@ -416,7 +451,7 @@
 
       More than one application can run in the same cluster, as long as there are enough resources. Each application gets its own executor processes and run tasks in multiple threads. This has the benefit of isolating applications from each other, on both the scheduling side (each driver schedules its own tasks) and executor side (tasks from different applications run in different JVMs), all of them running in different java processes, in general in different machines. However, it also means that data cannot be shared across different Spark applications (instances of SparkContext) without writing it to an external storage system.
 
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \centering
         \includegraphics[width=\textwidth]{cluster-overview.png}
         \caption{Spark Cluster Mode Architecture, from \cite{spark_documentation}}
@@ -451,7 +486,7 @@
 
         This static typing allows datasets to use Tungsten, Spark's optimized memory engine. Tungsten has direct access to off heap memory, to provide even better optimization, and uses data types to minimize the encoding and decoding of the data.
 
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \centering
         \includegraphics[width=0.75\textwidth]{RDD_dataframes_datasets_diagram.png}
         \caption{Differences between RDDs, dataframes and datasets, from \cite{RDD_dataframes_datasets_diagram_blog}}
@@ -465,7 +500,7 @@
       \subsubsection*{Discretized Streams}
         Discretized Streams, or DStreams, are the basic data structure that Spark Streaming module uses for processing. This DStreams are essentially RDDs in time periods, and represent the data available on each time window. As Spark Streaming works with microbatches, small (or not so small) time intervals of data processing. For a time period, a DStream is basically an RDD, on which operations can be performed giving as a result another temporary RDD or DStream.
 
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \centering
         \includegraphics[width=0.75\textwidth]{streaming-dstream.png}
         \caption{DStream structure, from \cite{spark_documentation}}
@@ -523,7 +558,7 @@
 
           The workflow in Spark Streaming is the following: data enters at unspecified rate, it can be a specific amount every second or not a constant quantity, Spark Streaming will be in charge of distributing the data along the workers. Data is transformed into DStreams and distributed at a low level into RDDs, using the Spark Core functionalities, processed, and then returned to the microbatch. At the end of the microbatch, the application will return the processed data in DStreams. The schema below is a diagram of the explained workflow.
 
-          \begin{figure}[!h]
+          \begin{figure}[!ht]
             \centering
             \includegraphics[width=0.75\textwidth]{Spark_Streaming_architecture.png}
             \caption{Spark Streaming workflow}
@@ -555,7 +590,7 @@
 
           The number of stages created depend on the number of repartitions done to the data to obtain the final RDD, every time a shuffle operation is done to repartition the data over the machines, a new stage is created, for this reason, there can be less stages than group of parallelized tasks.
 
-          \begin{figure}[!h]
+          \begin{figure}[!ht]
             \centering
             \includegraphics[width=0.8\textwidth]{DAG_to_phisical_plan.png}
             \caption{Example of translation of DAG to physical plan, for a word count application}
@@ -564,7 +599,7 @@
 
           It is interesting to note that, when using Spark SQL, the physical plan will be an optimized DAG, as shown before, using Tungsten and Catalyst.
 
-          \begin{figure}[!h]
+          \begin{figure}[!ht]
             \centering
             \includegraphics[width=0.8\textwidth]{spark_logical_to_phisical_plan.jpg}
             \caption{Example of an optimized physical plan from a DAG, using Spark SQL, from \cite{optimized_dag_to_physical}}
@@ -578,7 +613,7 @@
 
         As seen in the sections above, there is a lot of information of the running process of a Spark application. To help the users monitor the application, configuration and the status of the cluster, Spark has a web user interface, in which all the information, the DAG, the physical plans, the storage with the cached data, the environment variables, the executors available and the SQL options.
 
-        \begin{figure}[!h]
+        \begin{figure}[!ht]
           \centering
           \includegraphics[width=0.8\textwidth]{spark_ui.png}
           \caption{Example of Spark UI}
@@ -599,9 +634,9 @@
 
     The project went open source on 2015 and entered Apache incubation in November 2015, with the first open-source binary release announced on January 2016. The latest release is from April 19$^{th}$ 2017, with the version \emph{v0.14.0-incubating-rc4}.
 
-    \begin{figure}[!h]
+    \begin{figure}[!ht]
       \centering
-      \includegraphics[width=0.75\textwidth]{systemml_objective.png}
+      \includegraphics[width=\textwidth]{systemml_objective.png}
       \caption{Apache SystemML workflow}
       \label{img:systemml_workflow}
     \end{figure}
@@ -610,9 +645,9 @@
 
       Apache SystemML's architecture involves optimizers that converts code from the high level programming languages to specific code for Spark or Hadoop, for using a distributed infrastructure, or optimized single-node code, when the resources of one machine are enough for the process. All of this is done through three different stages, each one composed by different steps:
 
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \centering
-        \includegraphics[width=0.75\textwidth]{systemml_structure.png}
+        \includegraphics[width=\textwidth]{systemml_structure.png}
         \caption{SystemML Architecture}
         \label{img:systemml_architecture}
       \end{figure}
@@ -663,7 +698,7 @@
 
     Jupyter Notebook is an open-source web application that contains code interpreters and other functionalities that allow users to develop code and write and share documents. It works with a dedicated file type, the .ipynb, notebooks on which the user can write both code and text in a cell distribution, cells that can be executed independently, having, as a result, an interactive shell for the selected code interpreter. It has interactive interpreters for many languages, including python, ruby, scala, R, etc, as well as markdown interpreters.
 
-    \begin{figure}[!h]
+    \begin{figure}[!ht]
       \centering
       \includegraphics[width=\textwidth]{jupyter_notebook.png}
       \caption{Jupyter Notebook environment example}
@@ -672,7 +707,7 @@
 
     Another important advantage of Jupyter Notebook is its simple integration with Spark, it can be launched directly from python via \emph{findspark} library, launching an embebed interactive Spark Shell, to execute the Spark code directly from the cells of the notebook, or it can be configured to be the launched when the Spark Shell is executed.
 
-    \begin{figure}[!h]
+    \begin{figure}[!ht]
       \centering
       \includegraphics[width=\textwidth]{spark_notebook_example.png}
       \caption{Example of a python3 notebook with Spark integrated, running in standalone mode}
@@ -685,7 +720,7 @@
 
       The versions of the software used for this study are listed below:
 
-    \begin{table}[!h]
+    \begin{table}[!ht]
       \centering
       \begin{tabular}{| c | c |}
         \hline
@@ -754,17 +789,37 @@
 
 
 
-    The data is, as usual not totally clean and some actions have to be done over it to have the 
 
   \subsubsection{Data cleaning}
 
-    The data provided by StackOverflow comes in a reasonably clean xml set of files, which were previously described, on section \ref{subsec:data_structure}. From these files, the Scyfy Community directory has been chosen for the analysis. This is divided on the files described above.
+    The data used for the analysis is from the ScyFy community, but, as commented before, the structure is the same for all the Stack Exchange's communities. The data comes in the separated files described on section \ref{subsec:data_structure}. The data comes reasonably clean, just type casting and invalid entries have adapted to the right format. On the other hand, as there are different files, all of them have been imported to create and combine dataframes, joining them to finally obtain the desired format.
 
     As the input format for the survival analysis methods are quite specific, there is some formatting to do joining and combining the tables from the files:
 
+    \begin{table}[!ht]
+      \centering
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+           & dif & enventInfo & titleLength & tagCount & age & reputation \\ \hline
+          0 & 2.51964867E11 & 0   & 54  & 2 & NaN & 280.0 \\ \hline
+          1 & 2.51976827E11 & 0   & 65  & 2 & 54.0 & 2666.0 \\ \hline
+          2 & 2.51996307E11 & 0   & 44  & 2 & 54.0 & 2666.0 \\ \hline
+          3 & 2.51994685E11 & 0   & 55  & 2 & 54.0 & 2666.0 \\ \hline
+          4 & 9.728000e+03  & 1   & 87	& 2	& 54.0 & 2666.0 \\ \hline
+      \end{tabular}
+      \caption{Final table format for SystemML algorithm input, extract from the processed file}
+      \label{tab:final_table_format}
+    \end{table}
 
-
-
+    The table above shows the final format of data used for the algorithms, the variables are explained below:
+    \begin{itemize}
+      \item \emph{dif} represents the time passed until the occurrence of an event, i.e. row $5$, or until the end of period observation, i.e. row $0$.
+      \item \emph{eventInfo} whether the event has occurred $(1)$ or not $(0)$
+      \item \emph{titleLength} question's title length
+      \item \emph{tagCount} number of tags present on each question
+      \item \emph{age} age of the user that posted the question
+      \item \emph{reputation} reputation of the user that posted the question
+    \end{itemize}
 
 \section{Results}
   \label{sec:results}
@@ -798,7 +853,7 @@
 
       Data censoring refers to a situation where some data of the instance is known but some event times are not known, for example when the event occurs after the end of the observation period. Data truncation refers to the lack of information of some variables outside of the time period considered in the study.
 
-      \begin{figure}[!h]
+      \begin{figure}[!ht]
         \includegraphics[width=\textwidth]{Data_censoring.png}
         \caption{Censored and uncensored data}
         \label{img:data_censoring}
@@ -816,13 +871,39 @@
 
       \subsubsection*{Single-episode data}
 
-        In single-episode structured files, each row corresponds to a different subject, and the columns represent the variables and the events occurred.
+        In single-episode structured files, each row corresponds to a different subject, and the columns represent the variables and the events occurred. It implies that if a subject experiments more than one event, it is registered on the same row, as there ir no information of the instance on any other row.
 
       \subsubsection*{Multi-episode data}
 
-        Multi-episode file represents a subjects that experiment the event more than one time, and the data from each subject is separated in different rows for each subject, depending on the number of events the subject experiments.
+        Multi-episode file represents a subjects that experiment the event more than one time, and the data from each subject is separated in different rows for each event, where the first event is in the first row of the instance and the subsequent events, in case there are, are represented on the consecutive rows, having each subject as much rows as events the subject experiences.
 
     \subsubsection{SystemML input format}
+
+      As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to vi provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. It is also necessary to provide, along with every matrix file, another file with the same name, and the \emph{.mtd} extension, containing the information of the file containing the matrix in JSON format:
+
+      \begin{lstlisting}[label=matrix_metadata_file, language=Python, caption=Example of matrix metadata file in JSON format]
+        {
+          "data_type": "matrix",
+          "value_type": "double",
+          "rows": 10,
+          "cols": 3,
+          "nnz": 10,
+          "format": "csv",
+          "header": false,
+          "sep": ",",
+          "description": {
+              "author": "SystemML"
+          }
+        }
+      \end{lstlisting}
+
+
+      \subsubsection*{Kaplan Meier Estimates}
+
+
+
+      \subsubsection*{Cox Proportional Hazards Model}
+
 
       >>>>>>>>>> The input format for the SystemML library is quite different, it has some particularities such
 
