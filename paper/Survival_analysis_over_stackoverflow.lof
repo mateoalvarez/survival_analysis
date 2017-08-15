@@ -18,4 +18,8 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {9}{\ignorespaces SystemML Architecture\relax }}{27}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {10}{\ignorespaces Censored and uncensored data\relax }}{34}
+\contentsline {figure}{\numberline {10}{\ignorespaces Jupyter Notebook environment example\relax }}{30}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {11}{\ignorespaces Example of a python3 notebook with Spark integrated, running in standalone mode\relax }}{31}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {12}{\ignorespaces Censored and uncensored data\relax }}{35}

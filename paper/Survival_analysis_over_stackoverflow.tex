@@ -651,22 +651,33 @@
 
     \subsubsection{SystemML Algorithms}
 
-      Algorithms catalog for systemml, implementation of distributed cox model and kaplan meier
+      Apart from its general purpose big data analysis capabilities, SystemML has a quite estense algorithm catalog, algorithms that are implemented over the optimizers and thus distributable whenever it is more efficient. Among the catalog SystemML provides, there is an interesting section, specially for this study, the Survival Analysis algorithms, this catalog includes a non-parametric model, the \emph{Kaplan-Meier Estimates model}, and one of the most famous semi-parametric model, the \emph{Cox Proportional Hazards model}. As it'll be explained later, the non-parametric algorithms are useful for exploratory analysis over the data, to have a first approach to the problem, while semi-parametric, and parametric, algorithms are used for further research over the data, giving much more information on the effect of the variables over the survival time.
 
+      The main advantage of the semi-parametric models over the parametric models is that the former need less information of the problem itself, not requiring to provide a hazard shape beforehand, while the latter require some assumptions on the behavior of the hazard function on the problem. As it will be shown, this is an important advantage, as when dealing with an unexplored field, the hazard function is not usually known, having the semi-parametric models the advantage of being more flexible.
 
-
-
-
-
-
+      Apache Spark's MlLib also has survival analysis algorithm, in particular, the \emph{Survival Regression with Accelerated Failure Time (AFT)} algorithm, a parametric algorithm easier to parallelize than the Cox Proportional Hazards model. This implementation of the AFT is similar to the one implemented on R, but in a distributed way, and uses a \emph{Weibull} distribution function as the hazard function shape. This is one of the main reasons SystemML was chosen for this study, as, unlike Spark, it has a non-parametric algorithm for exploratory analysis of the problem and a flexible semi-parametric algorithm, which is ideal for this study, as the shape of the hazard function is unknown.
 
   \subsection{Reproducible research with Python, Scala and Jupyter}
 
-    Regarding the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions. Jupyter Notebook is easy to use and configure, and flexible, as different kernels (code interpreters) can be configured, even for the same language with different set of libraries.It can be easily integrated with Big Data technologies, such as databases or Spark itself.
+    Regarding the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions. It is easy to use and configure, and flexible, as different kernels (code interpreters) can be configured, even for the same language with different set of libraries. It can be easily integrated with Big Data technologies, such as databases or Spark itself, and it does not have appreciable effect over the performance of the execution of code.
 
     Jupyter Notebook is an open-source web application that contains code interpreters and other functionalities that allow users to develop code and write and share documents. It works with a dedicated file type, the .ipynb, notebooks on which the user can write both code and text in a cell distribution, cells that can be executed independently, having, as a result, an interactive shell for the selected code interpreter. It has interactive interpreters for many languages, including python, ruby, scala, R, etc, as well as markdown interpreters.
 
-    Another important advantage of Jupyter Notebook is its simple integration with Spark, it can be launched directly from python via \emph{findspark} library, launching an embebed interactive Spark Shell, to execute the Spark code directly from the cells of the notebook.
+    \begin{figure}[!h]
+      \centering
+      \includegraphics[width=\textwidth]{jupyter_notebook.png}
+      \caption{Jupyter Notebook environment example}
+      \label{jupyter_notebook_environment}
+    \end{figure}
+
+    Another important advantage of Jupyter Notebook is its simple integration with Spark, it can be launched directly from python via \emph{findspark} library, launching an embebed interactive Spark Shell, to execute the Spark code directly from the cells of the notebook, or it can be configured to be the launched when the Spark Shell is executed.
+
+    \begin{figure}[!h]
+      \centering
+      \includegraphics[width=\textwidth]{spark_notebook_example.png}
+      \caption{Example of a python3 notebook with Spark integrated, running in standalone mode}
+      \label{notebook_spark_example}
+    \end{figure}
 
     To configure the same environment as the one used in this study, some steps have to be followed:
 
@@ -692,7 +703,9 @@
       \caption{Technologies and versions used}
     \end{table}
 
-    The first step is to setup Jupyter Notebook, either running it in a Docker container or installing it directly on the machine. The docker image can be obtained entering the following command in a shell: \emph{docker pull jupyter/notebook}. Regarding the other option, installing it, the instructions can be found in the following link: \emph{http://jupyter.readthedocs.io/en/latest/install.html}.
+    The first step is to setup Jupyter Notebook, either running it in a Docker container or installing it directly on the machine. The docker image can be obtained entering the following command in a shell: \emph{docker pull jupyter/notebook}. Regarding the other option, installing it, the instructions can be found in the following link:
+
+    \emph{http://jupyter.readthedocs.io/en/latest/install.html}.
 
     Once Jupyter Notebook is running, the kernels have to be configured. In this study, Scala and Python were used for the data processing, so both kernels were configured. The python kernel is usually configured, as it comes with the IPython kernel installation, if not, follow the guide[][][][][]. To install the scala kernel, several options can be considered, as there are several implementations of the scala kernel. The chosen one was Scala Toree.
 
@@ -729,7 +742,7 @@
 
   \subsection{Architecture scheme}
 
-    The whole study has been executed in a standalone model, with a MacBookPro Retina 2015. The data was stored in an HDFS
+    The whole study has been executed in a standalone model, with a MacBookPro Retina 2015. The data was stored in a single local file, as the size of it was not big enough to justify the use on an HDFS or similar technology for storage.
 
   \subsection{Configuration}
 
@@ -739,7 +752,12 @@
 
     The first step is to clean the data and make the feature selection. One the data is clean, it is used as the input for the models training, both Kaplan-Meier Estimator model and Cox Proportional Hazards Model.
 
+
+
+    The data is, as usual not totally clean and some actions have to be done over it to have the 
+
   \subsubsection{Data cleaning}
+
     The data provided by StackOverflow comes in a reasonably clean xml set of files, which were previously described, on section \ref{subsec:data_structure}. From these files, the Scyfy Community directory has been chosen for the analysis. This is divided on the files described above.
 
     As the input format for the survival analysis methods are quite specific, there is some formatting to do joining and combining the tables from the files:
