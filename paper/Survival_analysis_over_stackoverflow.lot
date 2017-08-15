@@ -21,3 +21,7 @@
 \contentsline {table}{\numberline {10}{\ignorespaces Technologies and versions used\relax }}{32}
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {11}{\ignorespaces Final table format for SystemML algorithm input, extract from the processed file\relax }}{34}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {12}{\ignorespaces Input and output files and content for Kaplan-Meier Estimates algorithm\relax }}{40}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {13}{\ignorespaces Input and output files and content for Cox Proportional Hazards algorithm\relax }}{40}
