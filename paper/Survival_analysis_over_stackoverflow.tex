@@ -948,9 +948,45 @@
         \label{tab:KM_IO_files}
       \end{table}
 
+      \begin{minipage}[b][8cm][b]{0.35\textwidth}
+
+        \begin{lstlisting}[label=km_input_matrix, language=Python, caption=Input matrix for KM Estimates model]
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+          0,0,1.0
+        \end{lstlisting}
+
+      \end{minipage}
+      \begin{minipage}[b][8cm][b]{0.65\textwidth}
+
+        \begin{lstlisting}[label=km_input_matrix_meta, language=Python, caption=Input metadata matrix for KM Estimates model]
+          {
+            "data_type": "matrix",
+            "value_type": "double",
+            "rows": 10,
+            "cols": 3,
+            "nnz": 10,
+            "format": "csv",
+            "header": false,
+            "sep": ",",
+            "description": {
+                "author": "SystemML"
+            }
+          }
+        \end{lstlisting}
+
+      \end{minipage}
+
     \subsubsection*{Cox Proportional Hazards Model}
 
-      The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates, 
+      The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates,
 
       \begin{table}[!ht]
         \centering
