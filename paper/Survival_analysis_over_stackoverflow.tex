@@ -42,6 +42,10 @@
 \renewcommand{\lstlistingname}{Code}
 \usepackage{color}
 
+\usepackage{hhline}
+\usepackage{makecell}
+\renewcommand\theadfont{\normalfont\bfseries}
+
 %New colors defined below
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -881,19 +885,69 @@
 
     Most survival analysis studies start with a non-parametric method as they are simple and fast, and provide with an intuitive graphical form of understanding the data. The two main non-parametric methods, as mentioned before are the Life Tables and the Kaplan-Meier Estimator model. The first is more adequated for large datasets and when the time is not measured with precision. On the other hand, the KM Estimates method is great for when the time is precisely measured, and is widely used, more than the life tables.
 
-    The main idea of the KM method is to estimate the survival function at a time 't' $\hat{S}(t)$, which is the probability of a subject surviving until this time 't'. It can be calculated by obtaining the conditional probability of not experiencing the event on time 't', not having experienced it in previous failure times:
+    The main idea of the KM method is to estimate the survival function at a time 't' $\widehat{S}(t)$, which is the probability of a subject surviving until this time 't'. It can be calculated by obtaining the conditional probability of not experiencing the event on time 't', not having experienced it in previous failure times:
 
     \begin{equation}
-      \hat{S}(t_{(j)}) = \hat{S}(t_{(j-1)}) \times Pr(T>t_{(j)}|T \geq t_{(j)})
+      \widehat{S}(t_{(j)}) = \widehat{S}(t_{(j-1)}) \times Pr(T>t_{(j)}|T \geq t_{(j)})
+      % \caption{Survival function at time t$_j$ in terms of the previous survival interval and probabilities for the KM Estimates model}
       \label{eq:KM-eq-surv}
     \end{equation}
 
     The previous equation can also be written as follows, in terms of conditional probability for a specific time:
 
     \begin{equation}
-      \hat{S}(t_{(j)}) = \prod_{i=1}^{j-1} Pr(T>t_{(i)}|T\geq t_{(i)})
+      \widehat{S}(t_{(j)}) = \prod_{i=1}^{j-1} Pr(T>t_{(i)}|T\geq t_{(i)})
+      % \caption{Survival function at time t$_j$ in terms of probabilities for the KM Estimates model}
       \label{eq:KM-eq-probab}
     \end{equation}
+
+    The KM model is a non-parametric, maximum likelihood model, which means that it relies on the maximization of the likelihood function of the sample to analyze. This likelihood function takes the following form:
+
+    \begin{equation}
+      L = \prod_{i=1}^k h_i^{d_i}(1-h_i)^{n_i-d_i}
+      % \caption{Likelihood function for the KM Estimates model}
+      \label{eq:km-likelihood-function}
+    \end{equation}
+
+    where \emph{n$_i$} represents the number of individuals at risk at a certain time, and \emph{d$_i$} represents the number of events occurred at this particular time. Maximizing this function, the hazard function can be obtained in terms of \emph{n$_i$} and \emph{d$_i$} for each time:
+
+    \begin{equation}
+      \widehat{h_i}=\frac{d_i}{n_i}, \ for \ i = 1,2,...,k
+      % \caption{Hazard function for the KM Estimates model}
+      \label{eq:km-hazard-function}
+    \end{equation}
+
+    and the survival function for each time has the following form:
+    \begin{equation}
+      \widehat{S(t_i)} = \prod_{i | t_i < t_k}(1 - \frac{d_i}{n_i})
+      % \caption{Survival function in terms of the number of events in a time period and the number of surviving elements at this time for the KM Estimates model}
+      \label{eq:km-survival-function}
+    \end{equation}
+
+    Assuming asymptotic result, for big series of data in the sample, the variance of the maximum likelihood estimator can be obtained:
+
+    \begin{equation}
+      \widehat{Var} = \frac{d_i(d_i-n_i}{n_i^3}
+      \label{eq:km-havar-variance}
+    \end{equation}
+
+    and with this an estimation of the variance of the survival function, resulting in the \emph{Greenwood equation}:
+
+    \begin{equation}
+      \widehat{Var}(\widehat{S}(t_i)) = \widehat{S}(t_i)^2 \sum_{j=1}^{i-1} \frac{d_j}{d_j(n_j-d_j)}
+      \label{eq:km-greenwood-eq}
+    \end{equation}
+
+    Considering the asymptotic convergence to normal distribution of the maximum likelihood estimators, confidence intervals for $(1 - a)\%$ can be calculated for this estimations:
+
+    \begin{equation}
+      \widehat{S}(t_i)\pm Z_{a/2}\sqrt{\widehat{Var}(\widehat{S}(t_i))}
+      \label{eq:km-confidence-intervals}
+    \end{equation}
+
+    One interesting advantage of the Kaplan-Meier Estimates model is the visualization of the survival function in a graph, as this method is intended for exploratory analysis and for a light approach to the problem itself, the possibility of plotting the results in a simple to understand graph is an interesting feature.
+
+    
 
     Some advantages of this method are that it takes account for the right censored data, giving more precise and realistic survival times, it is also quite simple and easy to calculate, and gives useful graphs for interpreting the general behavior of the population
 
@@ -930,19 +984,27 @@
 
 
 
-      According to the oficial documentation, the files needed to execute the algorithm are the following:
+      According to the oficial documentation, the files and parameters needed to execute the algorithm are the following:
 
       \begin{table}[!ht]
         \centering
-        \begin{tabular}{|c|p{\textwidth}|}
+        \begin{tabular}{|>{\centering\arraybackslash}m{0.2\textwidth}|m{0.8\textwidth}|}
           \hline
-            File & content \\ \hline
+            \thead{File} \thead{or parameter} & \thead{Content or value} \\
+            \bottomrule
             X & input matrix with the survival data itself, containing the following variables, separated in columns: timestamps, whether the event occurred $(1)$ or the data is censored $(0)$, columns with categorical features for grouping and/or stratifying \\ \hline
-            TE & input matrix indicating the indexes of the columns where the timestamps and the event information are located on matrix \emph{X} \\ \hline
-            GI & input matrix indicating the indexes of the columns where the categorical values used for grouping are stored on matrix \emph{X} \\ \hline
-            SI & input matrix indicating the indexes of the columns where the categorical values used for stratifying are stored on matrix \emph{X} \\ \hline
+            TE & input column matrix indicating the indices of the columns where the timestamps and the event information are located on matrix \emph{X} \\ \hline
+            GI & input column matrix indicating the indices of the columns where the categorical values used for grouping are stored on matrix \emph{X} \\ \hline
+            SI & input column matrix indicating the indices of the columns where the categorical values used for stratifying are stored on matrix \emph{X} \\ \hline
+            F & input column matrix  indicating the indices of X which are to be used for KM analysis \\ \hline
+            alpha & parameter to compute confidence intervals for the survivor function and its median \\ \hline
+            etype & parameter to specify the error type, \emph{greenwood} or \emph{peto} \\ \hline
+            ctype & parameter to modify the confidence interval, \emph{plain} remains the lower and upper bound of the confidence interval unmodified, \emph{log} corresponds to the logistic transformation, and \emph{log-log} corresponds to the complementary log-log transformation \\ \hline
+            ttype & If data from different groups is available, parameter to specify the test to perform for comparing survival data across multiple groups, the options are: \emph{none}, \emph{log-rank} and \emph{wilcoxon} \\ \hline
+            fmt & parameter to specify the output format to use for the results: \emph{text} or \emph{csv} \\ \hhline{|=|=|}
             O & output matrix containing the results of the Kaplan-Meier analysis \\ \hline
-            M & output matrix containing the following statistic: total number of events, median and its confidence intervals \\ \hline
+            M & output matrix containing the following statistic: total number of events, median and its confidence intervals. If survival data comes from multiple groups and strata, each row of M contains the above statistics per group and stratum \\ \hline
+            T & If survival data from multiple groups is available, and \emph{ttype} is \emph{log-rank} or \emph{wilcoxon}, output matrix containing the result of the stratified test for comparing multiple groups \\ \hline
         \end{tabular}
         \caption{Input and output files and content for Kaplan-Meier Estimates algorithm}
         \label{tab:KM_IO_files}
@@ -950,7 +1012,7 @@
 
       \begin{minipage}[b][8cm][b]{0.35\textwidth}
 
-        \begin{lstlisting}[label=km_input_matrix, language=Python, caption=Input matrix for KM Estimates model]
+        \begin{lstlisting}[label=km_input_matrix, language=Python, caption=Input X matrix for KM Estimates model]
           0,0,1.0
           0,0,1.0
           0,0,1.0
@@ -966,7 +1028,7 @@
       \end{minipage}
       \begin{minipage}[b][8cm][b]{0.65\textwidth}
 
-        \begin{lstlisting}[label=km_input_matrix_meta, language=Python, caption=Input metadata matrix for KM Estimates model]
+        \begin{lstlisting}[label=km_input_matrix_meta, language=Python, caption=Input X metadata matrix for KM Estimates model]
           {
             "data_type": "matrix",
             "value_type": "double",
@@ -984,19 +1046,29 @@
 
       \end{minipage}
 
+      This sample files can be generated via script located in the github repository, on the scripts directory
+
     \subsubsection*{Cox Proportional Hazards Model}
 
-      The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates,
+      The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates, and needs the following files and parameters:
 
       \begin{table}[!ht]
         \centering
         \begin{tabular}{|c|p{\textwidth}|}
           \hline
             File & content \\ \hline
-            X & input matrix with the survival data itself,  \\ \hline
-            TE & \\ \hline
-            F &  \\ \hline
-            R & \\ \hline
+            X & input matrix with the survival data itself, containing the following variables separated in columns: timestamps, whether the event occurred (1) or the data is censored (0), columns of features for the model \\ \hline
+            TE & input matrix indicating the indexes of the columns where the timestamps and the event information are located on matrix X \\ \hline
+            F & input column matrix  indicating the indices of X which are to be used for fitting the Cox model \\ \hline
+            R & If factors (categorical variables) are available in the input matrix X, matrix containing the start and end indices of the factors in X
+              \begin{itemize}
+                \item R[,1]: start indices
+                \item R[,2]: end indices
+              \end{itemize}
+
+								Alternatively, user can specify the indices of the baseline level of each factor which needs to be removed from X.
+
+                If R is not provided by default all variables are considered to be continuous \\ \hline
             O & \\ \hline
             M & \\ \hline
         \end{tabular}
@@ -1015,6 +1087,8 @@
   \subsection{Lessons learnt}
 
 \newpage
+
+
 \nocite{*}
 \printbibliography
 
