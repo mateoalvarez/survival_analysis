@@ -140,6 +140,15 @@
       \verb https://databricks.com/blog/2016/03/03/introducing-graphframes.html
       \endverb
     \endentry
+    \entry{hospital_ramon_y_cajal_bioestadistica}{online}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labeltitlesource}{title}
+      \field{title}{Material docente de la Unidad de Bioestadística Clínica}
+      \verb{url}
+      \verb http://www.hrc.es/bioest
+      \endverb
+    \endentry
     \entry{survival_analysis_book}{book}{}
       \name{author}{1}{}{%
         {{hash=c8520ca482d0589f870724ffd1c29d38}{%
