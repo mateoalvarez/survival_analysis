@@ -956,6 +956,46 @@
 
     The
 
+
+    The Cox Proportional Hazards model can be used both for time-fixed or time-varying covariates.
+
+    \subsubsection{Cox Proportional Hazards Model for time-fixed covariates}
+
+      Time-fixed covariates are the ones that remain constant on the whole study, and are characteristics of the subjects, for example the gender or the place of birth. The expression of the hazard function for each individual ($i$) at time ($t$) in the basic time-fixed for covariates model is the following:
+
+      \begin{equation}
+        h_i(t) = h_0(t)\exp(\beta_1x_{i1} + \beta_2x_{i2} + \cdots + \beta_kx_{ik})
+        \label{eq:cox-fixed-time-hazards}
+      \end{equation}
+
+      where the $x_{ik}$ represent the values of each covariate ($k$) for each individual of the sample, $h_0$ is the \emph{baseline hazard function}, which represents the hazard that does not depend on the individual, common for everyone. The intercept of the function is contained on this baseline hazard function.
+
+      The equation can be written in terms of \emph{log hazard ratio}:
+
+      \begin{equation}
+        \log\left(\frac{h_i(t)}{h_0(t)}\right) = \beta_1x_{i1} + \cdots + \beta_kx_{ik}
+        \label{eq:cox-fixed-time-log-hazards-rate}
+      \end{equation}
+
+      this
+
+    \subsubsection{Cox Proportional Hazards Model for time-varying covariates}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   \subsubsection{SystemML input \& output format}
 
     As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to be provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. These files are specified on each algorithm's description, as the project is open source, the algorithm implementation can be seen on the project's Github page \cite{systemml_github_page}.
@@ -1009,6 +1049,7 @@
 
       \begin{table}[!ht]
         \centering
+        \resizebox{\textwidth}{!}{
         \begin{tabular}{|>{\centering\arraybackslash}m{0.2\textwidth}|m{0.8\textwidth}|}
           \hline
             \thead{File} \thead{or parameter} & \thead{Content or value} \\
@@ -1050,7 +1091,7 @@
               \item $(O-E)^2/V$
             \end{itemize}
             \\ \hline
-        \end{tabular}
+        \end{tabular}}
         \caption{Output files and parameters for Kaplan-Meier Estimates algorithm}
         \label{tab:KM_IO_files}
       \end{table}
@@ -1114,7 +1155,7 @@
 
       The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates, and needs the following files and parameters:
 
-      \begin{table}[!ht]
+      \begin{table}[!h]
         \centering
         \begin{tabular}{|>{\centering\arraybackslash}m{0.2\textwidth}|m{0.8\textwidth}|}
           \hline
@@ -1144,13 +1185,13 @@
 
 \newpage
 
-      \begin{table}[!ht]
+      \begin{table}[!h]
         \centering
         \begin{tabular}{|>{\centering\arraybackslash}m{0.2\textwidth}|m{0.8\textwidth}|}
           \hline
             \thead{File} \thead{or parameter} & \thead{Content or value} \\
             \bottomrule
-            M & output matrix with dimensions $D x 7$, where D is the number of covariates of the model, and the columns represent:
+            M & output matrix with dimensions $D \times 7$, where D is the number of covariates of the model, and the columns represent:
             \begin{itemize}
               \item betas $(\beta_i)$
               \item $exp(\beta_i)$
@@ -1186,6 +1227,8 @@
         \caption{Output files and parameters for Cox Proportional Hazards algorithm}
         \label{tab:Cox_IO_files}
       \end{table}
+
+\newpage
 
   \subsection{Algorithm invocation}
 
