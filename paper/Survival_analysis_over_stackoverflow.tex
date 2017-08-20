@@ -63,8 +63,8 @@
   breaklines=true,
   captionpos=b,
   keepspaces=true,
-  % numbers=left,
-  % numbersep=5pt,
+  numbers=left,
+  numbersep=5pt,
   showspaces=false,
   showstringspaces=false,
   showtabs=false,
@@ -945,11 +945,9 @@
       \label{eq:km-confidence-intervals}
     \end{equation}
 
-    One interesting advantage of the Kaplan-Meier Estimates model is the visualization of the survival function in a graph, as this method is intended for exploratory analysis and for a light approach to the problem itself, the possibility of plotting the results in a simple to understand graph is an interesting feature.
+    One interesting advantage of the Kaplan-Meier Estimates model is the visualization of the survival function in a graph, as this method is intended for exploratory analysis and for a light approach to the problem itself, the possibility of plotting the results in a easy to understand graph is an interesting feature. In comparison with other algorithms outside survival analysis, the main advantage is the ability to account for the censored data.
 
-
-
-    Some advantages of this method are that it takes account for the right censored data, giving more precise and realistic survival times, it is also quite simple and easy to calculate, and gives useful graphs for interpreting the general behavior of the population
+    The other side of the simplicity of the model is that it only provides probability estimations on the whole group, it does not take account of other explanatory variables. This limitation constraints the analysis to homogeneous groups, where the other explanatory variables are homogeneous along all the sample. To mitigate this limitation when the sample is not homogeneous on the other explanatory variables, it can be separated in more homogeneous groups and apply the method to each group, being able to compare the results of every subsample.
 
 
   \subsection{Cox Proportional Hazards Model}
@@ -964,7 +962,7 @@
 
     Apart from the files specified on the oficial documentation and the algorithm implementation, it is also necessary to provide, along with every matrix file, another file with the same name, and the \emph{.mtd} extension, containing the information of the file containing the matrix in JSON format:
 
-    \begin{lstlisting}[label=matrix_metadata_file, language=Python, caption=Example of matrix metadata file in JSON format]
+    \begin{lstlisting}[label=matrix_metadata_file, language=sh, caption=Example of matrix metadata file in JSON format]
       {
         "data_type": "matrix",
         "value_type": "double",
@@ -980,11 +978,11 @@
       }
     \end{lstlisting}
 
+\newpage
+
     \subsubsection*{Kaplan Meier Estimates}
 
-
-
-      According to the oficial documentation, the files and parameters needed to execute the algorithm are the following:
+      According to the oficial documentation, the files and parameters needed to execute the KM Estimates algorithm are the following:
 
       \begin{table}[!ht]
         \centering
@@ -1006,6 +1004,8 @@
         \caption{Input files and parameters for Kaplan-Meier Estimates algorithm}
         \label{tab:KM_IO_files}
       \end{table}
+
+\newpage
 
       \begin{table}[!ht]
         \centering
@@ -1055,9 +1055,9 @@
         \label{tab:KM_IO_files}
       \end{table}
 
-      \begin{minipage}[b][8cm][b]{0.35\textwidth}
+      \begin{minipage}[b][7.7cm][b]{0.35\textwidth}
 
-        \begin{lstlisting}[label=km_input_matrix, language=Python, caption=Input X matrix for KM Estimates model]
+        \begin{lstlisting}[label=km_input_matrix, language=sh, caption=Input X matrix for KM Estimates model]
           0,0,1.0
           0,0,1.0
           0,0,1.0
@@ -1071,9 +1071,9 @@
         \end{lstlisting}
 
       \end{minipage}
-      \begin{minipage}[b][8cm][b]{0.65\textwidth}
+      \begin{minipage}[b][7.7cm][b]{0.6\textwidth}
 
-        \begin{lstlisting}[label=km_input_matrix_meta, language=Python, caption=Input X metadata matrix for KM Estimates model]
+        \begin{lstlisting}[label=km_input_matrix_meta, language=sh, caption=Input X metadata matrix for KM Estimates model]
           {
             "data_type": "matrix",
             "value_type": "double",
@@ -1091,7 +1091,24 @@
 
       \end{minipage}
 
-      This sample files can be generated via script located in the github repository, on the scripts directory
+      This sample files can be generated via script located in the github repository, on the scripts directory. It is recommendable to do so, to see the appropriate input format the files have for the algorithm, an example of the invocation of this sample generation script is shown below\footnote{More information about the parameters and configuration to run the data generation can be found on the script itself, available on the SystemML github repository.}:
+
+      \begin{lstlisting}[label=data-generation-invocation, language=sh, caption=Sample invocation of the data generation script]
+        #!/bin/bash
+        <SPARK_HOME>/bin/spark-submit <systemml-path>/SystemML.jar\
+        -f <systemml-scripts-path>/datagen/genRandData4SurvAnalysis.dml\
+        -nvargs type=kaplan-meier\
+        n=<number-samples>\
+        p=<probability-of-not-censoring>\
+        O=<O-file-path>\
+        TE=<TE-file-path>\
+        fmt=<format>
+        g=<groups>
+        s=<strata>
+        f=<number-of-levels-for-cathegorical>
+      \end{lstlisting}
+
+\newpage
 
     \subsubsection*{Cox Proportional Hazards Model}
 
@@ -1115,14 +1132,110 @@
 								Alternatively, user can specify the indices of the baseline level of each factor which needs to be removed from X.
 
                 If R is not provided by default all variables are considered to be continuous \\ \hline
-            O & \\ \hline
-            M & \\ \hline
+            alpha & parameter to compute confidence intervals, $100*(1 - alpha)\%$ for the betas of the model \\ \hline
+            tol & tolerance, $\epsilon$ \\ \hline
+            moi & maximum number of outer iterations, using Newton method \\ \hline
+            mii & maximum number of inner iterations, using conjugate gradient method, if this value is $0$, there will be no maximum \\ \hline
+            fmt & format of the output matrixes, it can be csv or txt \\ \hline
         \end{tabular}
-        \caption{Input and output files and content for Cox Proportional Hazards algorithm}
+        \caption{Input files and parameters for Cox Proportional Hazards algorithm}
+        \label{tab:Cox_IO_files}
+      \end{table}
+
+\newpage
+
+      \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|>{\centering\arraybackslash}m{0.2\textwidth}|m{0.8\textwidth}|}
+          \hline
+            \thead{File} \thead{or parameter} & \thead{Content or value} \\
+            \bottomrule
+            M & output matrix with dimensions $D x 7$, where D is the number of covariates of the model, and the columns represent:
+            \begin{itemize}
+              \item betas $(\beta_i)$
+              \item $exp(\beta_i)$
+              \item standard error of $\beta_i$
+              \item Z
+              \item p-value
+              \item lower $100*(1-alpha)\%$ confidence interval of $\beta_i$
+              \item upper $100*(1-alpha)\%$ confidence interval of $\beta_i$
+            \end{itemize}
+            \\ \hline
+            S & output log file containing a summary of statistics of the model:
+            \begin{itemize}
+              \item number of observations
+              \item number of events
+              \item log-likelihood
+              \item AIC
+              \item Rsquare (Cox \& Snell)
+              \item max posible Rsquare
+            \end{itemize}
+            \\ \hline
+            T & output log file containing a summary of statistics of the model, with the following format in lines:
+            \begin{itemize}
+              \item Likelihood ratio test statistic, degree of freedom, P-value
+              \item Wald test statistic, degree of freedom, P-value
+              \item Score (log-rank) test statistic, degree of freedom, P-value
+            \end{itemize}
+            \\ \hline
+            RT & output column matrix containing the order-preserving recorded timestamps from X \\ \hline
+            XO & output matrix, which is the same of X but with timestamps \\ \hline
+            COV & output matrix containing the variance-covariance matrix of betas \\ \hline
+            MF & output column matrix containing the column indices of X with the baseline factors removed (if available) \\ \hline
+        \end{tabular}
+        \caption{Output files and parameters for Cox Proportional Hazards algorithm}
         \label{tab:Cox_IO_files}
       \end{table}
 
   \subsection{Algorithm invocation}
+
+    The algorithm scripts have a sample invocation of them to be executed in a Hadoop environment, the execution over Spark is similar:
+
+    \begin{lstlisting}[label=code:km-invocation-spark, language=sh, caption=Example of the invocation of the Kaplan-Meier Estimates model with Apache SystemML over an Apache Spark framework]
+    #!/bin/bash
+    <SPARK_HOME>/bin/spark-submit <path-to-systemml>/SystemML.jar\
+    -f <path-to-systemml-algorithms>/scripts/algorithms/KM.dml\
+    -nvargs X=<file-X-location>\
+            TE=<file-TE-location>\
+            GI=<file-GI-location>\
+            SI=<file-SI-location>\
+            O=<file-O-location>\
+            M=<file-M-location>\
+            T=<file-T-location>\
+            alpha=<alpha>\
+            etype=<error-type>\
+            ctype=<confidence-interval-tunning>\
+            ttype=<test-type>\
+            fmt=<output-format>
+    \end{lstlisting}
+
+    \begin{lstlisting}[label=code:km-invocation-spark, language=sh, caption=Example of the invocation of the Cox Proportional Hazard model with Apache SystemML over an Apache Spark framework]
+    #!/bin/bash
+    <SPARK_HOME>/bin/spark-submit <path-to-systemml>/SystemML.jar\
+    -f <path-to-systemml-algorithms>/scripts/algorithms/Cox.dml\
+    -nvargs X=<file-X-location>\
+    TE=<file-TE-location>\
+    F=<file-F-location>\
+    R=<file-R-location>\
+    M=<file-M-location>\
+    S=<file-S-location>\
+    T=<file-T-location>\
+    COV=<file-COV-location>\
+    RT=<file-RT-location>\
+    XO=<file-XO-location>\
+    MF=<file-MF-location>\
+    alpha=<alpha>\
+    tol=<tolerance-epsilon>\
+    moi=<max-outer-iterations>\
+    mii=<max-inner-iterations>\
+    fmt=<output-format>
+    \end{lstlisting}
+
+    Note that the input and output matrixes are files, and the algorithms have to have the path to them as input arguments, they also need the parameters set on the invocation of the algorithm, otherwise, default values will be used. It is also important to note that, as commented before, along with the file containing the matrix, another file containing the metadata associated to the matrix have to be provided, as can be seen on the code examples of \ref{km_input_matrix} and \ref{km_input_matrix_meta}.
+
+    As the execution of the algorithm is a jar file given to spark-submit, all the spark's configuration can be set, thus the execution on a distributed environment would be almost the same, but with the specific Spark's configuration to run in distributed mode with the desired resources and security configuration.
+
+    The execution can also be done in the Jupyter Notebook, as the algorithm's script is open source, just copying the code into a cell and calling the function with the desired parameters.
 
 
 \section{Conclusions}
@@ -1136,6 +1249,7 @@
 
 
 \nocite{*}
+\newpage
 \printbibliography
 
 \end{document}
