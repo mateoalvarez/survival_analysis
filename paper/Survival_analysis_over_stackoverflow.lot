@@ -1,31 +1,41 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {1}{\ignorespaces List of files from the compressed Scifi folder\relax }}{10}
+\addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {2}{\ignorespaces Votes table\relax }}{10}
+\contentsline {table}{\numberline {1.1}{\ignorespaces List of files from the compressed Scifi folder\relax }}{14}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3}{\ignorespaces Tags table\relax }}{11}
+\contentsline {table}{\numberline {1.2}{\ignorespaces Votes table\relax }}{14}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4}{\ignorespaces Users table\relax }}{11}
+\contentsline {table}{\numberline {1.3}{\ignorespaces Tags table\relax }}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5}{\ignorespaces Post links table\relax }}{12}
+\contentsline {table}{\numberline {1.4}{\ignorespaces Users table\relax }}{15}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6}{\ignorespaces Badges table\relax }}{12}
+\contentsline {table}{\numberline {1.5}{\ignorespaces Post links table\relax }}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {7}{\ignorespaces Posts table\relax }}{13}
+\contentsline {table}{\numberline {1.6}{\ignorespaces Badges table\relax }}{16}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {8}{\ignorespaces Post history table\relax }}{14}
+\contentsline {table}{\numberline {1.7}{\ignorespaces Posts table\relax }}{17}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {9}{\ignorespaces Comments table\relax }}{14}
+\contentsline {table}{\numberline {1.8}{\ignorespaces Post history table\relax }}{18}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {10}{\ignorespaces Technologies and versions used\relax }}{32}
+\contentsline {table}{\numberline {1.9}{\ignorespaces Comments table\relax }}{18}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {11}{\ignorespaces Final table format for SystemML algorithm input, extract from the processed file\relax }}{34}
+\addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {12}{\ignorespaces Input files and parameters for Kaplan-Meier Estimates algorithm\relax }}{42}
+\contentsline {table}{\numberline {2.1}{\ignorespaces Technologies and versions used\relax }}{38}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {13}{\ignorespaces Output files and parameters for Kaplan-Meier Estimates algorithm\relax }}{43}
+\addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {14}{\ignorespaces Input files and parameters for Cox Proportional Hazards algorithm\relax }}{45}
+\contentsline {table}{\numberline {3.1}{\ignorespaces Final table format for SystemML algorithm input, extract from the processed file\relax }}{42}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {15}{\ignorespaces Output files and parameters for Cox Proportional Hazards algorithm\relax }}{46}
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.1}{\ignorespaces Input files and parameters for Kaplan-Meier Estimates algorithm\relax }}{50}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.2}{\ignorespaces Output files and parameters for Kaplan-Meier Estimates algorithm\relax }}{51}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.3}{\ignorespaces Input files and parameters for Cox Proportional Hazards algorithm\relax }}{53}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.4}{\ignorespaces Output files and parameters for Cox Proportional Hazards algorithm\relax }}{54}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
