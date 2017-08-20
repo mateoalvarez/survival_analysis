@@ -4,7 +4,7 @@
 % This is a simple template for a LaTeX document using the "article" class.
 % See "book", "report", "letter" for other types of document.
 
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[11pt]{book} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 
@@ -100,20 +100,17 @@
 
 \newpage
 \tableofcontents
-\newpage
 \listoffigures
-\newpage
 \listoftables
-\newpage
 \lstlistoflistings
-\newpage
 
-\section{Introduction \& main goals}
+
+\chapter{Introduction \& main goals}
   \label{sec:introduction}
   Many studies have been done over the Stackexchange community [Mamykina, Manoim et al 2011], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
 
 
-  \subsection{Main technologies}
+  \section{Main technologies}
 
     As one of the biggest Q\&A communities, Stackexchange has large amount of data of each interaction.
     Stackexchange is separated in several communities, regarding different topics. These communities can be small, as \emph{DevOps} and \emph{InternetOfThings} or really big, as \emph{AskUbuntu} and \emph{Stackoverflow}, the main developers community. This particularity makes necessary the use of technologies prepared to process large amounts of data, in the later case.
@@ -124,19 +121,19 @@
 
     Regarding the development environment, Jupyter Notebook provides a simple and flexible interface for this analysis, and can also be integrated with Spark, allowing the complete development in just one environment.
 
-  \subsubsection{Survival Analysis}
+  \subsection{Survival Analysis}
 
     Survival Analysis is a group of ML models used to predict the time passed until the occurrence of an event. Is a method widely used, specially in the medical and pharmaceutical environments, where the prediction of time until an event is frequently used.
 
     In this case, the objective of using these techniques is to understand the behavior of the variables with the time and to predict when will a posted question be answered. This idea has multiple uses, such as optimizations of the questions themselves, hour of the day, tags added, reputation of the user... or using for example StackOverflow as technical support for problems with software instead of paying the provider's technical support service.
 
-  \subsubsection{Apache Spark}
+  \subsection{Apache Spark}
 
     Apache Spark is a distributed processing technology developed in Scala by Databricks that represents the next step of Apache Hadoop. It includes the best parts of it, such as the Hadoop File System, but under a complete new paradigm that allows operations different from the famous map-reduce, using RAM as storage for results rather than writing to disk, lazy and optimized execution of tasks, and special focus on Machine Learning and SQL-like language, to mention some of the main features.
 
     The use of a distributed processing framework is not strictly necessary in this case, as the community to be analyzed is not that big, but is a good starting point to check the use of SystemML and Spark to make later analysis on a bigger network.
 
-  \subsubsection{Apache SystemML}
+  \subsection{Apache SystemML}
 
     Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning framework that works in different modes, on both distributed frameworks, Spark or Hadoop, or stand alone mode, written in Java.
 
@@ -145,10 +142,10 @@
     System ML can be executed in a variety of distributed and non distributed modes, with it's standalone mode, and the integration with Hadoop, and Spark via SystemML context, which allows the interaction through Scala, Python and R.
 
 
-  \subsection{The Stackexchange data}
+  \section{The Stackexchange data}
   \label{subsec:data_structure}
 
-    % \subsubsection{Stack Exchange}
+    % \subsection{Stack Exchange}
 
     Stack Exchange is a network of Q\&A websites created in 2009 after the great success of \emph{Stack Overflow} in 2008, a Q\&A community website for computer programming.
 
@@ -160,7 +157,7 @@
 
     This compressed file has data from different communities for a certain period of time. In this case, the analysis is done over the Scifi community, which is a median size community for science-fiction Q\&A.
 
-    \subsubsection{Scifi community}
+    \subsection{Scifi community}
 
     Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster. The data is divided in 8 files, and has the same structure for every community:
 
@@ -187,7 +184,7 @@
 
     Further details about the relational database structure is explained below, the objective is to show the variables obtained from the dataset so that the later variable selection is understood.
 
-    \subsubsection{Votes.xml}
+    \subsection{Votes.xml}
 
       This file contains information about votes of the users to each question. The file has the following structure:
 
@@ -207,7 +204,7 @@
 
 \newpage
 
-    \subsubsection{Tags.xml}
+    \subsection{Tags.xml}
 
       This file contains all tags and the posts that contains them. The file has the following structure:
 
@@ -229,7 +226,7 @@
         \label{tab:tags}
       \end{table}
 
-    \subsubsection{Users.xml}
+    \subsection{Users.xml}
 
       This file contains information about users. The file has the following structure:
 
@@ -259,7 +256,7 @@
 
 \newpage
 
-    \subsubsection{PostLinks.xml}
+    \subsection{PostLinks.xml}
 
       This file contains information about relation between posts. The file has the following structure:
 
@@ -280,7 +277,7 @@
         \label{tab:postlinks}
       \end{table}
 
-    \subsubsection{Badges.xml}
+    \subsection{Badges.xml}
 
       This file contains information about the badges the user has obtained.
 
@@ -305,7 +302,7 @@
 
 \newpage
 
-    \subsubsection{Posts.xml}
+    \subsection{Posts.xml}
 
       This file contains all questions posted along with the accepted answers and other info related to the time and user who posted the question. The file has the following structure:
 
@@ -341,7 +338,7 @@
 
 \newpage
 
-    \subsubsection{PostHistory.xml}
+    \subsection{PostHistory.xml}
 
       This file contains information about the interactions with each post. The file has the following structure:
 
@@ -365,7 +362,7 @@
         \label{tab:posthistory}
       \end{table}
 
-    \subsubsection{Comments.xml}
+    \subsection{Comments.xml}
 
       This file contains the comments posted for every question created. The file has the following structure:
 
@@ -390,7 +387,7 @@
 
 \newpage
 
-  \subsection{Main Objectives}
+  \section{Main Objectives}
 
     The main objective of this study is to test the scalability and integration of the proposed technologies, Spark, SystemML and Jupyter Notebook in the usecase of Stack Exchange communities, so further data analysis can be performed. This main goal is divided in three major objectives:
 
@@ -406,12 +403,12 @@
 
 \newpage
 
-\section{Technologies}
+\chapter{Technologies}
   \label{sec:technologies}
 
   The downloaded data from Stackexchange for the analysis weights about 40 GB, which is enough amount to consider distributed processing. Going down to the distributed processing frameworks, Apache Spark was chosen.
 
-  \subsection{Apache Spark}
+  \section{Apache Spark}
 
     Apache Spark is a fast and general-purpose cluster computing framework, widely used for data processing. It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs. It also supports a rich set of higher-level tools including Spark SQL, a SQL-like language prepared for both SQL and NoSQL databases, MLlib and SparkML for machine learning and pipelines, GraphX for graph processing, and Spark Streaming.
 
@@ -437,7 +434,7 @@
       \item Spark Streaming library allows users to process streaming data using microbatches
     \end{itemize}
 
-    \subsubsection{Apache Spark Structure}
+    \subsection{Apache Spark Structure}
 
       Spark has a master-slave architecture and supports various resource managers: standalone, Mesos and YARN. The resource manager will only be in charge of identify the resources. Independently of the resource manager chosen, the Apache Spark architecture doesn't change.
 
@@ -466,9 +463,9 @@
 
       These libraries can be imported independently and combined to be used at the same time, for example, Spark SQL can be used in a Streaming environment with Spark Streaming library and this way SQL queries can be launched in
 
-    \subsubsection{Apache Spark Data Structure}
+    \subsection{Apache Spark Data Structure}
 
-      \subsubsection*{RDDs}
+      \subsubsection{RDDs}
 
         Apache Spark started with just one data structure, the RDDs. The RDD responds to Resilient Distributed Dataset, and have the following properties:
 
@@ -480,11 +477,11 @@
           \item Statically typed: the values in the RDD are typed
         \end{itemize}
 
-      \subsubsection*{Dataframes}
+      \subsubsection{Dataframes}
 
         Dataframes are distributed collections structured in named columns, the idea is similar to the R dataframes. Dataframes are part of the Spark SQL API and are built up from RDDs, it is a higher level of data structure, which means that can take advantage of Catalyst to optimize the queries.
 
-      \subsubsection*{Datasets}
+      \subsubsection{Datasets}
 
         Datasets are similar to dataframes, but also taking the static typing of the RDDs, combining the best of the two data structures.
 
@@ -497,11 +494,11 @@
         \label{img:RDD_dataframes_datasets_diagram}
       \end{figure}
 
-      \subsubsection*{Graphframes}
+      \subsubsection{Graphframes}
 
         Graphframes are structures used for graph storage and operations. Graphframes are composed by two dataframes, the first one contains all the vertices and the second one contains all the edges. This is useful as dataframes can be optimized by Catalyst. GraphFrames are not part of the Apache Spark core API, as there is still development to do.
 
-      \subsubsection*{Discretized Streams}
+      \subsubsection{Discretized Streams}
         Discretized Streams, or DStreams, are the basic data structure that Spark Streaming module uses for processing. This DStreams are essentially RDDs in time periods, and represent the data available on each time window. As Spark Streaming works with microbatches, small (or not so small) time intervals of data processing. For a time period, a DStream is basically an RDD, on which operations can be performed giving as a result another temporary RDD or DStream.
 
       \begin{figure}[!ht]
@@ -511,7 +508,7 @@
         \label{img:DStream_squema}
       \end{figure}
 
-      \subsubsection*{Catalyst and Tungsten}
+      \subsubsection{Catalyst and Tungsten}
 
         As mentioned before, Spark has some specific tools to optimize the workflow when using dataframes and datasets, these optimizers focus both on I/O, writing and reading data, with Catalyst, and on the execution engine itself.
 
@@ -533,14 +530,14 @@
         \end{itemize}
 
 
-      \subsubsection{Spark Main APIs}
+      \subsection{Spark Main APIs}
 
-        \subsubsection*{Spark Core API}
+        \subsubsection{Spark Core API}
 
           The core API represents the basic structure of Spark, it can be addressed from any of the supported languages, scala, python, R and java. This API has the main functionality of Spark, which includes a set of operations, that includes Map-Reduce, but is not limited to them, as Hadoop is.
           Regarding the data management, This API contains the RDDs, explained above and the basic operations.[][][]
 
-        \subsubsection*{Spark SQL + DataFrames}
+        \subsubsection{Spark SQL + DataFrames}
 
           The SQL layer over data is known as Spark SQL. It allows users to use a SQL-like language in Spark programs, to query both structured and not structured databases (SQL \& NoSQL), such as Postgres or MongoDB.
 
@@ -548,11 +545,11 @@
 
           A Dataframe is a data structure introduced in the R programming language that has extended to the Data Science world as one of the most easy to use data structures. Dataframes in Spark are the same concept that in a non-distributed processing framework, but the implementation, as it is for a distributed environment is different, it is built from RDDs with a specific structure.
 
-        \subsubsection*{Spark MLlib + Spark ML}
+        \subsubsection{Spark MLlib + Spark ML}
 
           Spark has two main Machine Learning libraries, the first one, Spark MLlib, which is the basic library, that includes the main algorithms and is addressed with RDDs, the second one, Spark ML, which uses Spark MLlib but through DataFrames, and includes further functionality, such as Pipelines, a set of operations performed over data, that allows the user to build sequences of actions over Data Frames.
 
-        \subsubsection{Spark Streaming}
+        \subsection{Spark Streaming}
 
           Spark Streaming is the real-time, streaming processing library of Spark. Unlike other streaming processing frameworks such as Apache Flink, Spark Streaming works with microbatches, remaining almost the same structure as Spark itself. The reason is to have the workers processing in time periods, this way the fault tolerance is more robust, as for each microbatch all the operations will be parallelized, and in case any worker falls down, the others complete the work. This way the latency is sacrificed in favor of robustness of fault tolerance.
 
@@ -570,23 +567,23 @@
           \end{figure}
 
 
-        \subsubsection*{Spark GraphX}
+        \subsubsection{Spark GraphX}
 
           GraphX is Spark's graph library, which extends Spark's core API with special functionality for graphs. As commented before, Spark GraphX uses a different data structure, \emph{Graph}, a structure that provides functionality to introduce both vertices and edges for the graph. As all other libraries, the GraphX functionality can be mixed with all the rest of the framework, giving this library high flexibility.
 
           Unlike other Spark main libraries, GraphX does not provide access with other language than Scala, it can not be addressed with R nor Python, but it provides an increasing amount of distributed algorithms for graph analysis.
 
-      \subsubsection{Spark workflow}
+      \subsection{Spark workflow}
 
         There are three main phases on the execution of a program in Spark: definition of a DAG from the user's code, translation of the DAG to an execution physical plan, and scheduling and executing the plan in the cluster.
 
-        \subsubsection*{Definition of a DAG}
+        \subsubsection{Definition of a DAG}
 
           The program defined by the user is a result of a series of operations (transformations and actions) done to a series of RDDs, the first RDD may be the ingest of the data, and the last one, the result the user wants to calculate. This series of operations over RDDs form a graph, an ordered sequence that leads to the final result, therefore the graph is directed, from the first RDD and operation to the last one, and is acyclic, it has a beginning and an end. This DAG is the logical representation of the execution of operations over RDDs and their partitions.
 
           On a lower level, the RDDs are the ones that contain the logical plan under the DAG, each RDD has one or more pointers to one or more parents, along with metadata about the relationship they maintain. These pointers allow an RDD to be obtained through it's ancestors, for example to be recalculated in case of a node failure.
 
-        \subsubsection*{Creation of physical plan}
+        \subsubsection{Creation of physical plan}
 
           When executing, the DAG is translated to a physical plan which merges multiple operations into tasks. This execution is called whenever an action is called, this execution takes the DAG, looks to the latest RDD and goes backwards to the first ancestor to construct the operations needed. The output of this process is a \emph{job}, composed by a number of \emph{stages}, whose number depend on the operations performed over the RDDs, and \emph{tasks} in every stage.
 
@@ -609,11 +606,11 @@
             \caption{Example of an optimized physical plan from a DAG, using Spark SQL, from \cite{optimized_dag_to_physical}}
           \end{figure}
 
-        \subsubsection*{Scheduling and executing the physical plan on the cluster}
+        \subsubsection{Scheduling and executing the physical plan on the cluster}
 
           Finally, the stages are executed in order, launching the tasks over the available nodes to compute the resulting RDD. As the execution runs in-memory, whenever a task fails, the entire sequence of operations of the stage has to be computed for the particular lost partition, but not all the tasks for all partitions. For this reason it is common to \emph{cache} the RDDs after a series of operations, avoiding this way to recalculate all the previous steps.
 
-      \subsubsection{Spark UI}
+      \subsection{Spark UI}
 
         As seen in the sections above, there is a lot of information of the running process of a Spark application. To help the users monitor the application, configuration and the status of the cluster, Spark has a web user interface, in which all the information, the DAG, the physical plans, the storage with the cached data, the environment variables, the executors available and the SQL options.
 
@@ -626,7 +623,7 @@
 
 \newpage
 
-  \subsection{Apache SystemML}
+  \section{Apache SystemML}
 
     Developed by IBM, SystemML started in 2007 as multiple projects involving machine learning with Hadoop, which in 2009 resulted in a single team dedicated to scalable machine learning research. Through 2009 and 2010, the team observed how clients developed machine learning algorithms, the workflow was (and still is) the following:
 
@@ -645,7 +642,7 @@
       \label{img:systemml_workflow}
     \end{figure}
 
-    \subsubsection{SystemML Architecture}
+    \subsection{SystemML Architecture}
 
       Apache SystemML's architecture involves optimizers that converts code from the high level programming languages to specific code for Spark or Hadoop, for using a distributed infrastructure, or optimized single-node code, when the resources of one machine are enough for the process. All of this is done through three different stages, each one composed by different steps:
 
@@ -656,7 +653,7 @@
         \label{img:systemml_architecture}
       \end{figure}
 
-      \subsubsection*{Language level}
+      \subsubsection{Language level}
 
         The first part is the \emph{language processor}, this piece is in charge of interpret the code written on R and Python and optimize the execution, converting complex and resource consuming operations to more optimized code. This piece is divided in three steps:
 
@@ -666,7 +663,7 @@
 
         The last step of the language level is to verify the correctness of the code obtained, checking dimensions of variables, necessary variables and parameters for operations among other things. This process is done over the whole program and validates expressions and code blocks, but also simulates the code execution in order to evaluate the resources necessary, analyzing the conditionals and loops, given that the optimizer already knows the size of the variables, as it has been checked on the first step.
 
-      \subsubsection*{Hight-level Operators (HOPs)}
+      \subsubsection{Hight-level Operators (HOPs)}
 
         This phase of the optimization consists on structuring the operations in order to be able to rewrite the code in a more optimized way, for example changing the order of operations when it implies less resource consumption. To do so, from each basic block of statements, a high-level operators DAG is created, where the nodes represent operations and their outputs, and edges represent data dependencies between operations.
 
@@ -676,19 +673,19 @@
 
         The fourth step of this phase is to apply dynamic HOP DAG rewrites, this rewrites comprise simplifications done over the operations when the size is enough and cost-based rewrites, for example, the order of operations in matrix algebra, or the transposition of some matrixes over others depending on the size of them.
 
-      \subsubsection*{Low-level Operators (LOPs)}
+      \subsubsection{Low-level Operators (LOPs)}
 
         The last part of the optimizer focuses on low-level operations, generating again DAGs, representing operations in the nodes and data dependencies on the edges. These operations are optimized at a physical level, taking into account the specific backend and resources available in which the program will run, focusing specially on MR, instructions run in a Map-Reduce paradigm and CP (Control Program), operations executed in-memory.
 
         At the end of this phase, the main program is compiled and executables are generated for the specific backend used, wether it is in a distributed or a single node execution.
 
-      \subsubsection*{Runtime-Level}
+      \subsubsection{Runtime-Level}
 
         Apart from the work done by the optimizer in the stages previous to the execution of the code, it will also be available during the execution of the program. This way, the optimizer can analyze the real time execution and re-compile parts of the code. This is specially important when the execution is in a distributed environment and the optimizer have not had access to the data sizes, which will be available during runtime, giving the opportunity to make live changes and re-compilations of the code.
 
       The use of the optimizer does add an overhead to the execution of the program, typically around $200ms$ per script on the language-level, about $10ms$ per DAG on the HOP-level and $<1ms$ on the recompilation, including LOP-level.
 
-    \subsubsection{SystemML Algorithms}
+    \subsection{SystemML Algorithms}
 
       Apart from its general purpose big data analysis capabilities, SystemML has a quite estense algorithm catalog, algorithms that are implemented over the optimizers and thus distributable whenever it is more efficient. Among the catalog SystemML provides, there is an interesting section, specially for this study, the Survival Analysis algorithms, this catalog includes a non-parametric model, the \emph{Kaplan-Meier Estimates model}, and one of the most famous semi-parametric model, the \emph{Cox Proportional Hazards model}. As it'll be explained later, the non-parametric algorithms are useful for exploratory analysis over the data, to have a first approach to the problem, while semi-parametric, and parametric, algorithms are used for further research over the data, giving much more information on the effect of the variables over the survival time.
 
@@ -696,7 +693,7 @@
 
       Apache Spark's MlLib also has survival analysis algorithm, in particular, the \emph{Survival Regression with Accelerated Failure Time (AFT)} algorithm, a parametric algorithm easier to parallelize than the Cox Proportional Hazards model. This implementation of the AFT is similar to the one implemented on R, but in a distributed way, and uses a \emph{Weibull} distribution function as the hazard function shape. This is one of the main reasons SystemML was chosen for this study, as, unlike Spark, it has a non-parametric algorithm for exploratory analysis of the problem and a flexible semi-parametric algorithm, which is ideal for this study, as the shape of the hazard function is unknown.
 
-  \subsection{Reproducible research with Python, Scala and Jupyter}
+  \section{Reproducible research with Python, Scala and Jupyter}
 
     Regarding the selection of the development environment, it was important to use a standardized one so that the analysis could be reproduced by anyone. Jupyter notebook is one of the most commonly used, specially in the education and investigation institutions. It is easy to use and configure, and flexible, as different kernels (code interpreters) can be configured, even for the same language with different set of libraries. It can be easily integrated with Big Data technologies, such as databases or Spark itself, and it does not have appreciable effect over the performance of the execution of code.
 
@@ -720,7 +717,7 @@
 
     To configure the same environment as the one used in this study, some steps have to be followed:
 
-    \subsubsection{Environment setup}
+    \subsection{Environment setup}
 
       The versions of the software used for this study are listed below:
 
@@ -774,27 +771,27 @@
     For the python kernel, the SystemML library has to be installed, instructions for the installation can be found in the Apache SystemML's get started documentation: https://systemml.apache.org/install-systemml.html
 
 
-\section{Infrastructure and resources}
+\chapter{Infrastructure and resources}
   \label{sec:infrastructure_and_resources}
 
   As commented before, selecting an environment to be used is the first step, and it is a essential part.
 
-  \subsection{Architecture scheme}
+  \section{Architecture scheme}
 
     The whole study has been executed in a standalone model, with a MacBookPro Retina 2015. The data was stored in a single local file, as the size of it was not big enough to justify the use on an HDFS or similar technology for storage.
 
-  \subsection{Configuration}
+  \section{Configuration}
 
 
 
-  \subsection{Workflow}
+  \section{Workflow}
 
     The first step is to clean the data and make the feature selection. One the data is clean, it is used as the input for the models training, both Kaplan-Meier Estimator model and Cox Proportional Hazards Model.
 
 
 
 
-  \subsubsection{Data cleaning}
+  \subsection{Data cleaning}
 
     The data used for the analysis is from the ScyFy community, but, as commented before, the structure is the same for all the Stack Exchange's communities. The data comes in the separated files described on section \ref{subsec:data_structure}. The data comes reasonably clean, just type casting and invalid entries have adapted to the right format. On the other hand, as there are different files, all of them have been imported to create and combine dataframes, joining them to finally obtain the desired format.
 
@@ -825,10 +822,10 @@
       \item \emph{reputation} reputation of the user that posted the question
     \end{itemize}
 
-\section{Results}
+\chapter{Results}
   \label{sec:results}
 
-  \subsection{Survival Analysis}
+  \section{Survival Analysis}
 
     Survival analysis is a set of different techniques and algorithms used to estimate the time passed until the occurrence of an event. All of these methods are based on the conditional probability of an event occurring in a certain period of time, usually called \emph{Hazard Rate}. This basic idea can be applied to numerous environments, such as time of failure of a component in the industry, time of occurrence of an event in economics, and others, but the main field of application of these methodologies is the medical, where the time until some event is usually the main point of interest.
 
@@ -848,11 +845,11 @@
 
     On the other hand, Cox Proportional-hazards regression is a more complex model, introduced in 1972 by Sir David Cox, in the paper \emph{Regression Models and Life Tables}, which is nowadays one of the 100 most important papers in all of science, as it introduces key innovations in the field.
 
-  \subsection{Used data}
+  \section{Used data}
 
     The data used for the analysis has already been presented on section \ref{subsec:data_structure}, so the point of view of this section is to present the input data format necessary for the \emph{Survival Analysis} methods and how has the study's data transformed for it.
 
-    \subsubsection{Data censoring and truncation}
+    \subsection{Data censoring and truncation}
       \label{subsubsec:censoring}
 
       Data censoring refers to a situation where some data of the instance is known but some event times are not known, for example when the event occurs after the end of the observation period. Data truncation refers to the lack of information of some variables outside of the time period considered in the study.
@@ -867,21 +864,21 @@
 
       Truncation is when there is a period of time when there is no information, inside the observation period. There are also three different types of truncations, right and left truncation, and interval truncation, being the most usual left or interval truncation, and the rarest right truncation.
 
-    \subsubsection{Data structure}
+    \subsection{Data structure}
 
       As commented before, there is a specific format for the data input in the survival analysis models, this format is briefly explained below.
 
       There are three main structures of data input: single-episode or subject-based, multi-episode based and person or subject-period files, also called discrete-time data files.
 
-      \subsubsection*{Single-episode data}
+      \subsubsection{Single-episode data}
 
         In single-episode structured files, each row corresponds to a different subject, and the columns represent the variables and the events occurred. It implies that if a subject experiments more than one event, it is registered on the same row, as there ir no information of the instance on any other row.
 
-      \subsubsection*{Multi-episode data}
+      \subsubsection{Multi-episode data}
 
         Multi-episode file represents a subjects that experiment the event more than one time, and the data from each subject is separated in different rows for each event, where the first event is in the first row of the instance and the subsequent events, in case there are, are represented on the consecutive rows, having each subject as much rows as events the subject experiences.
 
-  \subsection{Kaplan-Meier Estimator model}
+  \section{Kaplan-Meier Estimator model}
 
     Most survival analysis studies start with a non-parametric method as they are simple and fast, and provide with an intuitive graphical form of understanding the data. The two main non-parametric methods, as mentioned before are the Life Tables and the Kaplan-Meier Estimator model. The first is more adequated for large datasets and when the time is not measured with precision. On the other hand, the KM Estimates method is great for when the time is precisely measured, and is widely used, more than the life tables.
 
@@ -950,7 +947,7 @@
     The other side of the simplicity of the model is that it only provides probability estimations on the whole group, it does not take account of other explanatory variables. This limitation constraints the analysis to homogeneous groups, where the other explanatory variables are homogeneous along all the sample. To mitigate this limitation when the sample is not homogeneous on the other explanatory variables, it can be separated in more homogeneous groups and apply the method to each group, being able to compare the results of every subsample.
 
 
-  \subsection{Cox Proportional Hazards Model}
+  \section{Cox Proportional Hazards Model}
 
     Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced two key features, in first place, the proportional hazards model, in second place the method of partial likelihood estimation.
 
@@ -959,7 +956,7 @@
 
     The Cox Proportional Hazards model can be used both for time-fixed or time-varying covariates.
 
-    \subsubsection{Cox Proportional Hazards Model for time-fixed covariates}
+    \subsection{Cox Proportional Hazards Model for time-fixed covariates}
 
       Time-fixed covariates are the ones that remain constant on the whole study, and are characteristics of the subjects, for example the gender or the place of birth. The expression of the hazard function for each individual ($i$) at time ($t$) in the basic time-fixed for covariates model is the following:
 
@@ -979,7 +976,7 @@
 
       this
 
-    \subsubsection{Cox Proportional Hazards Model for time-varying covariates}
+    \subsection{Cox Proportional Hazards Model for time-varying covariates}
 
 
 
@@ -996,7 +993,7 @@
 
 
 
-  \subsubsection{SystemML input \& output format}
+  \subsection{SystemML input \& output format}
 
     As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to be provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. These files are specified on each algorithm's description, as the project is open source, the algorithm implementation can be seen on the project's Github page \cite{systemml_github_page}.
 
@@ -1020,7 +1017,7 @@
 
 \newpage
 
-    \subsubsection*{Kaplan Meier Estimates}
+    \subsubsection{Kaplan Meier Estimates}
 
       According to the oficial documentation, the files and parameters needed to execute the KM Estimates algorithm are the following:
 
@@ -1151,7 +1148,7 @@
 
 \newpage
 
-    \subsubsection*{Cox Proportional Hazards Model}
+    \subsubsection{Cox Proportional Hazards Model}
 
       The Cox Proportional Hazards model is, as seen above, quite different from the KM estimates, and needs the following files and parameters:
 
@@ -1230,7 +1227,7 @@
 
 \newpage
 
-  \subsection{Algorithm invocation}
+  \section{Algorithm invocation}
 
     The algorithm scripts have a sample invocation of them to be executed in a Hadoop environment, the execution over Spark is similar:
 
@@ -1281,12 +1278,12 @@
     The execution can also be done in the Jupyter Notebook, as the algorithm's script is open source, just copying the code into a cell and calling the function with the desired parameters.
 
 
-\section{Conclusions}
+\chapter{Conclusions}
   \label{sec:conclusions}
 
-  \subsection{Most important results}
+  \section{Most important results}
 
-  \subsection{Lessons learnt}
+  \section{Lessons learnt}
 
 \newpage
 
