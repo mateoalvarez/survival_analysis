@@ -957,6 +957,9 @@
 
     The other side of the simplicity of the model is that it only provides probability estimations on the whole group, it does not take account of other explanatory variables. This limitation constraints the analysis to homogeneous groups, where the other explanatory variables are homogeneous along all the sample. To mitigate this limitation when the sample is not homogeneous on the other explanatory variables, it can be separated in more homogeneous groups and apply the method to each group, being able to compare the results of every subsample.
 
+    \subsection{Kaplan-Meier visualization}
+
+
 
   \section{Cox Proportional Hazards Model}
 
@@ -1041,7 +1044,28 @@
 
       The likelihood function of the Cox Model is also called partial likelihood, this is because it only accounts for the probability of the uncensored subjects. This way, it is composed by the productory of several likelihoods at different failure times.
 
-      Given $L\equiv L(\beta_1,...,\beta_p)$, a partial likelihood function, for the
+      Given $L\equiv L(\beta_1,...,\beta_p)$, the partial likelihood function, supposing there are $k$ ceasing time intervals, and there are no draws, there will be $n - k$ censored times. The ordered censoring timestamps will be $t_{(1)}, \cdots,t_{(k)}$, the group of subjects
+
+      The likelihood function for the total mode has this expression:
+
+      \begin{equation}
+        L = \prod_{i=1}^kL_i
+        \label{eq:cox-partial-likelihood-prod}
+      \end{equation}
+
+      the objective is to maximize this function, or in this case the log of this function, that is to say that:
+
+      \begin{equation}
+        \begin{aligned}
+          \frac{\partial log(L)}{\partial\beta_i} & = 0, \ \forall \ \beta_i \in \{\beta_1,\cdots,\beta_p\} \\
+          \frac{\partial^2 \log(L)}{\partial\beta_i\partial\beta_j} & < 0,  \ \forall \ \beta_i,\beta_j \in \{\beta_1,\cdots,\beta_p\}
+        \end{aligned}
+        \label{eq:cox-max-likelihood-conditions}
+      \end{equation}
+
+      From the first of the equations, an estimation of the parameters of the model can be obtained, $\bar{\hat{\beta}} = \{\hat{\beta_1},\cdots,\hat{\beta_p}\}$. The second expression is to ensure the parameters meet a maximum of the function...
+
+      The estimator obtained by the method of maximum partial likelihood is asymptotically unbiased, efficient and normal
 
     \subsection{Main advantages of Cox Model}
 
