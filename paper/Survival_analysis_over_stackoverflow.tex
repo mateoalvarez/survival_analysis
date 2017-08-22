@@ -42,9 +42,20 @@
 \renewcommand{\lstlistingname}{Code}
 \usepackage{color}
 
+%%% FORMULAS
+\usepackage{mathtools}
+
 \usepackage{hhline}
 \usepackage{makecell}
 \renewcommand\theadfont{\normalfont\bfseries}
+
+\usepackage{cancel}
+\usepackage{calc}
+\newsavebox\CBox
+\newcommand\hcancel[2][0.5pt]{%
+  \ifmmode\sbox\CBox{$#2$}\else\sbox\CBox{#2}\fi%
+  \makebox[0pt][l]{\usebox\CBox}%
+  \rule[0.5\ht\CBox-#1/2]{\wd\CBox}{#1}}
 
 %New colors defined below
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -949,12 +960,9 @@
 
   \section{Cox Proportional Hazards Model}
 
-    Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced two key features, in first place, the proportional hazards model, in second place the method of partial likelihood estimation.
+    Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced two key features, in first place, the proportional hazards model, and in second place the method of partial likelihood estimation.
 
-    The
-
-
-    The Cox Proportional Hazards model can be used both for time-fixed or time-varying covariates.
+    The Cox Proportional Hazards model can be used both for time-fixed or time-varying covariates, on the first one the model is also called Proportional Hazards Model, while the second one is often called Extended Cox Model.
 
     \subsection{Cox Proportional Hazards Model for time-fixed covariates}
 
@@ -965,23 +973,77 @@
         \label{eq:cox-fixed-time-hazards}
       \end{equation}
 
-      where the $x_{ik}$ represent the values of each covariate ($k$) for each individual of the sample, $h_0$ is the \emph{baseline hazard function}, which represents the hazard that does not depend on the individual, common for everyone. The intercept of the function is contained on this baseline hazard function.
+      where the $x_{ik}$ represent the values of each covariate ($k$) for each individual of the sample, $h_0$ is the \emph{baseline hazard function}, which represents the hazard that has a subject which covariates are all $0$, being this subject the reference subject of the study. This function is arbitrary and not specified, and is the reason why the model is semi-parametric, as it can take any form, which is one of the interesting features of the model, providing flexibility. The intercept of the function is contained on this baseline hazard function, which can be estimated.
 
-      The equation can be written in terms of \emph{log hazard ratio}:
+      The equation can be written in terms of \emph{log hazard ratio}, leading to a function that does not depend on the time $(t)$, as the covariates of the model are all constant, considering them time-fixed.
 
       \begin{equation}
         \log\left(\frac{h_i(t)}{h_0(t)}\right) = \beta_1x_{i1} + \cdots + \beta_kx_{ik}
         \label{eq:cox-fixed-time-log-hazards-rate}
       \end{equation}
 
-      this
+      comparing the hazard functions for two individuals, obtaining the hazard ratio:
 
-    \subsection{Cox Proportional Hazards Model for time-varying covariates}
+      \begin{equation}
+        \frac{h_i(t)}{h_j(t)} = \frac{\hcancel{h_0(t)}}{\hcancel{h_0(t)}}\times\exp(\beta_1(x_{i1} - x_{j1}) + \cdots + \beta_k(x_{ki} - x_{kj})) = \exp(\beta_1(x_{i1} - x_{j1}) + \cdots + \beta_k(x_{ki} - x_{kj}))
+        \label{eq:cox-fixed-time-hazard-ratio}
+      \end{equation}
+
+      the previous equation (\ref{eq:cox-fixed-time-hazard-ratio}) shows that the hazard ratio between two subjects does not depend on the baseline hazard function. Using a logarithmic scale for the hazard ratio, it can be seen that it is proportional to the covariates and the parameters of the model:
+
+      \begin{equation}
+        \log(\frac{h_i(t)}{h_j(t)}) = \beta_1(x_{i1} - x_{j1}) + \cdots + \beta_k(x_{ik} - x_{jk}) =
+        \bar{\beta}\cdot(\bar{x_i}-\bar{x_j})
+      \end{equation}
+
+      This result leads to the assumption of proportional hazards, as the hazard ratio only depends on the betas and values of the covariates, which do not depend on time, following the first assumption. This proportional hazards mean that two individuals that have different values of the covariates, will always have proportional hazard one from the other.
+
+      This assumption has to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function has to be constant over time. To check the behavior of the covariates there are several methods:
+
+
+
+
+      One example where the assumption of proportional hazards is not reached may be the survival of cancer patients treated with chemotherapy alone or subject to surgical intervention along with the chemotherapy. The covariate representing the treatment could be a dichotomic variable, with $0$ meaning chemotherapy alone and $1$ representing surgery along with chemotherapy.
+
+      Although the variable itself will not change over the time, the treatment will be constant, the effect on the hazard can be a function of time, for example, during the surgical intervention, the survival of the patient is endangered by posible surgical problems, then, if it has been successful, the hazard will decrease as the elimination of the tumor improves the survival.
+
+      One posible solution for this case can be separating the patients by the treatment received into independent groups and compare the hazard function for each group, to understand the advantages of one treatment over another.
+
+      Other solutions can be starting the analysis after the surgery so that the effect of the treatment variable is constant over time, or use Cox's Extended Model to account for the interaction of the surgical groups and time.
 
 
 
 
 
+    \subsection{Extended Cox Model for time-varying covariates}
+
+      The Cox model can also be applied to time-varying series, the formulation of it is the same as the time-invariant but with the time dependence. The time-dependent variables can be continuous or discrete.
+
+      Given $\bar{x_i}(t) = x_{1i},\cdots,x_{ki}$, and time intervals $t_1,\cdots,t_k$, the Cox formulation for time dependent variables has the following form:
+
+      \begin{equation}
+        h_i(t) = h_0(t)\exp(\beta_1x_{1i}(t)+\cdots+\beta_kx_{ki}(t))
+        \label{eq:cox-time-varying-hazard}
+      \end{equation}
+
+      where some variables can be time-independent, with fixed value over time. This equation can also be expressed in log hazard ratio form:
+
+      \begin{equation}
+        \log \left[ \frac{(h_i(t))}{h_0(t)} \right] = \beta_1x_{1i}(t) + \cdots + \beta_kx_{ki}(t)
+        \label{eq:cox-time-varying-hazard-ratio}
+      \end{equation}
+
+      the the condition of proportional hazards may not be fulfilled now, as, unlike time-fixed covariates, the hazard ratio is function of time, in general, and so, it's value can vary over time.
+
+    \subsection{Partial Likelihood}
+
+      Cox Model's parameters $(\beta_i)$ are to be estimated. To do so, a likelihood function is defined to fit the model and estimate its parameters, and this likelihood function estimation is done with the Maximum Likelihood Estimation method.
+
+      The likelihood function of the Cox Model is also called partial likelihood, this is because it only accounts for the probability of the uncensored subjects. This way, it is composed by the productory of several likelihoods at different failure times.
+
+      Given $L\equiv L(\beta_1,...,\beta_p)$, a partial likelihood function, for the
+
+    \subsection{Main advantages of Cox Model}
 
 
 
