@@ -957,7 +957,29 @@
 
     The other side of the simplicity of the model is that it only provides probability estimations on the whole group, it does not take account of other explanatory variables. This limitation constraints the analysis to homogeneous groups, where the other explanatory variables are homogeneous along all the sample. To mitigate this limitation when the sample is not homogeneous on the other explanatory variables, it can be separated in more homogeneous groups and apply the method to each group, being able to compare the results of every subsample.
 
-    \subsection{Kaplan-Meier visualization}
+    \subsection{Kaplan-Meier survival curve}
+
+      The Kaplan-Meier Estimates method has
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=\textwidth]{Kaplan-meier-graph.png}
+        \caption{Example of Kaplan-Meier graph for two different groups}
+        \label{img:km-graph}
+      \end{figure}
 
 
 
@@ -1044,7 +1066,7 @@
 
       The likelihood function of the Cox Model is also called partial likelihood, this is because it only accounts for the probability of the uncensored subjects. This way, it is composed by the productory of several likelihoods at different failure times.
 
-      Given $L\equiv L(\beta_1,...,\beta_p)$, the partial likelihood function, supposing there are $k$ ceasing time intervals, and there are no draws, there will be $n - k$ censored times. The ordered censoring timestamps will be $t_{(1)}, \cdots,t_{(k)}$, the group of subjects
+      Given $L\equiv L(\beta_1,...,\beta_p)$, the partial likelihood function, supposing there are $k$ ceasing time intervals, and there are no draws, there will be $n - k$ censored times. The ordered censoring timestamps will be $t_1, \cdots,t_k$, the group of subjects at risk at each time interval will be noted by $R(t_i)$, for $i=1,\cdots,k$. The partial likelihood for each time interval wil be $L_i\equiv L_i(\beta_1,\cdots,\beta_p)$ for $i=1,\cdots,k$
 
       The likelihood function for the total mode has this expression:
 
@@ -1063,9 +1085,56 @@
         \label{eq:cox-max-likelihood-conditions}
       \end{equation}
 
-      From the first of the equations, an estimation of the parameters of the model can be obtained, $\bar{\hat{\beta}} = \{\hat{\beta_1},\cdots,\hat{\beta_p}\}$. The second expression is to ensure the parameters meet a maximum of the function...
+      From the first of the equations, an estimation of the parameters of the model can be obtained, $\bar{\hat{\beta}} = \{\hat{\beta_1},\cdots,\hat{\beta_p}\}$. The second expression is to ensure the parameters meet a maximum of the function. This expression can also be used to obtain the variance-covariance matrix:
 
-      The estimator obtained by the method of maximum partial likelihood is asymptotically unbiased, efficient and normal
+      \begin{equation}
+        I_{ij}(\beta) = - \frac{\partial^2\log(L)}{\partial\beta_i\partial\beta_j}
+        \label{eq:cox-information matrix}
+      \end{equation}
+
+      \begin{equation}
+        \hat{\Sigma}_{[p\times p]} = I ^{-1} \bar{\hat{\beta}}
+        \label{eq:cox-variance-covariance-matrix-estimated}
+      \end{equation}
+
+      The resulting estimators of the $\beta$ parameters of the module are asymptotically unbiased, efficient and normal, with mean $(\hat{\beta_1},\cdots,\hat{\beta_p})$ and variance-covariance matrix $\hat{\Sigma}$, however the estimator is not completely efficient, as it does not reach the Cramer-Rao limit.
+
+      The partial likelihood functions on every time interval have the expression:
+
+      \begin{equation}
+        \begin{aligned}
+          L_i & = \frac{h_0(t_i)\exp\left(\sum_{j=1}^p\beta_jx_{ij}\right)}{\sum_{l\in R(t)}h_0(t_i)\exp\left(\sum_{j=1}^p\beta_jx_{lj}\right)}
+          & = \frac{\exp\left(\sum_{j=1}^p\beta_jx_{ij}\right)}{\sum_{l\in R(t)}\exp\left(\sum_{j=1}^p\beta_jx_{lj}\right)}
+        \end{aligned}
+        \label{eq:cox-partial-likelihood-expression}
+      \end{equation}
+
+      Finally, the partial likelihood function will have the following expression:
+
+      \begin{equation}
+        L = \prod_{i=1}^k L_i= \prod_{i=1}^k \frac{\exp\left(\sum_{j=1}^p\beta_jx_{ij}\right)}{\sum_{l\in R(t)}\exp\left(\sum_{j=1}^p\beta_jx_{lj}\right)}
+        \label{eq:cox-total-partial-likelihood-function}
+      \end{equation}
+
+      This total partial likelihood function does not depend on the baseline hazard function, nor the value of the times, just the ordering of them and the censored data. In case one of the initial assumptions, the inexistence of draws in decease times, this function has to be modified, for example using the \emph{Breslow Method} \cite{breslow-method}.
+
+    \subsection{Hypothesis contrasts}
+
+      The estimation of the model's parameters $\bar{\hat{\beta}}$, approximately normal with mean ${\hat{\beta_1},\cdots,\hat{\beta_p}}$, and with variance-covariance matrix $\hat{\Sigma}$, allows the use of statistical tests similar to linear models to contrast hypothesis.
+
+      Hypothesis to contrast would be the following: $H_0$: $\beta=\hat{\beta}$ versus $H_1$: $\beta\neq\hat{\beta}$. Three contrasts can be used:
+
+      \subsubsection{Wald contrast}
+
+      \subsubsection{Likelihood ratio contrast}
+
+      \subsubsection{Score contrast (Log Rank)}
+
+
+
+
+
+
 
     \subsection{Main advantages of Cox Model}
 
