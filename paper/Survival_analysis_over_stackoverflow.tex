@@ -325,11 +325,15 @@
           Feature & Data type & Description \\ \hline
           Id & Integer & Unique question identifier \\ \hline
           PostTypeId & Integer & Type of post codified as integer \\ \hline
+          AcceptedAnswerId & Integer & Id of the Answer chosen as the correct one \\ \hline
+          ParentId & Integer & \\ \hline
           CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question creation in extended format \\ \hline
+          DeletionDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question deletion in extended format \\ \hline
           Score & Integer & Question's score, calculated from the users' votes \\ \hline
           ViewCount & Integer & Count of all visualizations of the question \\ \hline
           Body & Text & The question itself, in utf8 format \\ \hline
           OwnerUserId & Integer & Id of the user who posted the question \\ \hline
+          OwnerDisplayName & String & Name of the user who posted the question \\ \hline
           LastEditorUserId & Integer & \\ \hline
           LastEditDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last edition date \\ \hline
           LastActivityDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last interaction with the question time \\ \hline
@@ -339,7 +343,7 @@
           CommentCount & Integer & Number of comments to the question posted \\ \hline
           FavoriteCount & Integer & Number of times the question has been added to favorite by another user \\ \hline
           ClosedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the question has been closed \\ \hline
-          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time \\
+          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time \\ 
 
           \hline
         \end{tabular}
@@ -1028,6 +1032,7 @@
 
       This assumption has to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function has to be constant over time. To check the behavior of the covariates there are several methods:
 
+      The
 
 
 
@@ -1125,16 +1130,56 @@
 
       The estimation of the model's parameters $\bar{\hat{\beta}}$, approximately normal with mean ${\hat{\beta_1},\cdots,\hat{\beta_p}}$, and with variance-covariance matrix $\hat{\Sigma}$, allows the use of statistical tests similar to linear models to contrast hypothesis.
 
-      Hypothesis to contrast would be the following: $H_0$: $\beta=\hat{\beta}$ versus $H_1$: $\beta\neq\hat{\beta}$. Three contrasts can be used:
+      Two hypotheses can be proposed:
+
+      The first hypothesis may be $H_0$: $\beta_j=0$ versus $H_1$: $\beta_j\neq0$ $\forall \ j \in {1,\cdots,p}$. To contrast this hypothesis, the Wald statistic can be used:
+
+      \begin{equation}
+        z=\frac{\hat{\beta_j}}{\sqrt{\hat{Var}(\hat{\beta_j})}}
+        \label{eq:cox-hyp-contrast-1-wald}
+      \end{equation}
+
+      so the $(1-\alpha)\%$ interval can be calculated as:
+
+      \begin{equation}
+        \hat{\beta_j}\pm z_{1-\alpha/2}\sqrt{\hat{Var}(\hat{\beta_j})}
+        \label{eq:cox-hyp-contrast-1-wald-interval}
+      \end{equation}
+
+      The second hypothesis to contrast could be the following: $H_0$: $\beta=\hat{\beta}$ versus $H_1$: $\beta\neq\hat{\beta}$. Three contrasts can be used:
 
       \subsubsection{Wald contrast}
 
+        Assuming normal distribution for the parameters of the model, $\bar{\hat{\beta}}$, with mean $\hat{\beta_1},\cdots,\hat{\beta_p}$, and variance-covariance matrix $\hat{\Sigma} = I^{-1}\bar{\hat{\beta}}$, this statistic has the following form:
+
+        \begin{equation}
+          \chi_W = (\bar{\hat{\beta}} - \bar{\beta_0})^TI(\bar{\hat{\beta}})(\bar{\hat{\beta}} - \bar{\beta_0})
+          \label{eq:cox-wald-contrast}
+        \end{equation}
+
+        which follows a $\chi^2$ distribution with $p$ degrees of freedom.
+
       \subsubsection{Likelihood ratio contrast}
+
+        This contrast uses the value of the partial likelihood function evaluated in $hat{\beta}$ and $\beta_0$
+
+        \begin{equation}
+          \chi_{LR} = 2\left(\log[L(\bar{\hat{\beta}}) -  \log[L(\bar{\beta_0})]]\right)
+          \label{eq:cox-lr-contrast}
+        \end{equation}
+
+        which follows a $\chi^2$ distribution with $p$ degrees of freedom.
 
       \subsubsection{Score contrast (Log Rank)}
 
+        This contrast uses the gradient of the log of the partial likelihood evaluated on $H_0$, taking this form:
 
+        \begin{equation}
+          \chi_{S} = \left( \frac{\partial L(\beta_0)}{\partial \beta} \right)^T \left( \frac{\partial^2L(\bar{\beta_0})}{\partial\bar{\beta} \partial\bar{\beta}^T} \right)^{-1} \frac{\partial L(\bar{\beta_0})}{\partial\bar{\beta}}
+          \label{eq:cox-score-contrast}
+        \end{equation}
 
+        which is approximately multinormal distribution with variance-covariance matrix $I(\bar{\hat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
 
 
 
