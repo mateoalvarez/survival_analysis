@@ -194,6 +194,15 @@
       \field{title}{Introducing Survival And Event History Analysis}
       \field{year}{2011}
     \endentry
+    \entry{meta-stackexchange-data-structure}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labeltitlesource}{title}
+      \field{title}{StackExchange data schemas}
+      \verb{url}
+      \verb https://meta.stackexchange.com/questions/2677/database-schema-documentation-for-the-public-data-dump-and-sede
+      \endverb
+    \endentry
     \entry{tungsten_databricks}{article}{}
       \name{author}{2}{}{%
         {{hash=125f074bf46e8a83339101fd94d088e2}{%
