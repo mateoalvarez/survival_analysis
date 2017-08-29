@@ -170,7 +170,7 @@
 
     \subsection{Scifi community}
 
-    Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster. The data is divided in 8 files, and has the same structure for every community:
+    Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster. The data is divided in 8 files, and has the same structure for every community, the data schema can be found on the \emph{meta stackexchange} page, \cite{meta-stackexchange-data-structure}:
 
     \begin{table}[!ht]
       \centering
@@ -246,7 +246,7 @@
           \hline
 
           Feature & Data type & Description \\ \hline
-          Id & Integer & Unique user identifier \\
+          Id & Integer & Unique user identifier \\ \hline
           Reputation & Integer & Reputation level of the user \\ \hline
           CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & User creation date \\ \hline
           DisplayName & Text & Alias to display on question \\ \hline
@@ -315,35 +315,35 @@
 
     \subsection{Posts.xml}
 
-      This file contains all questions posted along with the accepted answers and other info related to the time and user who posted the question. The file has the following structure:
+      This file contains all questions posted along with the accepted answers and other info related. The file has the following structure:
 
       \begin{table}[!ht]
         \centering
-        \begin{tabular}{|c|p{0.3\textwidth}|p{0.35\textwidth}|}
+        \begin{tabular}{|c|p{0.3\textwidth}|p{0.37\textwidth}|}
           \hline
 
           Feature & Data type & Description \\ \hline
           Id & Integer & Unique question identifier \\ \hline
           PostTypeId & Integer & Type of post codified as integer \\ \hline
           AcceptedAnswerId & Integer & Id of the Answer chosen as the correct one \\ \hline
-          ParentId & Integer & \\ \hline
+          ParentId & Integer & Parent question id\\ \hline
           CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question creation in extended format \\ \hline
           DeletionDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question deletion in extended format \\ \hline
           Score & Integer & Question's score, calculated from the users' votes \\ \hline
-          ViewCount & Integer & Count of all visualizations of the question \\ \hline
+          ViewCount & Integer & Count of visualizations \\ \hline
           Body & Text & The question itself, in utf8 format \\ \hline
           OwnerUserId & Integer & Id of the user who posted the question \\ \hline
           OwnerDisplayName & String & Name of the user who posted the question \\ \hline
-          LastEditorUserId & Integer & \\ \hline
+          LastEditorUserId & Integer & last editor's id\\ \hline
           LastEditDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last edition date \\ \hline
           LastActivityDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last interaction with the question time \\ \hline
           Title & Text & Title of the question \\ \hline
           Tags & Text & Tags added to the question \\ \hline
           AnswerCount & Integer & Number of answers to the question \\ \hline
           CommentCount & Integer & Number of comments to the question posted \\ \hline
-          FavoriteCount & Integer & Number of times the question has been added to favorite by another user \\ \hline
+          FavoriteCount & Integer & Number of times the question has been added to favorite \\ \hline
           ClosedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the question has been closed \\ \hline
-          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time \\ 
+          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time \\
 
           \hline
         \end{tabular}
@@ -364,7 +364,7 @@
 
           Feature & Data type & Description \\ \hline
           Id & Integer & Unique interaction identifier \\ \hline
-          PostHistoryTypeId & Integer & Type of interaction with the post () \\ \hline
+          PostHistoryTypeId & Integer & Type of interaction with the post \\ \hline
           PostId & Integer & Unique identifier of the post this interaction is related to \\ \hline
           RevisionGUID & Text &  \\ \hline
           CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question creation in extended format \\ \hline
@@ -1179,7 +1179,7 @@
           \label{eq:cox-score-contrast}
         \end{equation}
 
-        which is approximately multinormal distribution with variance-covariance matrix $I(\bar{\hat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
+        which is approximately multi-normal distribution with variance-covariance matrix $I(\bar{\hat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
 
 
 
