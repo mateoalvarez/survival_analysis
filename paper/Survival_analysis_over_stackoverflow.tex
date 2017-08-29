@@ -803,25 +803,19 @@
 
     The first step is to clean the data and make the feature selection. One the data is clean, it is used as the input for the models training, both Kaplan-Meier Estimator model and Cox Proportional Hazards Model.
 
-
-
-
   \subsection{Data cleaning}
 
-    The data used for the analysis is from the ScyFy community, but, as commented before, the structure is the same for all the Stack Exchange's communities. The data comes in the separated files described on section \ref{subsec:data_structure}. The data comes reasonably clean, just type casting and invalid entries have adapted to the right format. On the other hand, as there are different files, all of them have been imported to create and combine dataframes, joining them to finally obtain the desired format.
+    The data used for the analysis is from the ScyFy community, but, as commented before, the structure is the same for all the Stack Exchange's communities. The data comes in the separated files described on section \ref{subsec:data_structure}. The data comes in \emph{xml} format, with \emph{self-closing} tags, which means that each instance's attributes are stored in the same row tag as properties, and not in separate subtags of each instance. This particularity is important, as for now, Spark's XML parser does not support this schema, as can be seen on the Spark's repository: \emph{https://github.com/databricks/spark-xml/pull/149}. Thus the first step is to parse the xml data with spark and writing it to a \emph{csv} format files. This is done in the notebook: \emph{Convert XML to CSV.ipynb}.
 
-    As the input format for the survival analysis methods are quite specific, there is some formatting to do joining and combining the tables from the files:
+    Once the data is in the appropriate format, it is loaded into Spark and processed to get the final values needed for the analysis. All this process is shown in the notebook: \emph{Cleaning data with PySpark.ipynb}, where the data imputation and exploratory analysis is also done. The output of this script are the necessary data files to introduce in the Survival Analysis algorithms in SystemML's desired format. The file generated will be the "fileX" input of the algorithms, and is the result of the combination of the two files \emph{Users.xml} and \emph{Posts.xml}.
+
+    Spark SQL api was used to do the processing, as it is necessary to join tables and it is easy to use UserDefinedFunctions to parse data to the appropriate format, specially time series. The result of the process is a dataframe which has still to be cleaned in order to treat the missing values.
 
     \begin{table}[!ht]
       \centering
-      \begin{tabular}{|c|c|c|c|c|c|c|}
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
         \hline
-           & dif & enventInfo & titleLength & tagCount & age & reputation \\ \hline
-          0 & 2.51964867E11 & 0   & 54  & 2 & NaN & 280.0 \\ \hline
-          1 & 2.51976827E11 & 0   & 65  & 2 & 54.0 & 2666.0 \\ \hline
-          2 & 2.51996307E11 & 0   & 44  & 2 & 54.0 & 2666.0 \\ \hline
-          3 & 2.51994685E11 & 0   & 55  & 2 & 54.0 & 2666.0 \\ \hline
-          4 & 9.728000e+03  & 1   & 87	& 2	& 54.0 & 2666.0 \\ \hline
+           & FinalTime & CensoringStatus & TagCount & TitleLength & UserReputation & UserAge & PosterReputation & PosterAge \\ \hline
       \end{tabular}
       \caption{Final table format for SystemML algorithm input, extract from the processed file}
       \label{tab:final_table_format}
@@ -829,13 +823,48 @@
 
     The table above shows the final format of data used for the algorithms, the variables are explained below:
     \begin{itemize}
-      \item \emph{dif} represents the time passed until the occurrence of an event, i.e. row $5$, or until the end of period observation, i.e. row $0$.
-      \item \emph{eventInfo} whether the event has occurred $(1)$ or not $(0)$
-      \item \emph{titleLength} question's title length
-      \item \emph{tagCount} number of tags present on each question
-      \item \emph{age} age of the user that posted the question
-      \item \emph{reputation} reputation of the user that posted the question
+      \item \emph{FinalTime} represents the time passed from the post of the question to the post of the answer or last time, when it is censored.
+      \item \emph{CensoringStatus} whether the instance is censored $0$ or not $1$
+      \item \emph{TagCount} number of tags in question
+      \item \emph{TitleLength} length of the question's title
+      \item \emph{UserReputation} reputation of the user that answered the question, in case the question is considered answered
+      \item \emph{UserAge} age of the user that answered the question, in case the question is considered answered
+      \item \emph{PosterReputation} reputation of the user that posted the question
+      \item \emph{PosterAge} age of the user that posted the question
     \end{itemize}
+
+  \subsection{Missing values treatment}
+
+    There are just three variables without missing values: CensoringStatus, TagCount and TitleLength. The other ones have been modified to be completed.
+
+    \subsubsection{FinalTime}
+
+      The final time variable is composed with the start and end time of each question. The end of the question is considered whenever an accepted answer is posted, otherwise the data is right censored, and the end time is not known. The proportion of censored instances is about (x\%), and the missing values have been imputed using the longest duration of a question, considering it the study's time interval.
+
+
+
+    \subsubsection{UserReputation}
+
+
+    \subsubsection{UserAge}
+
+    \subsubsection{PosterReputation}
+
+      The majority of data is valid in this section, about ($97.8\%$), and, as it does not follow any specific distribution, random sampled data has been used to impute the missing values.
+
+    \subsubsection{PosterAge}
+
+      The proportion of unknown values of the poster's age is about ($\%$), it does not follow any distribution either, so random sampled data has been used to impute the missing values.
+
+  \subsection{Algorithm preparation}
+
+    Apart from the data itself, the SystemML algorithms require some specific files, containing the description of the data and variables associated to the model training. It is also required to provide the \emph{.mtd} files for each input file of the algorithm. These files contain metadata that describes the file's format and matrix dimensions, in order to be used by the SystemML optimizer.
+
+  \subsection{Algorithm execution and results analysis}
+
+    The last part is to generate and analyze the results. The
+
+
 
 \chapter{Results}
   \label{sec:results}
