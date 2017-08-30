@@ -62,7 +62,7 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
+\definecolor{codegray}{gray}{0.97}
 %Code listing style named "mystyle"
 \lstdefinestyle{mystyle}{
   % backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
@@ -85,6 +85,9 @@
 %"mystyle" code listing set
 \lstset{style=mystyle}
 
+%Inline code text
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
 \allsectionsfont{\sffamily\mdseries\upshape}
@@ -102,8 +105,6 @@
 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}   %% centered
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}  %% right aligned
-
-
 
 \begin{document}
 
@@ -550,7 +551,7 @@
         \subsubsection{Spark Core API}
 
           The core API represents the basic structure of Spark, it can be addressed from any of the supported languages, scala, python, R and java. This API has the main functionality of Spark, which includes a set of operations, that includes Map-Reduce, but is not limited to them, as Hadoop is.
-          Regarding the data management, This API contains the RDDs, explained above and the basic operations.[][][]
+          Regarding the data management, This API contains the RDDs, explained above, and the basic operations performed over them. This api is addressed by the other, as the main basic structure are the RDDs and the other are buit from it.
 
         \subsubsection{Spark SQL + DataFrames}
 
@@ -747,7 +748,7 @@
         Scala & 2.11 \\ \hline
         Toree kernel & 0.2.0.dev1 \\ \hline
         Spark & 2.1 \\ \hline
-        SystemML & 0.12.0 \\
+        SystemML & 0.14.0-incubating \\
 
         \hline
       \end{tabular}
@@ -762,42 +763,85 @@
 
     Apart from the kernels, some dependencies must be installed to do the data processing in python, those dependencies are:
 
-    \begin{itemize}
-      \item appnope==0.1.0
-      \item bokeh==0.12.4
-      \item botocore==1.5.43
-      \item findspark==1.1.0
-      \item ipykernel==4.5.2
-      \item ipython==5.3.0
-      \item ipython-genutils==0.1.0
-      \item matplotlib==2.0.0
-      \item notebook==4.3.1
-      \item numpy==1.12.0
-      \item pandas==0.19.2
-      \item py4j==0.10.4
-      \item pyparsing==2.2.0
-      \item python-dateutil==2.6.0
-      \item scipy==0.18.1
-      \item systemml==0.14.0
-      \item toree==0.2.0.dev1
-      \item traitlets==4.3.2
-    \end{itemize}
+    \begin{table}[!ht]
+      \centering
+      \begin{tabular}{ c c }
+        \hline
 
-    For the python kernel, the SystemML library has to be installed, instructions for the installation can be found in the Apache SystemML's get started documentation: https://systemml.apache.org/install-systemml.html
+          Library & Version \\
+          appnope\footnote{Specific for MacOS} & $0.1.0$ \\
+          findspark & $1.1.0$ \\
+          ipykernel & $4.5.2$ \\
+          ipython & $5.3.0$ \\
+          matplotlib & $2.0.0$ \\
+          notebook & $4.3.1$ \\
+          numpy & $1.12.0$ \\
+          pandas & $0.19.2$ \\
+          py4j & $0.10.4$ \\
+          pyparsing & $2.2.0$ \\
+          python-dateutil & $2.6.0$ \\
+          scipy & $0.18.1$ \\
+          systemml & $0.14.0-incubating$ \\
+          toree\footnote{Scala interpreter kernel} & $0.2.0.dev1$ \\
+          traitlets & $4.3.2$ \\
 
+        \hline
+      \end{tabular}
+      \caption{Jupyter installed libraries}
+      \label{tab:python_libraries}
+    \end{table}
+
+    The execution of SystemML algorithms can be addressed from the Jupyter Notebook application. For the python kernel, the SystemML library has to be installed, instructions for the installation can be found in the Apache SystemML's get started documentation: https://systemml.apache.org/install-systemml.html, while in Scala, the jar file can be included on the startup of the kernel by adding it to the jar files option of spark or via Spark configuration file.
+
+    The alternative to use the Jupyter Notebook environment is using spark-submit, adding the SystemML.jar file and introducing the algorithm to execute as input parameter, with the desired variables. The configuration of SystemML can be set with the file \emph{SystemML-config.xml}, which is valid for the execution of the standalone mode and the Spark mode using the spark-submit option with the jar file.
 
 \chapter{Infrastructure and resources}
   \label{sec:infrastructure_and_resources}
 
-  As commented before, selecting an environment to be used is the first step, and it is a essential part.
+  The whole study has been executed over a local environment, with a standalone Spark $2.1$ installation and both standalone SystemML and SystemML over the standalone Spark infrastructure. This environment does not limit the validity of the present study to be scaled up to a cluster infrastructure, as HDFS has been used to store the data, avoiding local file system restrictions, and the execution over Spark grants the distributed operation of the scripts generated, as the code is the same.
 
   \section{Architecture scheme}
 
-    The whole study has been executed in a standalone model, with a MacBookPro Retina 2015. The data was stored in a single local file, as the size of it was not big enough to justify the use on an HDFS or similar technology for storage.
+    The whole study has been executed in a standalone model, with a MacBookPro Retina 2015. The data was stored in an HDFS single-node installation, on a local network machine.
+
+    The data processing has been executed using Pyspark over Jupyter Notebook, integrated with the Spark standalone installation, using HDFS for both reading and writing the data. The algorithm execution has also been done over Spark, and using the HDFS infrastructure.
+
+    \begin{figure}
+      \includegraphics[width=0.8\textwidth]{study_architecture.png}
+      \caption{Architecture and workflow}
+      \label{img:architecture_workflow}
+    \end{figure}
 
   \section{Configuration}
 
+    There are $4$ main elements to be configure to run this study's code: Jupyter Notebook, Apache Spark, Apache Hadoop and Apache SystemML.
 
+    \subsection{Jupyter Notebook}
+
+      The fastest and easiest way of installing and configuring Jupyter Notebook is using anaconda, which also comes with some important python libraries, such as Numpy or Scipy. The instructions to download and install Jupyter Notebook are on the documentation page: http://jupyter.readthedocs.io/en/latest/install.html.
+
+      The list of necessary libraries are show above, \ref{tab:python_libraries}, installing these libraries is simple, just creating a file with the following format: \code{library==version} and then executing \code{pip install file-name}.
+
+      It is advisable to create a virtual environment to use with this combination of libraries, and not interfering with any other library or version installed. Conda provides this functionality, which is explained on their documentation page: https://conda.io/docs/user-guide/tasks/manage-environments.html.
+
+    \subsection{Apache Spark Configuration}
+
+      Apache Spark can be downloaded from the official page: https://spark.apache.org/downloads.html. The downloaded file is a tar.gz file which contains an out of the box runnable Spark, which has been used for this development.
+
+      The first step to configure is setting up the environment variables: \code{\$SPARK\_HOME} and \code{\$JAVA\_HOME}. The former will indicate python where to find Spark installation and the later will indicate Spark which Java installation use. Spark will also use the environment variables \code{\$HADOOP\_HOME} and \code{\$HADOOP\_CONF\_DIR}.
+
+      Spark's configuration can be introduced either on the configuration files located on \code{\$SPARK\_HOME/conf/} or directly on the Spark execution, via \code{--conf} and \code{--java} options\footnote{Not all configurations can be indicated this way, for example, the log level has to be configured using a \code{log4j.properties} file.}.
+
+
+    \subsection{Apache Hadoop}
+
+      Hadoop File System has been used for the storage of the files, as in a distributed environment, the file system is not usable. The installation of a Hadoop single node cluster is simple, and explained on the documentation page: https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html. Apache Hadoop, comes in a ready to launch tar.gz, which can be downloaded from the official page: http://hadoop.apache.org/releases.html
+
+      As Spark and SystemML will need, two environment variables have to be set, \code{\$HADOOP\_HOME} and \code{\$HADOOP\_CONF\_DIR}.
+
+    \subsection{SystemML}
+
+      SystemML can be downloaded from the official page: https://systemml.apache.org/download.html, and, like Spark and Hadoop, comes in a tar.gz file ready to use. It requires little configuration, apart from the environment variables shown above. The specific configuration can be modified on the \code{SystemML-config.xml} file.
 
   \section{Workflow}
 
@@ -809,14 +853,17 @@
 
     Once the data is in the appropriate format, it is loaded into Spark and processed to get the final values needed for the analysis. All this process is shown in the notebook: \emph{Cleaning data with PySpark.ipynb}, where the data imputation and exploratory analysis is also done. The output of this script are the necessary data files to introduce in the Survival Analysis algorithms in SystemML's desired format. The file generated will be the "fileX" input of the algorithms, and is the result of the combination of the two files \emph{Users.xml} and \emph{Posts.xml}.
 
-    Spark SQL api was used to do the processing, as it is necessary to join tables and it is easy to use UserDefinedFunctions to parse data to the appropriate format, specially time series. The result of the process is a dataframe which has still to be cleaned in order to treat the missing values.
+    Spark SQL api was used to do the processing, as it is necessary to join tables and it is easy to use UserDefinedFunctions to parse data to the appropriate format, specially time series. On the other hand, it is also recommendable to use the Spark SQL api instead of the Core API RDD, as the operations can take advantage of Tungsten and Catalyst optimizers. The result of the process is a dataframe which has still to be cleaned in order to treat the missing values.
 
     \begin{table}[!ht]
       \centering
-      \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+      \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|c|}
         \hline
-           & FinalTime & CensoringStatus & TagCount & TitleLength & UserReputation & UserAge & PosterReputation & PosterAge \\ \hline
-      \end{tabular}
+          FinalTime & CensoringStatus & TagCount & TitleLength & UserReputation & UserAge & PosterReputation & PosterAge \\ \hline
+          20480.0 & 1.0 & 1.0 & 53.0 & 846.0 & 30.0 & 322.0 & 40 \\ \hline
+          4096.0 & 1.0 & 1.0 & 85.0 & 56723.0 & 54.0 & 100.0 & 42 \\ \hline
+          4096.0 & 1.0 & 3.0 & 45.0 & 21199.0 & 37.0 & 218.0 & 36 \\ \hline
+      \end{tabular}}
       \caption{Final table format for SystemML algorithm input, extract from the processed file}
       \label{tab:final_table_format}
     \end{table}
@@ -862,7 +909,7 @@
 
   \subsection{Algorithm execution and results analysis}
 
-    The last part is to generate and analyze the results. The
+    The last part of the process is to generate and analyze the results. The algorithm execution is shown on each algorithm's section, both have been run on standalone mode and on a standalone spark environment.
 
 
 
@@ -963,7 +1010,7 @@
 
     and the survival function for each time has the following form:
     \begin{equation}
-      \widehat{S(t_i)} = \prod_{i | t_i < t_k}(1 - \frac{d_i}{n_i})
+      \widehat{S}(t_i) = \prod_{i | t_i < t_k}(1 - \frac{d_i}{n_i})
       % \caption{Survival function in terms of the number of events in a time period and the number of surviving elements at this time for the KM Estimates model}
       \label{eq:km-survival-function}
     \end{equation}
@@ -1122,7 +1169,7 @@
         \label{eq:cox-max-likelihood-conditions}
       \end{equation}
 
-      From the first of the equations, an estimation of the parameters of the model can be obtained, $\bar{\hat{\beta}} = \{\hat{\beta_1},\cdots,\hat{\beta_p}\}$. The second expression is to ensure the parameters meet a maximum of the function. This expression can also be used to obtain the variance-covariance matrix:
+      From the first of the equations, an estimation of the parameters of the model can be obtained, $\bar{\widehat{\beta}} = \{\widehat{\beta_1},\cdots,\widehat{\beta_p}\}$. The second expression is to ensure the parameters meet a maximum of the function. This expression can also be used to obtain the variance-covariance matrix:
 
       \begin{equation}
         I_{ij}(\beta) = - \frac{\partial^2\log(L)}{\partial\beta_i\partial\beta_j}
@@ -1130,11 +1177,11 @@
       \end{equation}
 
       \begin{equation}
-        \hat{\Sigma}_{[p\times p]} = I ^{-1} \bar{\hat{\beta}}
+        \widehat{\Sigma}_{[p\times p]} = I ^{-1} \bar{\widehat{\beta}}
         \label{eq:cox-variance-covariance-matrix-estimated}
       \end{equation}
 
-      The resulting estimators of the $\beta$ parameters of the module are asymptotically unbiased, efficient and normal, with mean $(\hat{\beta_1},\cdots,\hat{\beta_p})$ and variance-covariance matrix $\hat{\Sigma}$, however the estimator is not completely efficient, as it does not reach the Cramer-Rao limit.
+      The resulting estimators of the $\beta$ parameters of the module are asymptotically unbiased, efficient and normal, with mean $(\widehat{\beta_1},\cdots,\widehat{\beta_p})$ and variance-covariance matrix $\widehat{\Sigma}$, however the estimator is not completely efficient, as it does not reach the Cramer-Rao limit.
 
       The partial likelihood functions on every time interval have the expression:
 
@@ -1157,32 +1204,32 @@
 
     \subsection{Hypothesis contrasts}
 
-      The estimation of the model's parameters $\bar{\hat{\beta}}$, approximately normal with mean ${\hat{\beta_1},\cdots,\hat{\beta_p}}$, and with variance-covariance matrix $\hat{\Sigma}$, allows the use of statistical tests similar to linear models to contrast hypothesis.
+      The estimation of the model's parameters $\bar{\widehat{\beta}}$, approximately normal with mean ${\widehat{\beta_1},\cdots,\widehat{\beta_p}}$, and with variance-covariance matrix $\widehat{\Sigma}$, allows the use of statistical tests similar to linear models to contrast hypothesis.
 
       Two hypotheses can be proposed:
 
       The first hypothesis may be $H_0$: $\beta_j=0$ versus $H_1$: $\beta_j\neq0$ $\forall \ j \in {1,\cdots,p}$. To contrast this hypothesis, the Wald statistic can be used:
 
       \begin{equation}
-        z=\frac{\hat{\beta_j}}{\sqrt{\hat{Var}(\hat{\beta_j})}}
+        z=\frac{\widehat{\beta_j}}{\sqrt{\widehat{Var}(\widehat{\beta_j})}}
         \label{eq:cox-hyp-contrast-1-wald}
       \end{equation}
 
       so the $(1-\alpha)\%$ interval can be calculated as:
 
       \begin{equation}
-        \hat{\beta_j}\pm z_{1-\alpha/2}\sqrt{\hat{Var}(\hat{\beta_j})}
+        \widehat{\beta_j}\pm z_{1-\alpha/2}\sqrt{\widehat{Var}(\widehat{\beta_j})}
         \label{eq:cox-hyp-contrast-1-wald-interval}
       \end{equation}
 
-      The second hypothesis to contrast could be the following: $H_0$: $\beta=\hat{\beta}$ versus $H_1$: $\beta\neq\hat{\beta}$. Three contrasts can be used:
+      The second hypothesis to contrast could be the following: $H_0$: $\beta=\widehat{\beta}$ versus $H_1$: $\beta\neq\widehat{\beta}$. Three contrasts can be used:
 
       \subsubsection{Wald contrast}
 
-        Assuming normal distribution for the parameters of the model, $\bar{\hat{\beta}}$, with mean $\hat{\beta_1},\cdots,\hat{\beta_p}$, and variance-covariance matrix $\hat{\Sigma} = I^{-1}\bar{\hat{\beta}}$, this statistic has the following form:
+        Assuming normal distribution for the parameters of the model, $\bar{\widehat{\beta}}$, with mean $\widehat{\beta_1},\cdots,\widehat{\beta_p}$, and variance-covariance matrix $\widehat{\Sigma} = I^{-1}\bar{\widehat{\beta}}$, this statistic has the following form:
 
         \begin{equation}
-          \chi_W = (\bar{\hat{\beta}} - \bar{\beta_0})^TI(\bar{\hat{\beta}})(\bar{\hat{\beta}} - \bar{\beta_0})
+          \chi_W = (\bar{\widehat{\beta}} - \bar{\beta_0})^TI(\bar{\widehat{\beta}})(\bar{\widehat{\beta}} - \bar{\beta_0})
           \label{eq:cox-wald-contrast}
         \end{equation}
 
@@ -1193,7 +1240,7 @@
         This contrast uses the value of the partial likelihood function evaluated in $hat{\beta}$ and $\beta_0$
 
         \begin{equation}
-          \chi_{LR} = 2\left(\log[L(\bar{\hat{\beta}}) -  \log[L(\bar{\beta_0})]]\right)
+          \chi_{LR} = 2\left(\log[L(\bar{\widehat{\beta}}) -  \log[L(\bar{\beta_0})]]\right)
           \label{eq:cox-lr-contrast}
         \end{equation}
 
@@ -1208,7 +1255,7 @@
           \label{eq:cox-score-contrast}
         \end{equation}
 
-        which is approximately multi-normal distribution with variance-covariance matrix $I(\bar{\hat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
+        which is approximately multi-normal distribution with variance-covariance matrix $I(\bar{\widehat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
 
 
 
