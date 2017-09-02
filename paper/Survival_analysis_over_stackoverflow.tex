@@ -119,7 +119,7 @@
 
 \chapter{Introduction \& main goals}
   \label{sec:introduction}
-  Many studies have been done over the Stackexchange community [Mamykina, Manoim et al 2011], one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
+  Many studies have been done over the Stackexchange community \cite{stackoverflow_paper}, one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
 
 
   \section{Main technologies}
@@ -759,7 +759,7 @@
 
     \emph{http://jupyter.readthedocs.io/en/latest/install.html}.
 
-    Once Jupyter Notebook is running, the kernels have to be configured. In this study, Scala and Python were used for the data processing, so both kernels were configured. The python kernel is usually configured, as it comes with the IPython kernel installation, if not, follow the guide[][][][][]. To install the scala kernel, several options can be considered, as there are several implementations of the scala kernel. The chosen one was Scala Toree.
+    Once Jupyter Notebook is running, the kernels have to be configured. In this study, Scala and Python were used for the data processing, so both kernels were configured. The python kernel is usually configured, as it comes with the IPython kernel installation, to install the scala kernel, several options can be considered, as there are several implementations of the scala kernel. The chosen one was Scala Toree.
 
     Apart from the kernels, some dependencies must be installed to do the data processing in python, those dependencies are:
 
@@ -1040,32 +1040,6 @@
 
     The other side of the simplicity of the model is that it only provides probability estimations on the whole group, it does not take account of other explanatory variables. This limitation constraints the analysis to homogeneous groups, where the other explanatory variables are homogeneous along all the sample. To mitigate this limitation when the sample is not homogeneous on the other explanatory variables, it can be separated in more homogeneous groups and apply the method to each group, being able to compare the results of every subsample.
 
-    \subsection{Kaplan-Meier survival curve}
-
-      The Kaplan-Meier Estimates method has
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      \begin{figure}[!ht]
-        \centering
-        \includegraphics[width=\textwidth]{Kaplan-meier-graph.png}
-        \caption{Example of Kaplan-Meier graph for two different groups}
-        \label{img:km-graph}
-      \end{figure}
-
-
-
   \section{Cox Proportional Hazards Model}
 
     Cox Proportional Hazards Model is one of the most relevant regarding time series in general and survival analysis in particular. The model was introduced in 1972 by Sir David Cox in the paper \emph{Regression models and life tables}, and introduced two key features, in first place, the proportional hazards model, and in second place the method of partial likelihood estimation.
@@ -1108,7 +1082,7 @@
 
       This assumption has to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function has to be constant over time. To check the behavior of the covariates there are several methods:
 
-      The
+      The first one is to use a plot of the
 
 
 
@@ -1257,16 +1231,9 @@
 
         which is approximately multi-normal distribution with variance-covariance matrix $I(\bar{\widehat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
 
-
-
-
-    \subsection{Main advantages of Cox Model}
-
-
-
-
-
-
+    \subsection{Overall goodness of fit}
+    \subsection{Overall model adequacy}
+    \subsection{Proportional hazards assumption test}
 
 
 

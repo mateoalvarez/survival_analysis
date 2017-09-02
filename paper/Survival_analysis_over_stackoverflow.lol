@@ -1,5 +1,5 @@
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {4.1}Example of matrix metadata file in JSON format}{58}
+\contentsline {lstlisting}{\numberline {4.1}Example of matrix metadata file in JSON format}{57}
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {4.2}Input X matrix for KM Estimates model}{61}
 \defcounter {refsection}{0}\relax 
