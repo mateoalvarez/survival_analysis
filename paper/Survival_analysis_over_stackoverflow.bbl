@@ -164,6 +164,25 @@
       \verb https://databricks.com/blog/2016/03/03/introducing-graphframes.html
       \endverb
     \endentry
+    \entry{stackoverflow_paper}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e73ad82e8108b328f685304de7b86f42}{%
+           family={L.\bibnamedelimi Mamykina},
+           family_i={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={B.\bibnamedelimi Namoim\bibnamedelimb et\bibnamedelima al},
+           given_i={B\bibinitperiod\bibinitdelim N\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim a\bibinitperiod}}}%
+      }
+      \strng{namehash}{e73ad82e8108b328f685304de7b86f42}
+      \strng{fullhash}{e73ad82e8108b328f685304de7b86f42}
+      \field{sortinit}{L}
+      \field{sortinithash}{872351f18d0f736066eda0bf18bfa4f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the SIGCHI Conference on Human Factors in Computing Systems}
+      \field{title}{Design lessons from the fastest q\&a site in the west}
+      \field{pages}{2857\bibrangedash 2866}
+      \range{pages}{10}
+    \endentry
     \entry{hospital_ramon_y_cajal_bioestadistica}{online}{}
       \field{sortinit}{M}
       \field{sortinithash}{2684bec41e9697b92699b46491061da2}
