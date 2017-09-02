@@ -1,0 +1,236 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.7 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{nty/global/}
+    \entry{apache_data_structures}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Spark data structures [Beyond the lines blog]}
+      \verb{url}
+      \verb http://www.beyondthelines.net/computing/apache-spark-data-structures/
+      \endverb
+    \endentry
+    \entry{spark_documentation}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Spark Official Documentation}
+      \verb{url}
+      \verb https://spark.apache.org/docs/2.1.0/
+      \endverb
+    \endentry
+    \entry{RDD_dataframes_datasets_diagram_blog}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Spark : RDD vs DataFrame vs Dataset [Chandan Prakash's Blog]}
+      \verb{url}
+      \verb https://http://why-not-learn-something.blogspot.com.es/
+      \endverb
+    \endentry
+    \entry{systemml_github_page}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache SystemML Github Repository}
+      \verb{url}
+      \verb https://github.com/apache/systemml
+      \endverb
+    \endentry
+    \entry{systemml_documentation}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache SystemML Official Documentation}
+      \verb{url}
+      \verb https://systemml.apache.org/
+      \endverb
+    \endentry
+    \entry{systemml_paper}{article}{}
+      \name{author}{2}{}{%
+        {{hash=da426737c6db1b917fe8f8496cdfae41}{%
+           family={Boehm},
+           family_i={B\bibinitperiod},
+           given={M.},
+           given_i={M\bibinitperiod}}}%
+        {{hash=fc5d160fed38a297bb21499faf30a8f7}{%
+           prefix={et},
+           prefix_i={e\bibinitperiod},
+           family={al},
+           family_i={a\bibinitperiod},
+           given={D.\bibnamedelimi R.\bibnamedelimi Burdick},
+           given_i={D\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{c24d5293fcd70da3277fd20d45e53463}
+      \strng{fullhash}{c24d5293fcd70da3277fd20d45e53463}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bulletin of the IEEE Computer Society Technical Committee on Data Engineering}
+      \field{title}{SystemML’s Optimizer: Plan Generation for Large-Scale Machine Learning Programs}
+      \field{year}{2014}
+      \verb{url}
+      \verb http://researcher.ibm.com/researcher/files/us-ytian/p52.pdf
+      \endverb
+    \endentry
+    \entry{breslow-method}{article}{}
+      \name{author}{1}{}{%
+        {{hash=77371b106decc5297ef8e78bafa1886e}{%
+           family={Breslow},
+           family_i={B\bibinitperiod},
+           given={N.},
+           given_i={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{77371b106decc5297ef8e78bafa1886e}
+      \strng{fullhash}{77371b106decc5297ef8e78bafa1886e}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Statistical Institute (ISI)}
+      \field{title}{Covariance Analysis of Survival Data under the Proportional Hazards Model}
+      \field{year}{1974}
+      \verb{doi}
+      \verb 10.2307/1402659
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/1402659
+      \endverb
+    \endentry
+    \entry{optimized_dag_to_physical}{online}{}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labeltitlesource}{title}
+      \field{title}{Databricks: Spark SQL ddata analysis of Liancheng}
+      \verb{url}
+      \verb http://prog3.com/article/2015-06-18/2824958
+      \endverb
+    \endentry
+    \entry{big_data_analytics_spark}{book}{}
+      \name{author}{1}{}{%
+        {{hash=aaddd21fe8530bb68e4055b240f27111}{%
+           family={Guller},
+           family_i={G\bibinitperiod},
+           given={Mohammed},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Science+Business Media New York}%
+      }
+      \strng{namehash}{aaddd21fe8530bb68e4055b240f27111}
+      \strng{fullhash}{aaddd21fe8530bb68e4055b240f27111}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-4842-0964-6}
+      \field{title}{Big Data Analytics with Spark}
+      \field{year}{2015}
+    \endentry
+    \entry{systemml_spark_summit_2016}{online}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labeltitlesource}{title}
+      \field{title}{Inside Apache SystemML [Spark Summit talk]}
+      \verb{url}
+      \verb https://www.youtube.com/watch?v=n3JJP6UbH6Q
+      \endverb
+    \endentry
+    \entry{graphFrames_introduction}{online}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labeltitlesource}{title}
+      \field{title}{Introducing GraphFrames}
+      \verb{url}
+      \verb https://databricks.com/blog/2016/03/03/introducing-graphframes.html
+      \endverb
+    \endentry
+    \entry{hospital_ramon_y_cajal_bioestadistica}{online}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labeltitlesource}{title}
+      \field{title}{Material docente de la Unidad de Bioestadística Clínica}
+      \verb{url}
+      \verb http://www.hrc.es/bioest
+      \endverb
+    \endentry
+    \entry{survival_analysis_book}{book}{}
+      \name{author}{1}{}{%
+        {{hash=c8520ca482d0589f870724ffd1c29d38}{%
+           family={Mills},
+           family_i={M\bibinitperiod},
+           given={Melinda},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {SAGE Publications, Ltd}%
+      }
+      \strng{namehash}{c8520ca482d0589f870724ffd1c29d38}
+      \strng{fullhash}{c8520ca482d0589f870724ffd1c29d38}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-84860-102-4}
+      \field{title}{Introducing Survival And Event History Analysis}
+      \field{year}{2011}
+    \endentry
+    \entry{meta-stackexchange-data-structure}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labeltitlesource}{title}
+      \field{title}{StackExchange data schemas}
+      \verb{url}
+      \verb https://meta.stackexchange.com/questions/2677/database-schema-documentation-for-the-public-data-dump-and-sede
+      \endverb
+    \endentry
+    \entry{tungsten_databricks}{article}{}
+      \name{author}{2}{}{%
+        {{hash=125f074bf46e8a83339101fd94d088e2}{%
+           family={Xin},
+           family_i={X\bibinitperiod},
+           given={Reynold},
+           given_i={R\bibinitperiod}}}%
+        {{hash=365d3ec4a85f5051e18fc7c1e63b210b}{%
+           family={Rosen},
+           family_i={R\bibinitperiod},
+           given={Josh},
+           given_i={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{432bf5eb500cb1343ebc7c3cb6798de4}
+      \strng{fullhash}{432bf5eb500cb1343ebc7c3cb6798de4}
+      \field{sortinit}{X}
+      \field{sortinithash}{2999ebab86052e6d71b434385f8b4ed2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Databricks Blog}
+      \field{month}{04}
+      \field{title}{Project Tungsten: Bringing Apache Spark Closer to Bare Metal}
+      \field{year}{2015}
+      \verb{doi}
+      \verb https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
