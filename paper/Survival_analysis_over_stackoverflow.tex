@@ -784,6 +784,7 @@
           systemml & $0.14.0-incubating$ \\
           toree\footnote{Scala interpreter kernel} & $0.2.0.dev1$ \\
           traitlets & $4.3.2$ \\
+          fancyimpute & $0.4.0$ \\
 
         \hline
       \end{tabular}
@@ -888,12 +889,9 @@
 
       The final time variable is composed with the start and end time of each question. The end of the question is considered whenever an accepted answer is posted, otherwise the data is right censored, and the end time is not known. The proportion of censored instances is about (x\%), and the missing values have been imputed using the longest duration of a question, considering it the study's time interval.
 
+    \subsubsection{UserReputation and UserAge}
 
-
-    \subsubsection{UserReputation}
-
-
-    \subsubsection{UserAge}
+      The information relative to the users that answered the question is only available for the questions that are not censored, as are the ones that were correctly answered. This information is always going to be missing, so in this study these features are not being considered for the survival analysis.
 
     \subsubsection{PosterReputation}
 
@@ -901,7 +899,11 @@
 
     \subsubsection{PosterAge}
 
-      The proportion of unknown values of the poster's age is about ($\%$), it does not follow any distribution either, so random sampled data has been used to impute the missing values.
+      The proportion of unknown values of the poster's age is about ($60\%$), it does not follow any distribution either. The imputation of this characteristic has been done comparing two different methods, available on the \emph{fancyimput} python library. The objective is to predict the missing values with the other variables available on the dataset for each instance.
+
+      The first one is the Multiple Imputation using Chained Equations (MICE). This method uses different models to impute the data, performing analysis over the imputed values to select the best mode for each partition.
+
+      The second procedure is using KNN algorithm with different amount of neighbors to fill the missing values. This second algorithm has proven to give more valid results than the former, in this case.
 
   \subsection{Algorithm preparation}
 
