@@ -36,12 +36,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Variable density distributions\relax }}{66}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Graphic correlation between variables\relax }}{67}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Tansformed variable density distributions\relax }}{67}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Execution on Spark, time results.\relax }}{68}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Execution on Spark, time results.\relax }}{69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{68}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{68}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{69}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }

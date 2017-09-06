@@ -1530,7 +1530,9 @@
 
     As the execution of the algorithm is a jar file given to spark-submit, all the spark's configuration can be set, thus the execution on a distributed environment would be almost the same, but with the specific Spark's configuration to run in distributed mode with the desired resources and security configuration.
 
-    The execution can also be done in the Jupyter Notebook, as the algorithm's script is open source, just copying the code into a cell and calling the function with the desired parameters.
+    The execution can also be done in the Jupyter Notebook, as the algorithm's script is open source, just copying the code into a cell and calling the function with the desired parameters, or invoking the algorithm's code via scriptUrl method, which will connect to the specified url and dowload the code.
+
+  \newpage
 
   \section{Results}
 
@@ -1538,15 +1540,31 @@
 
       After cleaning and imputing data, and before introducing the data into the algorithms, an exploratory analysis has been performed over the data. This part has been done using \emph{pandas} python library along with \emph{matplotlib}, so it is not entirely scalable, as it has not been executed on a distributed mode, but the exploratory analysis over a bigger dataset can be done over a sample of it.
 
-      The first step is to view the data, plotting their density distribution.
+      The first step is to view the data, plotting their density distribution and obtaining basic statistics.
 
       \begin{figure}[!ht]
-        \includegraphics[width=\textwidth]{variables_density_distribution.png}
+        \includegraphics[width=0.9\textwidth]{variables_density_distribution.png}
         \label{img:density}
         \caption{Variable density distributions}
       \end{figure}
 
-      After plotting the data distribution, correlation between variables is inspected to account for dependencies, the matrix obtained is the following:
+      \begin{table}[!ht]
+        \centering
+        \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} & \textbf{CensoringStatus}\\ \hline \hline
+          count & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ & $2.400900e+04$ & $24009.000000$ \\ \hline
+          mean & $2.058895$ & $59.923320$ & $13837.861927$ & $34.053919$ & $2.195890e+07$ & $0.538715$ \\ \hline
+          std & $0.992615$ & $22.637822$ & $34439.894285$ & $9.755022$ & $3.553241e+07$ & $0.498509$ \\ \hline
+          min & $1.000000$ & $15.000000$ & $1.000000$ & $13.999999$ & $4.096000e+03$ & $0.000000$ \\ \hline
+          25\% & $1.000000$ & $43.000000$ & $109.000000$ & $27.182650$ & $8.192000e+03$ & $0.000000$ \\ \hline
+          50\% & $2.000000$ & $57.000000$ & $803.000000$ & $32.640093$ & $2.088960e+05$ & $1.000000$ \\ \hline
+          75\% & $3.000000$ & $73.000000$ & $8117.000000$ & $38.360211$ & $3.276390e+07$ & $1.000000$ \\ \hline
+          max & $5.000000$ & $168.000000$ & $198942.000000$ & $96.000000$ & $1.624433e+08$ & $1.000000$ \\ \hline
+        \end{tabular}}
+        \caption{Basic statistics}
+        \label{tab:correlation_matrix}
+      \end{table}
 
       \begin{table}[!ht]
         \centering
@@ -1563,50 +1581,60 @@
         \label{tab:correlation_matrix}
       \end{table}
 
+      % \begin{figure}[!ht]
+      %   \includegraphics[width=\textwidth]{correlation_density.png}
+      %   \label{img:correlation}
+      %   \caption{Graphic correlation between variables}
+      % \end{figure}
+
+      Analyzing the results above, there are two variables that have important outliers, \emph{UserReputation} and \emph{FinalTime}, both containing a major part of small values and little amounts of big values. This causes important variations on the mean and on the correlation matrix, as both are sensitive to outliers. To mitigate this effect, a base $10$ logarithmic transformation has been applied to both variables.
+
       \begin{figure}[!ht]
-        \includegraphics[width=\textwidth]{correlation_density.png}
-        \label{img:correlation}
-        \caption{Graphic correlation between variables}
+        \includegraphics[width=\textwidth]{variables_density_distribution_log.png}
+        \label{img:density}
+        \caption{Tansformed variable density distributions}
       \end{figure}
 
-      Considering the data there is not any significant correlation between variables.  As the results does not indicate any correlation, censored and uncensored data are analyzed separately:
-
       \begin{table}[!ht]
         \centering
         \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
-           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} \\ \hline \hline
-          \textbf{TagCount} & \cellcolor[gray]{0.8} $1.000000$ & $0.059104$ & $-0.016865$ & $-0.005132$ & $0.014818$ \\ \hline
-          \textbf{TitleLength} & $0.059104$ & \cellcolor[gray]{0.8} $1.000000$ & $0.006583$ & $0.075735$ & $0.026250$ \\ \hline
-          \textbf{PosterReputation} & $-0.016865$ & $0.006583$ & \cellcolor[gray]{0.8} $1.000000$ & $0.233297$ & $0.118113$ \\ \hline
-          \textbf{PosterAge} & $-0.005132$ & $0.075735$ & $0.233297$ & \cellcolor[gray]{0.8} $1.000000$ & $0.050672$ \\ \hline
-          \textbf{FinalTime} & $0.014818$ & $0.026250$ & $0.118113$ & $0.050672$ & \cellcolor[gray]{0.8} $1.000000$ \\ \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} & \textbf{CensoringStatus}\\ \hline \hline
+           count & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ \\ \hline
+           mean & $2.058895$ & $59.923320$ & $2.923551$ & $34.053919$ & $5.701602$ & $0.538715$ \\ \hline
+           std & $0.992615$ & $22.637822$ & $1.245802$ & $9.755022$ & $1.725381$ & $0.498509$ \\ \hline
+           min & $1.000000$ & $15.000000$ & $0.000000$ & $13.999999$ & $3.612360$ & $0.000000$ \\ \hline
+           25\% & $1.000000$ & $43.000000$ & $2.037426$ & $27.182650$ & $3.913390$ & $0.000000$ \\ \hline
+           50\% & $2.000000$ & $57.000000$ & $2.904716$ & $32.640093$ & $5.319930$ & $1.000000$ \\ \hline
+           75\% & $3.000000$ & $73.000000$ & $3.909395$ & $38.360211$ & $7.515396$ & $1.000000$ \\ \hline
+           max & $5.000000$ & $168.000000$ & $5.298727$ & $96.000000$ & $8.210702$ & $1.000000$ \\ \hline
         \end{tabular}}
-        \caption{Correlation matrix for uncensored data}
+        \caption{Basic statistics}
         \label{tab:correlation_matrix}
       \end{table}
 
       \begin{table}[!ht]
         \centering
-        \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
+        \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|}
         \hline
-           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} \\ \hline \hline
-          \textbf{TagCount} & \cellcolor[gray]{0.8} $1.000000$ & $0.064785$ & $-0.017969$ & $0.021824$ & $-0.021825$ \\ \hline
-          \textbf{TitleLength} & $0.064785$	\cellcolor[gray]{0.8} $1.000000$ & $0.000686$ & $0.045365$ & $0.049065$ \\ \hline
-          \textbf{PosterReputation} & $-0.017969$ & $0.000686$ & \cellcolor[gray]{0.8} & $1.000000$ & $0.172690$ & $0.099369$ \\ \hline
-          \textbf{PosterAge} & $0.021824$ & $0.045365$ & $0.172690$ & \cellcolor[gray]{0.8} $1.000000$ & $0.125672$ \\ \hline
-          \textbf{FinalTime} & $-0.021825$ & $0.049065$ & $0.099369$ & $0.125672$ & \cellcolor[gray]{0.8}  $1.000000$ \\ \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{logPosterReputation} & \textbf{PosterAge} & \textbf{logFinalTime} \\ \hline \hline
+           \textbf{TagCount} & \cellcolor[gray]{0.8} $1.000000$ & $0.060511$ & $0.007440$ & $0.007575$ & $-0.006862$ \\ \hline
+           \textbf{TitleLength} & $0.060511$ & \cellcolor[gray]{0.8} $1.000000$ & $-0.108555$ & $0.058853$ & $0.093518$ \\ \hline
+           \textbf{PosterReputation} & $0.007440$ & $-0.108555$ & \cellcolor[gray]{0.8} $1.000000$ & \cellcolor{applegreen} $0.170244$ & \cellcolor{americanrose} $-0.229210$ \\ \hline
+           \textbf{PosterAge} & $0.007575$ & $0.058853$ & \cellcolor{applegreen} $0.170244$ & \cellcolor[gray]{0.8} $1.000000$ & $0.015670$ \\ \hline
+           \textbf{FinalTime} & $-0.006862$ & $0.093518$ & \cellcolor{americanrose} $-0.229210$ & $0.015670$ & \cellcolor[gray]{0.8} $1.000000$ \\ \hline
         \end{tabular}}
-        \caption{Correlation matrix for censored data}
+        \caption{Correlation matrix}
         \label{tab:correlation_matrix}
       \end{table}
 
-      \subsubsection*{Interpretation}
+    \subsection{Algorithm execution and output}
 
+      Using the spark-submit execution with the SystemMl.jar file, the algorithms have been executed.
 
+      \subsubsection{Kaplan Meier}
 
-
-
+        
 
     \subsection{Algorithms scalability and stability}
 
