@@ -40,4 +40,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {4.4}{\ignorespaces Output files and parameters for Cox Proportional Hazards algorithm\relax }}{63}
 \defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.5}{\ignorespaces Correlation matrix\relax }}{66}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.6}{\ignorespaces Correlation matrix for censored data\relax }}{67}
+\defcounter {refsection}{0}\relax 
+\contentsline {table}{\numberline {4.7}{\ignorespaces Correlation matrix for uncensored data\relax }}{68}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }

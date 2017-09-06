@@ -37,6 +37,9 @@
 \usepackage{biblatex}
 \addbibresource{sample.bib}
 
+%%% EPS_TO_PDF
+\usepackage{epstopdf}
+
 %%% CODE INSERTIONS
 \usepackage{listings}
 \renewcommand{\lstlistingname}{Code}
@@ -85,6 +88,10 @@
 %"mystyle" code listing set
 \lstset{style=mystyle}
 
+% table colors
+\usepackage{colortbl}
+\definecolor{americanrose}{rgb}{1.0, 0.01, 0.24}
+\definecolor{applegreen}{rgb}{0.55, 0.71, 0.0}
 %Inline code text
 \newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
 
@@ -1525,6 +1532,102 @@
 
     The execution can also be done in the Jupyter Notebook, as the algorithm's script is open source, just copying the code into a cell and calling the function with the desired parameters.
 
+  \section{Results}
+
+    \subsection{Exploratory analysis}
+
+      After cleaning and imputing data, and before introducing the data into the algorithms, an exploratory analysis has been performed over the data. This part has been done using \emph{pandas} python library along with \emph{matplotlib}, so it is not entirely scalable, as it has not been executed on a distributed mode, but the exploratory analysis over a bigger dataset can be done over a sample of it.
+
+      The first step is to view the data, plotting their density distribution.
+
+      \begin{figure}[!ht]
+        \includegraphics[width=\textwidth]{variables_density_distribution.png}
+        \label{img:density}
+        \caption{Variable density distributions}
+      \end{figure}
+
+      After plotting the data distribution, correlation between variables is inspected to account for dependencies, the matrix obtained is the following:
+
+      \begin{table}[!ht]
+        \centering
+        \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} \\ \hline \hline
+          \textbf{TagCount} & \cellcolor[gray]{0.8} $1.000000$ & $0.060511$ & $-0.015367$ & $0.007575$ & $-0.018741$ \\ \hline
+          \textbf{TitleLength} & $0.060511$ & \cellcolor[gray]{0.8}  $1.000000$ & $-0.003752$ & $0.058853$ & $0.071873$ \\ \hline
+          \textbf{PosterReputation} & $-0.015367$ & $-0.003752$ & \cellcolor[gray]{0.8}  $1.000000$ & $0.210137$ & $0.002616$ \\ \hline
+          \textbf{PosterAge} & $0.007575$ & $0.058853$ & $0.210137$ & \cellcolor[gray]{0.8}  $1.000000$ & $0.051550$ \\ \hline
+          \textbf{FinalTime} & $-0.018741$ & $0.071873$ & $0.002616$ & $0.051550$ & \cellcolor[gray]{0.8}  $1.000000$ \\ \hline
+        \end{tabular}}
+        \caption{Correlation matrix}
+        \label{tab:correlation_matrix}
+      \end{table}
+
+      \begin{figure}[!ht]
+        \includegraphics[width=\textwidth]{correlation_density.png}
+        \label{img:correlation}
+        \caption{Graphic correlation between variables}
+      \end{figure}
+
+      Considering the data there is not any significant correlation between variables.  As the results does not indicate any correlation, censored and uncensored data are analyzed separately:
+
+      \begin{table}[!ht]
+        \centering
+        \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} \\ \hline \hline
+          \textbf{TagCount} & \cellcolor[gray]{0.8} $1.000000$ & $0.059104$ & $-0.016865$ & $-0.005132$ & $0.014818$ \\ \hline
+          \textbf{TitleLength} & $0.059104$ & \cellcolor[gray]{0.8} $1.000000$ & $0.006583$ & $0.075735$ & $0.026250$ \\ \hline
+          \textbf{PosterReputation} & $-0.016865$ & $0.006583$ & \cellcolor[gray]{0.8} $1.000000$ & $0.233297$ & $0.118113$ \\ \hline
+          \textbf{PosterAge} & $-0.005132$ & $0.075735$ & $0.233297$ & \cellcolor[gray]{0.8} $1.000000$ & $0.050672$ \\ \hline
+          \textbf{FinalTime} & $0.014818$ & $0.026250$ & $0.118113$ & $0.050672$ & \cellcolor[gray]{0.8} $1.000000$ \\ \hline
+        \end{tabular}}
+        \caption{Correlation matrix for uncensored data}
+        \label{tab:correlation_matrix}
+      \end{table}
+
+      \begin{table}[!ht]
+        \centering
+        \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} \\ \hline \hline
+          \textbf{TagCount} & \cellcolor[gray]{0.8} $1.000000$ & $0.064785$ & $-0.017969$ & $0.021824$ & $-0.021825$ \\ \hline
+          \textbf{TitleLength} & $0.064785$	\cellcolor[gray]{0.8} $1.000000$ & $0.000686$ & $0.045365$ & $0.049065$ \\ \hline
+          \textbf{PosterReputation} & $-0.017969$ & $0.000686$ & \cellcolor[gray]{0.8} & $1.000000$ & $0.172690$ & $0.099369$ \\ \hline
+          \textbf{PosterAge} & $0.021824$ & $0.045365$ & $0.172690$ & \cellcolor[gray]{0.8} $1.000000$ & $0.125672$ \\ \hline
+          \textbf{FinalTime} & $-0.021825$ & $0.049065$ & $0.099369$ & $0.125672$ & \cellcolor[gray]{0.8}  $1.000000$ \\ \hline
+        \end{tabular}}
+        \caption{Correlation matrix for censored data}
+        \label{tab:correlation_matrix}
+      \end{table}
+
+      \subsubsection*{Interpretation}
+
+
+
+
+
+
+    \subsection{Algorithms scalability and stability}
+
+      The algorithms have been executed both in standalone mode and using a Standalone Spark installation. This experiment is intended to prove the scalability of the problem, as it can be parallelized through a Spark cluster. The idea of comparing with the standalone mode is to provide a baseline to start with. The other important feature to prove is the models stability, having the same input parameters, obtain similar execution times and results.
+
+      \subsubsection{Stability}
+
+        To have enough data for comparison, $30$ executions of the algorithm have been done.
+
+        \begin{figure}[!ht]
+          \subfloat[Cox model]{\includegraphics[width=0.5\textwidth]{KM_benchmark.png}\label{fig:f1}}
+          \hfill
+          \subfloat[KM model]{\includegraphics[width=0.5\textwidth]{Cox_benchmark.png}\label{fig:f2}}
+          \caption{Execution on Spark, time results.}
+        \end{figure}
+
+
+
+
+
+
 
 \chapter{Conclusions}
   \label{sec:conclusions}
@@ -1532,6 +1635,8 @@
   \section{Most important results}
 
   \section{Lessons learnt}
+
+
 
 \newpage
 
