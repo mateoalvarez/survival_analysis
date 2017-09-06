@@ -190,7 +190,7 @@
         Tags.xml & Relational table for tags on each question & 169 KB \\ \hline
         Users.xml & Users on the net & 16,7 MB \\ \hline
         PostLinks.xml & links to posts & 1,5 MB \\ \hline
-        Posts.xml & List of all questions & 137,3 MB \\ \hline
+        Posts.xml & List of all questions and answers & 137,3 MB \\ \hline
         PostHistory.xml & All interactions of each post & 268,6 MB \\ \hline
         Comments.xml & List of all comments of each post & 66,3 MB \\ \hline
         Badges.xml & All users' badges & 16,1 MB \\
@@ -1576,9 +1576,9 @@
       Analyzing the results above, there are two variables that have important outliers, \emph{UserReputation} and \emph{FinalTime}, both containing a major part of small values and little amounts of big values. This causes important variations on the mean and on the correlation matrix, as both are sensitive to outliers. To mitigate this effect, a base $10$ logarithmic transformation has been applied to both variables.
 
       \begin{figure}[!ht]
-        \includegraphics[width=\textwidth]{variables_density_distribution_log.png}
+        \includegraphics[width=0.9\textwidth]{variables_density_distribution_log.png}
         \label{img:density}
-        \caption{Tansformed variable density distributions}
+        \caption{Transformed variable density distributions}
       \end{figure}
 
       \begin{table}[!ht]
@@ -1643,9 +1643,9 @@
           \hline
             & \textbf{TagCount} & \textbf{TitleLength} & \textbf{logPosterReputation} & \textbf{PosterAge} \\ \hline \hline
             $\beta$ & $0.022197$ & $-0.002871$ & $0.307105$ & $-0.004196$ \\ \hline
-            $\exp(\beta)$ & $1.022446$ & $0.997132$ & $1.359484$ & $0.995813$ \\ \hline
+            $\exp(\beta)$ & \cellcolor{applegreen} $1.022446$ & \cellcolor{americanrose} $0.997132$ & \cellcolor{applegreen} $1.359484$ & \cellcolor{americanrose}$0.995813$ \\ \hline
             stdErr & $0.008800$ & $4.016536E-4$ & $0.007247$ & $9.504440E-4$ \\ \hline
-            Z & $2.566362882793737$ & $-7.148435$ & $42.37272$ & $-4.414734$ \\ \hline
+            Z & $2.566363$ & $-7.148435$ & $42.37272$ & $-4.414734$ \\ \hline
             p-value & $0.011660$ & $8.777423E-13$ & $ - $ & $1.011343E-5$ \\ \hline
             lower\_CI $100(1-\alpha)\%$ & $0.004948$ & $-0.003658$ & $0.292900$ & $-0.006059$ \\ \hline
             upper\_CI $100(1+\alpha)\%$ & $1.973361$ & $1.956691$ & $2.259821$ & $1.954818$ \\ \hline
@@ -1653,6 +1653,8 @@
           \caption{Cox PH Model parameters}
           \label{tab:cox-model-parameters}
         \end{table}
+
+        The table \ref{tab:cox-model-parameters} shows the results of the model training, the colors indicate the effect of the feature on the survival time, where the values grater than $1$ mean that the feature increases the risk and the ones lower than $1$ indicate decrease of the risk.
 
     \subsection{Algorithms scalability and stability}
 
@@ -1701,9 +1703,27 @@
 \chapter{Conclusions}
   \label{sec:conclusions}
 
-  \section{Most important results}
+    The three main objectives were automatize with Spark the data preprocessing to be able to scale up to a big StackExchange community, check the integration of Apache SystemML with Apache Spark and use surviving analysis techniques to explore StackExchange's data, with the final goal to predict the expected survival time for a question. All these objectives were met, with special focus on the infrastructure, the use and understanding of Spark and SystemML to be used in a scaled-up problem.
 
-  \section{Lessons learnt}
+  \section{Most important results and lessons learnt}
+
+    Most important results can be separated in three main parts, the scripts to preprocess the data and perform an exploratory analysis using Spark and Jupyter Notebook for granting scalability, the integration with Spark and learning of SystemML, and the application of Survival Analysis techniques to the StackExchange data.
+
+    \subsection{Preprocessing the data}
+
+      Scripts have been generated to convert the xml formatted data to csv, and adapt the tables information to the algorithms input. Moreover, a basic exploratory analysis have been performed, everything prepared to scale-up except for the visualization part, which runs in python libraries.
+      These notebooks, along with the configuration process explained, allows anyone to perform and test the same analysis.
+
+    \subsection{SystemML}
+
+      The verification of the integration of SystemML on version \emph{0.14.0-incubating} with Spark on version \emph{2.1.X}, grants the scalability of the problem for bigger communities and further analysis.
+      Although SystemML is still in development, and some bugs have been found, regarding Kaplan-Meier estimates model, when scaling up the problem, the overall behavour have been tested and proved to work.
+      A small benchmark testing the consistency and initial scalability of the combination of Spark with SystemML has been performed, leading to successfull results in consistency on both algorithms and scalability on Cox PH model.
+
+    \subsection{Survival Analysis techniques}
+
+      The application of Survival Analysis techniques to StackExchange is the first step to validate the utility of these algorithms for solving optimization problems on the behavior of these networks.
+
 
 
 
