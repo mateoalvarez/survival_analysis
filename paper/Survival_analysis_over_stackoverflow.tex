@@ -1220,7 +1220,7 @@
 
       \subsubsection{Likelihood ratio contrast}
 
-        This contrast uses the value of the partial likelihood function evaluated in $hat{\beta}$ and $\beta_0$
+        This contrast uses the value of the partial likelihood function evaluated in $\hat{\beta}$ and $\beta_0$
 
         \begin{equation}
           \chi_{LR} = 2\left(\log[L(\bar{\widehat{\beta}}) -  \log[L(\bar{\beta_0})]]\right)
@@ -1239,14 +1239,6 @@
         \end{equation}
 
         which is approximately multi-normal distribution with variance-covariance matrix $I(\bar{\widehat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
-
-    \subsection{Overall goodness of fit}
-    \subsection{Overall model adequacy}
-    \subsection{Proportional hazards assumption test}
-
-
-
-
 
   \subsection{SystemML input \& output format}
 
@@ -1581,12 +1573,6 @@
         \label{tab:correlation_matrix}
       \end{table}
 
-      % \begin{figure}[!ht]
-      %   \includegraphics[width=\textwidth]{correlation_density.png}
-      %   \label{img:correlation}
-      %   \caption{Graphic correlation between variables}
-      % \end{figure}
-
       Analyzing the results above, there are two variables that have important outliers, \emph{UserReputation} and \emph{FinalTime}, both containing a major part of small values and little amounts of big values. This causes important variations on the mean and on the correlation matrix, as both are sensitive to outliers. To mitigate this effect, a base $10$ logarithmic transformation has been applied to both variables.
 
       \begin{figure}[!ht]
@@ -1599,7 +1585,7 @@
         \centering
         \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
-           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{PosterReputation} & \textbf{PosterAge} & \textbf{FinalTime} & \textbf{CensoringStatus}\\ \hline \hline
+           & \textbf{TagCount} & \textbf{TitleLength} & \textbf{logPosterReputation} & \textbf{PosterAge} & \textbf{logFinalTime} & \textbf{CensoringStatus}\\ \hline \hline
            count & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ & $24009.000000$ \\ \hline
            mean & $2.058895$ & $59.923320$ & $2.923551$ & $34.053919$ & $5.701602$ & $0.538715$ \\ \hline
            std & $0.992615$ & $22.637822$ & $1.245802$ & $9.755022$ & $1.725381$ & $0.498509$ \\ \hline
@@ -1610,7 +1596,7 @@
            max & $5.000000$ & $168.000000$ & $5.298727$ & $96.000000$ & $8.210702$ & $1.000000$ \\ \hline
         \end{tabular}}
         \caption{Basic statistics}
-        \label{tab:correlation_matrix}
+        \label{tab:statistics_log_matrix}
       \end{table}
 
       \begin{table}[!ht]
@@ -1628,13 +1614,45 @@
         \label{tab:correlation_matrix}
       \end{table}
 
+      With the change of scale, the variables PosterReputation and FinalTime are now better distributed \ref{tab:statistics_log_matrix}, and do not have outliers. Regarding the correlation matrix \ref{tab:correlation_matrix}, with this scale, a slight influence of logPosterReputation can be accounted on the PosterAge, in a direct way, increasing with the poster's reputation and with the logFinalTime, with an inverse relation, which means that the time to answer will decrease when increasing the poster's reputation.
+
     \subsection{Algorithm execution and output}
 
       Using the spark-submit execution with the SystemMl.jar file, the algorithms have been executed.
 
       \subsubsection{Kaplan Meier}
 
-        
+        The Kaplan Meier algorithm has been executed grouping the tag-count variable, so that a result with groups comparison can be done, this comparison between groups is necessary for the correct execution of the algorithm, otherwise, the algorithms will not output results. As explained before, the algorithm outputs the complete time series with survival data, which can be plotted using, for example python's \emph{matplotlib}.
+
+        \begin{figure}[!h]
+          \includegraphics[width=\textwidth]{KM_TAGS.png}
+          \caption{Kaplan-Meier survival curves for different amount of tags}
+          \label{img:km-surv-curves}
+        \end{figure}
+
+        The graphic above shows no difference in survival between groups, so the TagCount does not introduce a significative difference in survival times.
+        It is important to note that this example was executed using just one grouping variable, TagCount, which has 5 levels, and took between $3$ and $4$ seconds to execute, but this algorithm needs to use categorical variables and not continuous to perform these grouping and stratifying, and they have to be moderate in size to work properly.
+
+      \subsubsection{Cox Proportional Hazards}
+
+        Cox Proportional Hazards model has been executed with all the features, included the log-transformed PosterReputation variable. The output of the algorithm are the adjusted $\beta$ parameters of the model with the confidence interval, the information to build survival curves and the tests to account the adequacy of the model and the verification of the hypothesis of proportional hazards.
+
+        \begin{table}[!ht]
+          \centering
+          \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|c|c|c|}
+          \hline
+            & \textbf{TagCount} & \textbf{TitleLength} & \textbf{logPosterReputation} & \textbf{PosterAge} \\ \hline \hline
+            $\beta$ & $0.022197$ & $-0.002871$ & $0.307105$ & $-0.004196$ \\ \hline
+            $\exp(\beta)$ & $1.022446$ & $0.997132$ & $1.359484$ & $0.995813$ \\ \hline
+            stdErr & $0.008800$ & $4.016536E-4$ & $0.007247$ & $9.504440E-4$ \\ \hline
+            Z & $2.566362882793737$ & $-7.148435$ & $42.37272$ & $-4.414734$ \\ \hline
+            p-value & $0.011660$ & $8.777423E-13$ & $ - $ & $1.011343E-5$ \\ \hline
+            lower\_CI $100(1-\alpha)\%$ & $0.004948$ & $-0.003658$ & $0.292900$ & $-0.006059$ \\ \hline
+            upper\_CI $100(1+\alpha)\%$ & $1.973361$ & $1.956691$ & $2.259821$ & $1.954818$ \\ \hline
+          \end{tabular}}
+          \caption{Cox PH Model parameters}
+          \label{tab:cox-model-parameters}
+        \end{table}
 
     \subsection{Algorithms scalability and stability}
 
@@ -1642,20 +1660,43 @@
 
       \subsubsection{Stability}
 
-        To have enough data for comparison, $30$ executions of the algorithm have been done.
+        To have enough data for comparison, $30$ executions of the algorithm have been done. Two stability parameters have been tested: execution time and consistency of the results.
+
+        The test was executed on $24000$ samples with no missing values. For Kaplan-Meier, one feature was chosen to make the groupings, the data below corresponds to the same parameters on execution. For the Cox PH model, all the $4$ variables were introduced as covariates.
+
+        The times obtained on the execution with these parameters are resumed on the following graphs:
 
         \begin{figure}[!ht]
           \subfloat[Cox model]{\includegraphics[width=0.5\textwidth]{KM_benchmark.png}\label{fig:f1}}
           \hfill
-          \subfloat[KM model]{\includegraphics[width=0.5\textwidth]{Cox_benchmark.png}\label{fig:f2}}
+          \subfloat[KM model]{\includegraphics[width=0.5\textwidth]{COX_benchmark.png}\label{fig:f2}}
           \caption{Execution on Spark, time results.}
+          \label{img:time-comparison-km-cox}
         \end{figure}
 
+        To compare the Kaplan-Meier's results, the survival curves have been printed:
 
+        \begin{figure}[!ht]
+          \includegraphics[width=\textwidth]{km_consistency.png}
+          \caption{Kaplan-Meier results of 5 iterations of the 30 executed}
+          \label{img:km-consistency}
+        \end{figure}
 
+        As can be seen on the image \ref{img:km-consistency}, all the executions provided the exact same results, although there were time variations.
 
+        To compare the Cox PH's results, the betas of the models have been compared, all te executions have returned the exact same values for each parameter, comfirming the consistency of executions of the algorithm.
 
+      \subsubsection{Scalability}
 
+        Regarding the scalability, two different executions have been done for both KM and Cox PH models, the first one with a big dataset, with $24009$ instances, which returned the times shown on the previous image \ref{img:time-comparison-km-cox}, the second one using a smaller dataset with $3000$ instances. The results are shown below:
+
+        \begin{figure}[!ht]
+          \subfloat[Cox model]{\includegraphics[width=0.5\textwidth]{KM_benchmark_small.png}\label{fig:f1}}
+          \hfill
+          \subfloat[KM model]{\includegraphics[width=0.5\textwidth]{COX_benchmark_small.png}\label{fig:f2}}
+          \caption{Execution on Spark, time results.}
+          \label{img:time-comparison-km-cox}
+        \end{figure}
 
 \chapter{Conclusions}
   \label{sec:conclusions}

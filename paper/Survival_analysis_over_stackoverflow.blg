@@ -1,18 +1,18 @@
 [0] Config.pm:343> INFO - This is Biber 2.5
 [0] Config.pm:346> INFO - Logfile is 'Survival_analysis_over_stackoverflow.blg'
-[44] biber-darwin:290> INFO - === mié sep  6, 2017, 13:46:36
-[61] Biber.pm:351> INFO - Reading 'Survival_analysis_over_stackoverflow.bcf'
-[162] Biber.pm:773> INFO - Using all citekeys in bib section 0
-[175] Biber.pm:3493> INFO - Processing section 0
-[189] Biber.pm:3657> INFO - Looking for bibtex format file 'sample.bib' for section 0
-[192] bibtex.pm:1187> INFO - Decoding LaTeX character macros into UTF-8
-[194] bibtex.pm:1048> INFO - Found BibTeX data source 'sample.bib'
-[224] Utils.pm:149> WARN - ISBN '978-84860-102-4' in entry 'survival_analysis_book' is invalid - run biber with '--validate_datamodel' for details.
-[225] Utils.pm:149> WARN - BibTeX subsystem: /var/folders/ph/l_ybjn0s51qg3c_d03rw14mc0000gn/T/YR7qll8OId/sample.bib_45964.utf8, line 68, warning: 1 characters of junk seen at toplevel
-[248] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[248] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[249] Biber.pm:3306> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'en-US'
-[249] Biber.pm:3310> INFO - No sort tailoring available for locale 'en-US'
-[267] bbl.pm:526> INFO - Writing 'Survival_analysis_over_stackoverflow.bbl' with encoding 'UTF-8'
-[269] bbl.pm:619> INFO - Output to Survival_analysis_over_stackoverflow.bbl
-[269] Biber.pm:108> INFO - WARNINGS: 2
+[39] biber-darwin:290> INFO - === mié sep  6, 2017, 21:12:29
+[57] Biber.pm:351> INFO - Reading 'Survival_analysis_over_stackoverflow.bcf'
+[140] Biber.pm:773> INFO - Using all citekeys in bib section 0
+[152] Biber.pm:3493> INFO - Processing section 0
+[164] Biber.pm:3657> INFO - Looking for bibtex format file 'sample.bib' for section 0
+[167] bibtex.pm:1187> INFO - Decoding LaTeX character macros into UTF-8
+[169] bibtex.pm:1048> INFO - Found BibTeX data source 'sample.bib'
+[195] Utils.pm:149> WARN - ISBN '978-84860-102-4' in entry 'survival_analysis_book' is invalid - run biber with '--validate_datamodel' for details.
+[197] Utils.pm:149> WARN - BibTeX subsystem: /var/folders/ph/l_ybjn0s51qg3c_d03rw14mc0000gn/T/SQRNdi4ytX/sample.bib_59228.utf8, line 68, warning: 1 characters of junk seen at toplevel
+[217] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[218] UCollate.pm:66> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[218] Biber.pm:3306> INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' and locale 'en-US'
+[218] Biber.pm:3310> INFO - No sort tailoring available for locale 'en-US'
+[234] bbl.pm:526> INFO - Writing 'Survival_analysis_over_stackoverflow.bbl' with encoding 'UTF-8'
+[236] bbl.pm:619> INFO - Output to Survival_analysis_over_stackoverflow.bbl
+[236] Biber.pm:108> INFO - WARNINGS: 2
