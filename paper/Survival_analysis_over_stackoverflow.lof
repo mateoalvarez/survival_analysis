@@ -4,54 +4,54 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Spark Cluster Mode Architecture, from \cite {spark_documentation}\relax }}{23}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Spark Cluster Mode Architecture, from \cite {Spark_documentation}\relax }}{23}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Differences between RDDs, dataframes and datasets, from \cite {RDD_dataframes_datasets_diagram_blog}\relax }}{25}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.3}{\ignorespaces DStream structure, from \cite {spark_documentation}\relax }}{26}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces DStream structure, from \cite {Spark_documentation}\relax }}{26}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Spark Streaming workflow\relax }}{29}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Example of translation of DAG to physical plan, for a word count application\relax }}{30}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Example of an optimized physical plan from a DAG, using Spark SQL, from \cite {optimized_dag_to_physical}\relax }}{31}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Example of an optimized physical plan from a DAG, using Spark SQL, from \cite {optimized_dag_to_physical}\relax }}{30}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Example of Spark UI\relax }}{32}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Example of Spark UI\relax }}{31}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Apache SystemML workflow\relax }}{33}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.9}{\ignorespaces SystemML Architecture\relax }}{34}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces SystemML Architecture\relax }}{33}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Jupyter Notebook environment example\relax }}{37}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Jupyter Notebook environment example\relax }}{36}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Example of a python3 notebook with Spark integrated, running in standalone mode\relax }}{37}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Architecture and workflow\relax }}{42}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architecture and workflow\relax }}{40}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Censored and uncensored data\relax }}{49}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Censored and uncensored data\relax }}{47}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Variable density distributions\relax }}{65}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Variable density distributions\relax }}{63}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Transformed variable density distributions\relax }}{66}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Transformed variable density distributions\relax }}{64}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Kaplan-Meier survival curves for different amount of tags\relax }}{68}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Kaplan-Meier survival curves for different amount of tags\relax }}{66}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Execution on Spark, time results.\relax }}{70}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Execution on Spark, time results.\relax }}{68}
+\defcounter {refsection}{0}\relax 
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{68}
+\defcounter {refsection}{0}\relax 
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{68}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Kaplan-Meier results of 5 iterations of the 30 executed\relax }}{69}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Execution on Spark, time results.\relax }}{70}
 \defcounter {refsection}{0}\relax 
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{70}
 \defcounter {refsection}{0}\relax 
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{70}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Kaplan-Meier results of 5 iterations of the 30 executed\relax }}{71}
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Execution on Spark, time results.\relax }}{72}
-\defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{72}
-\defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{72}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }

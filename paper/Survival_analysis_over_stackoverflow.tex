@@ -105,7 +105,7 @@
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
-\title{Survival Analysis with Apache Spark and Apache SystemML on Stackexchange}
+\title{Survival Analysis with Apache Spark and Apache SystemML on Stack Exchange}
 \author{Mateo Álvarez Calvo}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed
@@ -126,23 +126,23 @@
 
 \chapter{Introduction \& main goals}
   \label{sec:introduction}
-  Many studies have been done over the Stackexchange community \cite{stackoverflow_paper}, one of the biggest Q\&A sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
+  Many studies have been done over the Stack Exchange community \cite{stackoverflow_paper}, one of the biggest Question-Answer (Q\&A) sites in the world. The present is yet another study over the data of the famous site, but in this case, the study has two particularities, the use of Apache Spark with the library of Apache SystemML for the processing in a parallel environment, and the use of Survival Analysis to analyze the impact of the variables in the time an answer is accepted for each question, the "survival of each question" in the community.
 
 
   \section{Main technologies}
 
-    As one of the biggest Q\&A communities, Stackexchange has large amount of data of each interaction.
-    Stackexchange is separated in several communities, regarding different topics. These communities can be small, as \emph{DevOps} and \emph{InternetOfThings} or really big, as \emph{AskUbuntu} and \emph{Stackoverflow}, the main developers community. This particularity makes necessary the use of technologies prepared to process large amounts of data, in the later case.
+    As one of the biggest Q\&A communities, Stack Exchange has large amount of data of each interaction.
+    Stack Exchange is separated in several communities, regarding different topics. These communities can be small, as \emph{DevOps} and \emph{InternetOfThings} or really big, as \emph{AskUbuntu} and \emph{Stackoverflow}, the main developers community. This particularity makes necessary the use of technologies prepared to process large amounts of data, in the later case.
 
-    The purpose of the present study is to analyze a medium size community, so a distributed processing technology has to be used. For this purpose, Apache Spark, the latest distributed open-source processing technology, has been chosen to parallelize the operations on the data.
+    The purpose of the present study is to analyze a medium size community, so a distributed processing technology must be used. For this purpose, Apache Spark, the latest distributed open-source processing technology, has been chosen to parallelize the operations on the data.
 
-    Spark ML is the machine learning library of spark, which contains the ML algorithms. Although it includes some Survival Analysis algorithms, all of them are parametric models, which require to specify a hazard function shape in order to be used. This rests flexibility to the models, and for this study the hazard function is not known, so it is wise to start exploring the data with a non-parametric model, KM estimates, for example, and then apply some semi-parametric model, in this case Cox Proportional Hazards model. The absence of non or semi parametric models in Spark ML gives an excuse to use SystemML, a machine learning library developed by IBM and recently adopted as an Apache Foundation project, which has non, semi and parametric algorithms for survival analysis, and is compatible with distributed processing frameworks as Spark or Hadoop.
+    Spark ML is the Machine Learning (ML) library of Spark, which contains the ML algorithms. Although it includes some Survival Analysis algorithms, all of them are parametric models, which require to specify a hazard function shape in order to be used. This rests flexibility to the models, and for this study the hazard function is not known, so it is wise to start exploring the data with a non-parametric model, Kaplan-Meier estimates (KM), for example, and then apply some semi-parametric model, in this case Cox Proportional Hazards model (Cox PH). The absence of non or semi parametric models in Spark ML gives an excuse to use SystemML, a machine learning library developed by IBM and recently adopted as an Apache Foundation project, which has non, semi and parametric algorithms for survival analysis, and is compatible with distributed processing frameworks as Spark or Hadoop.
 
     Regarding the development environment, Jupyter Notebook provides a simple and flexible interface for this analysis, and can also be integrated with Spark, allowing the complete development in just one environment.
 
   \subsection{Survival Analysis}
 
-    Survival Analysis is a group of ML models used to predict the time passed until the occurrence of an event. Is a method widely used, specially in the medical and pharmaceutical environments, where the prediction of time until an event is frequently used.
+    Survival Analysis is a group of Machine Learning models used to predict the time passed until the occurrence of an event. Is a method widely used, specially in the medical and pharmaceutical environments, where the prediction of time until an event is frequently used.
 
     In this case, the objective of using these techniques is to understand the behavior of the variables with the time and to predict when will a posted question be answered. This idea has multiple uses, such as optimizations of the questions themselves, hour of the day, tags added, reputation of the user... or using for example StackOverflow as technical support for problems with software instead of paying the provider's technical support service.
 
@@ -154,14 +154,14 @@
 
   \subsection{Apache SystemML}
 
-    Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning framework that works in different modes, on both distributed frameworks, Spark or Hadoop, or stand alone mode, written in Java.
+    Recently included in the Apache Foundation Incubating  program, Apache SystemML is a machine learning framework that works in different modes, on both distributed frameworks, Spark or Hadoop, or standalone mode, written in Java.
 
     This framework provides a language to implement distributed, optimized algorithms ready for big data in a high-level language syntax, for Python and R. Additionally, the framework provides a set of commonly used algorithms already implemented with the sintaxis.
 
     System ML can be executed in a variety of distributed and non distributed modes, with it's standalone mode, and the integration with Hadoop, and Spark via SystemML context, which allows the interaction through Scala, Python and R.
 
 
-  \section{The Stackexchange data}
+  \section{The Stack Exchange data}
   \label{subsec:data_structure}
 
     % \subsection{Stack Exchange}
@@ -172,13 +172,13 @@
 
     Each community covers a different topic, from physics to software, and is structured in a reputation award format, each user's question and answer can be voted positively or negatively. This feature allows the self administration of the communities, which makes posible the existence of the network, as it is so big that an administrator or moderator could not manage. Whenever moderation is needed, for example when there is an argument, there is a specific place on each community to solve these problems, the Meta section, where the users post settle the disputes to be solved by administrators of the site. The reputation system works as gamification, giving users privileges and functionalities when they earn experience points.
 
-    All these communities generate large amounts of data that Stackexchange facilitates every once in a while for data scientists and people in general to download and analyze. The data is available in a torrent file and each package has about 35 - 40 GB of compressed information.
+    All these communities generate large amounts of data that Stack Exchange facilitates every once in a while for data scientists and people in general to download and analyze. The data is available in a torrent file and each package has about 35 - 40 GB of compressed information.
 
     This compressed file has data from different communities for a certain period of time. In this case, the analysis is done over the Scifi community, which is a median size community for science-fiction Q\&A.
 
     \subsection{Scifi community}
 
-    Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster. The data is divided in 8 files, and has the same structure for every community, the data schema can be found on the \emph{meta stackexchange} page, \cite{meta-stackexchange-data-structure}:
+    Scifi is a community in Stack Exchange that focuses on science fiction and fantasy. This community was selected because it has a medium size which is perfect to test the mentioned technologies in a reasonable period of time. Selecting just the data from Scifi community from the big compressed file, it weights around 110 MB in a 7z compressed format. This allows the computation on a local machine for experimentation and then scale the problem to a bigger community such as \emph{Ask Ubuntu} or \emph{Stack Overflow} when the process is refined and it can be launched remotely in a cluster. The data is divided in 8 files, and has the same structure for every community, the data schema can be found on the \emph{meta Stack Exchange} page, \cite{meta-Stack Exchange-data-structure}:
 
     \begin{table}[!ht]
       \centering
@@ -236,8 +236,8 @@
           Id & Integer & Unique tag identifier \\ \hline
           TagName & Text & Name of the tag \\ \hline
           Count & Integer & Number of times used \\ \hline
-          ExcerptPostId & Integer & \\ \hline
-          WikiPostId & Integer & \\
+          ExcerptPostId & Integer & Id of the post of which the tag was extracted\\ \hline
+          WikiPostId & Integer & Id of the wiki of which the tag was extracted\\
 
           \hline
         \end{tabular}
@@ -323,7 +323,7 @@
 
     \subsection{Posts.xml}
 
-      This file contains all questions posted along with the accepted answers and other info related. The file has the following structure:
+      This file contains all posts posted along with the accepted answers and other info related. The posts can be either questions or answers, both contained on the same file. The file has the following structure:
 
       \begin{table}[!ht]
         \centering
@@ -331,27 +331,27 @@
           \hline
 
           Feature & Data type & Description \\ \hline
-          Id & Integer & Unique question identifier \\ \hline
+          Id & Integer & Unique post identifier \\ \hline
           PostTypeId & Integer & Type of post codified as integer \\ \hline
           AcceptedAnswerId & Integer & Id of the Answer chosen as the correct one \\ \hline
-          ParentId & Integer & Parent question id\\ \hline
-          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question creation in extended format \\ \hline
-          DeletionDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of question deletion in extended format \\ \hline
-          Score & Integer & Question's score, calculated from the users' votes \\ \hline
+          ParentId & Integer & Parent post id\\ \hline
+          CreationDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of post creation in extended format \\ \hline
+          DeletionDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time of post deletion in extended format \\ \hline
+          Score & Integer & Post's score, calculated from the users' votes \\ \hline
           ViewCount & Integer & Count of visualizations \\ \hline
-          Body & Text & The question itself, in utf8 format \\ \hline
-          OwnerUserId & Integer & Id of the user who posted the question \\ \hline
-          OwnerDisplayName & String & Name of the user who posted the question \\ \hline
+          Body & Text & The post itself, in utf8 format \\ \hline
+          OwnerUserId & Integer & Id of the user who posted the post \\ \hline
+          OwnerDisplayName & String & Name of the user who posted the post \\ \hline
           LastEditorUserId & Integer & last editor's id\\ \hline
           LastEditDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last edition date \\ \hline
-          LastActivityDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last interaction with the question time \\ \hline
-          Title & Text & Title of the question \\ \hline
-          Tags & Text & Tags added to the question \\ \hline
-          AnswerCount & Integer & Number of answers to the question \\ \hline
-          CommentCount & Integer & Number of comments to the question posted \\ \hline
-          FavoriteCount & Integer & Number of times the question has been added to favorite \\ \hline
-          ClosedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the question has been closed \\ \hline
-          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time \\
+          LastActivityDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Last interaction with the post time \\ \hline
+          Title & Text & Title of the post \\ \hline
+          Tags & Text & Tags added to the post \\ \hline
+          AnswerCount & Integer & Number of answers to the post \\ \hline
+          CommentCount & Integer & Number of comments to the post posted \\ \hline
+          FavoriteCount & Integer & Number of times the post has been added to favorite \\ \hline
+          ClosedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time the post has been closed \\ \hline
+          CommunityOwnedDate & Timestamp YYYY-MM-DDTHH:MM:SS.dScSmS & Time when the post was transferred to community\\
 
           \hline
         \end{tabular}
@@ -416,11 +416,11 @@
 
     \begin{itemize}
 
-      \item Use Spark to make the data cleaning and create a script for further research on the Stackexchange site.
+      \item Use Spark to make the data cleaning and create a script for further research on the Stack Exchange site.
 
       \item Verify SystemML integration with Spark for further research and scalability.
 
-      \item Use SystemML survival analysis algorithms to analyze Stackexchange's data and obtain conclusions on the main variables affecting the time taken by the community to answer each question.
+      \item Use SystemML survival analysis algorithms to analyze Stack Exchange's data and obtain conclusions on the main variables affecting the time taken by the community to answer each question.
 
     \end{itemize}
 
@@ -429,7 +429,7 @@
 \chapter{Technologies}
   \label{sec:technologies}
 
-  The downloaded data from Stackexchange for the analysis weights about 40 GB, which is enough amount to consider distributed processing. Going down to the distributed processing frameworks, Apache Spark was chosen.
+  The downloaded data from Stack Exchange for the analysis weights about 40 GB, which is enough amount to consider distributed processing. Going down to the distributed processing frameworks, Apache Spark was chosen.
 
   \section{Apache Spark}
 
@@ -463,23 +463,23 @@
 
       The deployment of Spark has two variants, client and cluster mode. On the client mode, the Driver is launched on the machine the process has been invoked, and it can be inside or outside the cluster. On cluster mode, the cluster manager is assigned to control the Driver process, and the process itself will be launched inside the cluster. In case Mesos is the cluster manager, it will require an additional service.
 
-      Focusing on the Spark cluster mode\footnote{The architecture for client mode is the same, but running all the programs and processes in the same machine.}, the architecture is as follows \footnote{As explained on the Official Spark documentation \cite{spark_documentation}}:
+      Focusing on the Spark cluster mode\footnote{The architecture for client mode is the same, but running all the programs and processes in the same machine.}, the architecture is as follows \footnote{As explained on the Official Spark documentation \cite{Spark_documentation}}:
 
-      All the Spark applications run on the cluster nodes as independent sets of processes, all coordinated by the main program, called \emph{driver program}, that coordinates all the others through the \emph{sparkContext}.
+      All the Spark applications run on the cluster nodes as independent sets of processes, all coordinated by the main program, called \emph{driver program}, that coordinates all the others through the \emph{SparkContext}.
 
       The driver program deploys executor programs on the worker nodes of the cluster via a resource manager, already installed and running on the cluster, which provides the resources needed for the execution of the jobs. The driver first converts the user program into tasks and after that it schedules the tasks on the executors.
 
-      The executor programs are in charge of running individual tasks in a given Spark job, all sent by the driver program through the sparkContext. They are launched at the beginning of a Spark application and typically run for the entire lifetime of an application. Once they have run the task they send the results to the driver. They also provide in-memory storage for RDDs that are cached by user programs through Block Manager.
+      The executor programs are in charge of running individual tasks in a given Spark job, all sent by the driver program through the SparkContext. They are launched at the beginning of a Spark application and typically run for the entire lifetime of an application. Once they have run the task they send the results to the driver. They also provide in-memory storage for RDDs that are cached by user programs through Block Manager.
 
-      Spark driver program has to be in continuous contact with the executors, as it has to coordinate the workflow and the specific tasks for each executor and monitors the status of them. Moreover, when a result is required by the user, and it is not saved to a datastore, the result will go back to the driver program. The driver can run in an external machine of the cluster, but, as it has to be in continuous communication with the executor programs, it has to be running all the time the executors are calculating and it can not be disconnected to the cluster.
+      Spark driver program must be in continuous contact with the executors, as it has to coordinate the workflow and the specific tasks for each executor and monitors the status of them. Moreover, when a result is required by the user, and it is not saved to a datastore, the result will go back to the driver program. The driver can run in an external machine of the cluster, but, as it must be in continuous communication with the executor programs, it must be running all the time the executors are calculating and it can not be disconnected to the cluster.
 
       More than one application can run in the same cluster, as long as there are enough resources. Each application gets its own executor processes and run tasks in multiple threads. This has the benefit of isolating applications from each other, on both the scheduling side (each driver schedules its own tasks) and executor side (tasks from different applications run in different JVMs), all of them running in different java processes, in general in different machines. However, it also means that data cannot be shared across different Spark applications (instances of SparkContext) without writing it to an external storage system.
 
       \begin{figure}[!ht]
         \centering
         \includegraphics[width=\textwidth]{cluster-overview.png}
-        \caption{Spark Cluster Mode Architecture, from \cite{spark_documentation}}
-        \label{img:spark_architecture}
+        \caption{Spark Cluster Mode Architecture, from \cite{Spark_documentation}}
+        \label{img:Spark_architecture}
       \end{figure}
 
       Apache Spark is formed by the Spark Core API, available in R, SQL, Python, Scala and Java languages, and built up on it four main libraries: Spark SQL + DataFrames, Spark Streaming, Spark MLlib, Spark ML and GraphX, that complements functionality for Spark, specially on the parts Hadoop failed, Machine Learning, SQL and Streaming. There are other libraries but these are the essential.
@@ -527,7 +527,7 @@
       \begin{figure}[!ht]
         \centering
         \includegraphics[width=0.75\textwidth]{streaming-dstream.png}
-        \caption{DStream structure, from \cite{spark_documentation}}
+        \caption{DStream structure, from \cite{Spark_documentation}}
         \label{img:DStream_squema}
       \end{figure}
 
@@ -586,15 +586,8 @@
             \centering
             \includegraphics[width=0.75\textwidth]{Spark_Streaming_architecture.png}
             \caption{Spark Streaming workflow}
-            \label{img:spark_streaming_workflow}
+            \label{img:Spark_streaming_workflow}
           \end{figure}
-
-
-        \subsubsection{Spark GraphX}
-
-          GraphX is Spark's graph library, which extends Spark's core API with special functionality for graphs. As commented before, Spark GraphX uses a different data structure, \emph{Graph}, a structure that provides functionality to introduce both vertices and edges for the graph. As all other libraries, the GraphX functionality can be mixed with all the rest of the framework, giving this library high flexibility.
-
-          Unlike other Spark main libraries, GraphX does not provide access with other language than Scala, it can not be addressed with R nor Python, but it provides an increasing amount of distributed algorithms for graph analysis.
 
       \subsection{Spark workflow}
 
@@ -625,13 +618,13 @@
 
           \begin{figure}[!ht]
             \centering
-            \includegraphics[width=0.8\textwidth]{spark_logical_to_phisical_plan.jpg}
+            \includegraphics[width=0.8\textwidth]{Spark_logical_to_phisical_plan.jpg}
             \caption{Example of an optimized physical plan from a DAG, using Spark SQL, from \cite{optimized_dag_to_physical}}
           \end{figure}
 
         \subsubsection{Scheduling and executing the physical plan on the cluster}
 
-          Finally, the stages are executed in order, launching the tasks over the available nodes to compute the resulting RDD. As the execution runs in-memory, whenever a task fails, the entire sequence of operations of the stage has to be computed for the particular lost partition, but not all the tasks for all partitions. For this reason it is common to \emph{cache} the RDDs after a series of operations, avoiding this way to recalculate all the previous steps.
+          Finally, the stages are executed in order, launching the tasks over the available nodes to compute the resulting RDD. As the execution runs in-memory, whenever a task fails, the entire sequence of operations of the stage must be computed for the particular lost partition, but not all the tasks for all partitions. For this reason it is common to \emph{cache} the RDDs after a series of operations, avoiding this way to recalculate all the previous steps.
 
       \subsection{Spark UI}
 
@@ -639,9 +632,9 @@
 
         \begin{figure}[!ht]
           \centering
-          \includegraphics[width=0.8\textwidth]{spark_ui.png}
+          \includegraphics[width=0.8\textwidth]{Spark_ui.png}
           \caption{Example of Spark UI}
-          \label{img:spark_ui}
+          \label{img:Spark_ui}
         \end{figure}
 
 \newpage
@@ -729,13 +722,13 @@
       \label{jupyter_notebook_environment}
     \end{figure}
 
-    Another important advantage of Jupyter Notebook is its simple integration with Spark, it can be launched directly from python via \emph{findspark} library, launching an embebed interactive Spark Shell, to execute the Spark code directly from the cells of the notebook, or it can be configured to be the launched when the Spark Shell is executed.
+    Another important advantage of Jupyter Notebook is its simple integration with Spark, it can be launched directly from python via \emph{findSpark} library, launching an embebed interactive Spark Shell, to execute the Spark code directly from the cells of the notebook, or it can be configured to be the launched when the Spark Shell is executed.
 
     \begin{figure}[!ht]
       \centering
-      \includegraphics[width=\textwidth]{spark_notebook_example.png}
+      \includegraphics[width=\textwidth]{Spark_notebook_example.png}
       \caption{Example of a python3 notebook with Spark integrated, running in standalone mode}
-      \label{notebook_spark_example}
+      \label{notebook_Spark_example}
     \end{figure}
 
     To configure the same environment as the one used in this study, some steps have to be followed:
@@ -777,7 +770,7 @@
 
           Library & Version \\
           appnope\footnote{Specific for MacOS} & $0.1.0$ \\
-          findspark & $1.1.0$ \\
+          findSpark & $1.1.0$ \\
           ipykernel & $4.5.2$ \\
           ipython & $5.3.0$ \\
           matplotlib & $2.0.0$ \\
@@ -795,13 +788,13 @@
 
         \hline
       \end{tabular}
-      \caption{Jupyter installed libraries}
+      \caption{Installed libraries in Jupyter}
       \label{tab:python_libraries}
     \end{table}
 
-    The execution of SystemML algorithms can be addressed from the Jupyter Notebook application. For the python kernel, the SystemML library has to be installed, instructions for the installation can be found in the Apache SystemML's get started documentation: https://systemml.apache.org/install-systemml.html, while in Scala, the jar file can be included on the startup of the kernel by adding it to the jar files option of spark or via Spark configuration file.
+    The execution of SystemML algorithms can be addressed from the Jupyter Notebook application. For the python kernel, the SystemML library must be installed, instructions for the installation can be found in the Apache SystemML's get started documentation: https://systemml.apache.org/install-systemml.html, while in Scala, the jar file can be included on the startup of the kernel by adding it to the jar files option of Spark or via Spark configuration file.
 
-    The alternative to use the Jupyter Notebook environment is using spark-submit, adding the SystemML.jar file and introducing the algorithm to execute as input parameter, with the desired variables. The configuration of SystemML can be set with the file \emph{SystemML-config.xml}, which is valid for the execution of the standalone mode and the Spark mode using the spark-submit option with the jar file.
+    The alternative to use the Jupyter Notebook environment is using Spark-submit, adding the SystemML.jar file and introducing the algorithm to execute as input parameter, with the desired variables. The configuration of SystemML can be set with the file \emph{SystemML-config.xml}, which is valid for the execution of the standalone mode and the Spark mode using the Spark-submit option with the jar file.
 
 \chapter{Infrastructure and resources}
   \label{sec:infrastructure_and_resources}
@@ -812,7 +805,7 @@
 
     The whole study has been executed in a standalone model, with a MacBookPro Retina 2015. The data was stored in an HDFS single-node installation, on a local network machine.
 
-    The data processing has been executed using Pyspark over Jupyter Notebook, integrated with the Spark standalone installation, using HDFS for both reading and writing the data. The algorithm execution has also been done over Spark, and using the HDFS infrastructure.
+    The data processing has been executed using PySpark over Jupyter Notebook, integrated with the Spark standalone installation, using HDFS for both reading and writing the data. The algorithm execution has also been done over Spark, and using the HDFS infrastructure.
 
     \begin{figure}
       \includegraphics[width=0.8\textwidth]{study_architecture.png}
@@ -834,11 +827,11 @@
 
     \subsection{Apache Spark Configuration}
 
-      Apache Spark can be downloaded from the official page: https://spark.apache.org/downloads.html. The downloaded file is a tar.gz file which contains an out of the box runnable Spark, which has been used for this development.
+      Apache Spark can be downloaded from the official page: https://Spark.apache.org/downloads.html. The downloaded file is a tar.gz file which contains an out of the box runnable Spark, which has been used for this development.
 
       The first step to configure is setting up the environment variables: \code{\$SPARK\_HOME} and \code{\$JAVA\_HOME}. The former will indicate python where to find Spark installation and the later will indicate Spark which Java installation use. Spark will also use the environment variables \code{\$HADOOP\_HOME} and \code{\$HADOOP\_CONF\_DIR}.
 
-      Spark's configuration can be introduced either on the configuration files located on \code{\$SPARK\_HOME/conf/} or directly on the Spark execution, via \code{--conf} and \code{--java} options\footnote{Not all configurations can be indicated this way, for example, the log level has to be configured using a \code{log4j.properties} file.}.
+      Spark's configuration can be introduced either on the configuration files located on \code{\$SPARK\_HOME/conf/} or directly on the Spark execution, via \code{--conf} and \code{--java} options\footnote{Not all configurations can be indicated this way, for example, the log level needs to be configured using a \code{log4j.properties} file.}.
 
 
     \subsection{Apache Hadoop}
@@ -857,7 +850,7 @@
 
   \subsection{Data cleaning}
 
-    The data used for the analysis is from the ScyFy community, but, as commented before, the structure is the same for all the Stack Exchange's communities. The data comes in the separated files described on section \ref{subsec:data_structure}. The data comes in \emph{xml} format, with \emph{self-closing} tags, which means that each instance's attributes are stored in the same row tag as properties, and not in separate subtags of each instance. This particularity is important, as for now, Spark's XML parser does not support this schema, as can be seen on the Spark's repository: \emph{https://github.com/databricks/spark-xml/pull/149}. Thus the first step is to parse the xml data with spark and writing it to a \emph{csv} format files. This is done in the notebook: \emph{Convert XML to CSV.ipynb}.
+    The data used for the analysis is from the ScyFy community, but, as commented before, the structure is the same for all the Stack Exchange's communities. The data comes in the separated files described on section \ref{subsec:data_structure}. The data comes in \emph{xml} format, with \emph{self-closing} tags, which means that each instance's attributes are stored in the same row tag as properties, and not in separate subtags of each instance. This particularity is important, as for now, Spark's XML parser does not support this schema, as can be seen on the Spark's repository: \emph{https://github.com/databricks/Spark-xml/pull/149}. Thus the first step is to parse the xml data with Spark and writing it to a \emph{csv} format files. This is done in the notebook: \emph{Convert XML to CSV.ipynb}.
 
     Once the data is in the appropriate format, it is loaded into Spark and processed to get the final values needed for the analysis. All this process is shown in the notebook: \emph{Cleaning data with PySpark.ipynb}, where the data imputation and exploratory analysis is also done. The output of this script are the necessary data files to introduce in the Survival Analysis algorithms in SystemML's desired format. The file generated will be the "fileX" input of the algorithms, and is the result of the combination of the two files \emph{Users.xml} and \emph{Posts.xml}.
 
@@ -912,13 +905,13 @@
 
       The second procedure is using KNN algorithm with different amount of neighbors to fill the missing values. This second algorithm has proven to give more valid results than the former, in this case.
 
-  \subsection{Algorithm preparation}
+  \subsection{Datasets description for preparing the algorithms}
 
     Apart from the data itself, the SystemML algorithms require some specific files, containing the description of the data and variables associated to the model training. It is also required to provide the \emph{.mtd} files for each input file of the algorithm. These files contain metadata that describes the file's format and matrix dimensions, in order to be used by the SystemML optimizer.
 
-  \subsection{Algorithm execution and results analysis}
+  \subsection{Algorithm execution and analysis of results}
 
-    The last part of the process is to generate and analyze the results. The algorithm execution is shown on each algorithm's section, both have been run on standalone mode and on a standalone spark environment.
+    The last part of the process is to generate and analyze the results. The algorithm execution is shown on each algorithm's section, both have been run on standalone mode and on a standalone Spark environment.
 
 
 
@@ -945,7 +938,7 @@
 
     On the other hand, Cox Proportional-hazards regression is a more complex model, introduced in 1972 by Sir David Cox, in the paper \emph{Regression Models and Life Tables}, which is nowadays one of the 100 most important papers in all of science, as it introduces key innovations in the field.
 
-  \section{Used data}
+  \section{Input datasets}
 
     The data used for the analysis has already been presented on section \ref{subsec:data_structure}, so the point of view of this section is to present the input data format necessary for the \emph{Survival Analysis} methods and how has the study's data transformed for it.
 
@@ -1027,7 +1020,7 @@
     Assuming asymptotic result, for big series of data in the sample, the variance of the maximum likelihood estimator can be obtained:
 
     \begin{equation}
-      \widehat{Var} = \frac{d_i(d_i-n_i}{n_i^3}
+      \widehat{Var} = \frac{d_i(d_i-n_i)}{n_i^3}
       \label{eq:km-havar-variance}
     \end{equation}
 
@@ -1089,7 +1082,7 @@
 
       This result leads to the assumption of proportional hazards, as the hazard ratio only depends on the betas and values of the covariates, which do not depend on time, following the first assumption. This proportional hazards mean that two individuals that have different values of the covariates, will always have proportional hazard one from the other.
 
-      This assumption has to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function has to be constant over time. To check the behavior of the covariates there are several methods:
+      This assumption needs to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function has to be constant over time. To check the behavior of the covariates there are several methods:
 
       The first one is to use a plot of the
 
@@ -1380,7 +1373,7 @@
 
       \begin{lstlisting}[label=data-generation-invocation, language=sh, caption=Sample invocation of the data generation script]
         #!/bin/bash
-        <SPARK_HOME>/bin/spark-submit <systemml-path>/SystemML.jar\
+        <SPARK_HOME>/bin/Spark-submit <systemml-path>/SystemML.jar\
         -f <systemml-scripts-path>/datagen/genRandData4SurvAnalysis.dml\
         -nvargs type=kaplan-meier\
         n=<number-samples>\
@@ -1478,9 +1471,9 @@
 
     The algorithm scripts have a sample invocation of them to be executed in a Hadoop environment, the execution over Spark is similar:
 
-    \begin{lstlisting}[label=code:km-invocation-spark, language=sh, caption=Example of the invocation of the Kaplan-Meier Estimates model with Apache SystemML over an Apache Spark framework]
+    \begin{lstlisting}[label=code:km-invocation-Spark, language=sh, caption=Example of the invocation of the Kaplan-Meier Estimates model with Apache SystemML over an Apache Spark framework]
     #!/bin/bash
-    <SPARK_HOME>/bin/spark-submit <path-to-systemml>/SystemML.jar\
+    <SPARK_HOME>/bin/Spark-submit <path-to-systemml>/SystemML.jar\
     -f <path-to-systemml-algorithms>/scripts/algorithms/KM.dml\
     -nvargs X=<file-X-location>\
             TE=<file-TE-location>\
@@ -1496,9 +1489,9 @@
             fmt=<output-format>
     \end{lstlisting}
 
-    \begin{lstlisting}[label=code:km-invocation-spark, language=sh, caption=Example of the invocation of the Cox Proportional Hazard model with Apache SystemML over an Apache Spark framework]
+    \begin{lstlisting}[label=code:km-invocation-Spark, language=sh, caption=Example of the invocation of the Cox Proportional Hazard model with Apache SystemML over an Apache Spark framework]
     #!/bin/bash
-    <SPARK_HOME>/bin/spark-submit <path-to-systemml>/SystemML.jar\
+    <SPARK_HOME>/bin/Spark-submit <path-to-systemml>/SystemML.jar\
     -f <path-to-systemml-algorithms>/scripts/algorithms/Cox.dml\
     -nvargs X=<file-X-location>\
     TE=<file-TE-location>\
@@ -1520,7 +1513,7 @@
 
     Note that the input and output matrixes are files, and the algorithms have to have the path to them as input arguments, they also need the parameters set on the invocation of the algorithm, otherwise, default values will be used. It is also important to note that, as commented before, along with the file containing the matrix, another file containing the metadata associated to the matrix have to be provided, as can be seen on the code examples of \ref{km_input_matrix} and \ref{km_input_matrix_meta}.
 
-    As the execution of the algorithm is a jar file given to spark-submit, all the spark's configuration can be set, thus the execution on a distributed environment would be almost the same, but with the specific Spark's configuration to run in distributed mode with the desired resources and security configuration.
+    As the execution of the algorithm is a jar file given to Spark-submit, all the Spark's configuration can be set, thus the execution on a distributed environment would be almost the same, but with the specific Spark's configuration to run in distributed mode with the desired resources and security configuration.
 
     The execution can also be done in the Jupyter Notebook, as the algorithm's script is open source, just copying the code into a cell and calling the function with the desired parameters, or invoking the algorithm's code via scriptUrl method, which will connect to the specified url and dowload the code.
 
@@ -1618,7 +1611,7 @@
 
     \subsection{Algorithm execution and output}
 
-      Using the spark-submit execution with the SystemMl.jar file, the algorithms have been executed.
+      Using the Spark-submit execution with the SystemMl.jar file, the algorithms have been executed.
 
       \subsubsection{Kaplan Meier}
 
@@ -1703,11 +1696,11 @@
 \chapter{Conclusions}
   \label{sec:conclusions}
 
-    The three main objectives were automatize with Spark the data preprocessing to be able to scale up to a big StackExchange community, check the integration of Apache SystemML with Apache Spark and use surviving analysis techniques to explore StackExchange's data, with the final goal to predict the expected survival time for a question. All these objectives were met, with special focus on the infrastructure, the use and understanding of Spark and SystemML to be used in a scaled-up problem.
+    The three main objectives were automatize with Spark the data preprocessing to be able to scale up to a big Stack Exchange community, check the integration of Apache SystemML with Apache Spark and use surviving analysis techniques to explore Stack Exchange's data, with the final goal to predict the expected survival time for a question. All these objectives were met, with special focus on the infrastructure, the use and understanding of Spark and SystemML to be used in a scaled-up problem.
 
   \section{Most important results and lessons learnt}
 
-    Most important results can be separated in three main parts, the scripts to preprocess the data and perform an exploratory analysis using Spark and Jupyter Notebook for granting scalability, the integration with Spark and learning of SystemML, and the application of Survival Analysis techniques to the StackExchange data.
+    Most important results can be separated in three main parts, the scripts to preprocess the data and perform an exploratory analysis using Spark and Jupyter Notebook for granting scalability, the integration with Spark and learning of SystemML, and the application of Survival Analysis techniques to the Stack Exchange data.
 
     \subsection{Preprocessing the data}
 
@@ -1722,7 +1715,7 @@
 
     \subsection{Survival Analysis techniques}
 
-      The application of Survival Analysis techniques to StackExchange is the first step to validate the utility of these algorithms for solving optimization problems on the behavior of these networks.
+      The application of Survival Analysis techniques to Stack Exchange is the first step to validate the utility of these algorithms for solving optimization problems on the behavior of these networks.
 
 
 
