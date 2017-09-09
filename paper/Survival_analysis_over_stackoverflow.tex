@@ -1082,11 +1082,11 @@
 
       This result leads to the assumption of proportional hazards, as the hazard ratio only depends on the betas and values of the covariates, which do not depend on time, following the first assumption. This proportional hazards mean that two individuals that have different values of the covariates, will always have proportional hazard one from the other.
 
-      This assumption needs to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function has to be constant over time. To check the behavior of the covariates there are several methods:
+      This assumption needs to be verified every time this model is intended to be used. To do so, the effect of every variable on the hazard function needs to be constant over time. To check the behavior of the covariates there are several methods:
 
-      The first one is to use a plot of the
+      The first one is to use a plot of the survival function to check that two individuals with different values of the covariates have paralel survival functions.
 
-
+      The other way may be using the Schoenfeld residuals, either on the statistical or the graphical test.
 
       One example where the assumption of proportional hazards is not reached may be the survival of cancer patients treated with chemotherapy alone or subject to surgical intervention along with the chemotherapy. The covariate representing the treatment could be a dichotomic variable, with $0$ meaning chemotherapy alone and $1$ representing surgery along with chemotherapy.
 
@@ -1095,10 +1095,6 @@
       One posible solution for this case can be separating the patients by the treatment received into independent groups and compare the hazard function for each group, to understand the advantages of one treatment over another.
 
       Other solutions can be starting the analysis after the surgery so that the effect of the treatment variable is constant over time, or use Cox's Extended Model to account for the interaction of the surgical groups and time.
-
-
-
-
 
     \subsection{Extended Cox Model for time-varying covariates}
 
@@ -1233,27 +1229,31 @@
 
         which is approximately multi-normal distribution with variance-covariance matrix $I(\bar{\widehat{\beta}})$, so the statistic follows a $\chi^2$ distribution with $p$ degrees of freedom.
 
-  \subsection{SystemML input \& output format}
+    \subsection{Model fitness and adequacy testing}
 
-    As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to be provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. These files are specified on each algorithm's description, as the project is open source, the algorithm implementation can be seen on the project's Github page \cite{systemml_github_page}.
+      There are several tests to address model fitness and adequacy, the log-likelihood test, the likelihood ratio test and the Aike Information Criterion are used for the first purpose, while the Cox-Snell residuals is used for the later.
 
-    Apart from the files specified on the oficial documentation and the algorithm implementation, it is also necessary to provide, along with every matrix file, another file with the same name, and the \emph{.mtd} extension, containing the information of the file containing the matrix in JSON format:
+    \subsection{SystemML input \& output format}
 
-    \begin{lstlisting}[label=matrix_metadata_file, language=sh, caption=Example of matrix metadata file in JSON format]
-      {
-        "data_type": "matrix",
-        "value_type": "double",
-        "rows": 10,
-        "cols": 3,
-        "nnz": 10,
-        "format": "csv",
-        "header": false,
-        "sep": ",",
-        "description": {
-            "author": "SystemML"
+      As described on the oficial documentation of Apache SystemML, to run a survival analysis using the KM estimates method or Cox Proportional Hazards model, three files have to be provided, containing three matrixes, the data itself in the appropriate format, along with two other matrix indicating position of specific variables inside the former. These files are specified on each algorithm's description, as the project is open source, the algorithm implementation can be seen on the project's Github page \cite{systemml_github_page}.
+
+      Apart from the files specified on the oficial documentation and the algorithm implementation, it is also necessary to provide, along with every matrix file, another file with the same name, and the \emph{.mtd} extension, containing the information of the file containing the matrix in JSON format:
+
+      \begin{lstlisting}[label=matrix_metadata_file, language=sh, caption=Example of matrix metadata file in JSON format]
+        {
+          "data_type": "matrix",
+          "value_type": "double",
+          "rows": 10,
+          "cols": 3,
+          "nnz": 10,
+          "format": "csv",
+          "header": false,
+          "sep": ",",
+          "description": {
+              "author": "SystemML"
+          }
         }
-      }
-    \end{lstlisting}
+      \end{lstlisting}
 
 \newpage
 
@@ -1648,6 +1648,25 @@
         \end{table}
 
         The table \ref{tab:cox-model-parameters} shows the results of the model training, the colors indicate the effect of the feature on the survival time, where the values grater than $1$ mean that the feature increases the risk and the ones lower than $1$ indicate decrease of the risk.
+
+        The model validation tests are shown below:
+
+        \begin{table}[!ht]
+          \centering
+          \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|}
+          \hline
+            log-likelihood & $-124565.0716$ \\ \hline
+            AIC & $249138.1433$ \\ \hline
+            Cox \& Snell & $0.0808$ \\ \hline
+            Wald Test & $1966.6316$ \\ \hline
+            Likelihood ratio test & $2022.9469$ \\ \hline
+            Log rank test & \\ $2011.5584$ \hline
+          \end{tabular}}
+          \caption{Cox PH Model parameters}
+          \label{tab:cox-model-parameters}
+        \end{table}
+
+
 
     \subsection{Algorithms scalability and stability}
 
