@@ -1475,6 +1475,12 @@
     #!/bin/bash
     <SPARK_HOME>/bin/Spark-submit <path-to-systemml>/SystemML.jar\
     -f <path-to-systemml-algorithms>/scripts/algorithms/KM.dml\
+    --master local[*] \
+    --conf spark.driver.maxResultSize=0 \
+    --conf spark.akka.frameSize=128 \
+    --conf spark.scheduler.mode=FIFO \
+    --conf spark.local.dir=/tmp \
+    --conf spark.driver.extraJavaOptions=-Xmn500M \
     -nvargs X=<file-X-location>\
             TE=<file-TE-location>\
             GI=<file-GI-location>\
@@ -1493,6 +1499,12 @@
     #!/bin/bash
     <SPARK_HOME>/bin/Spark-submit <path-to-systemml>/SystemML.jar\
     -f <path-to-systemml-algorithms>/scripts/algorithms/Cox.dml\
+    --master local[*] \
+    --conf spark.driver.maxResultSize=0 \
+    --conf spark.akka.frameSize=128 \
+    --conf spark.scheduler.mode=FIFO \
+    --conf spark.local.dir=/tmp \
+    --conf spark.driver.extraJavaOptions=-Xmn500M \
     -nvargs X=<file-X-location>\
     TE=<file-TE-location>\
     F=<file-F-location>\
@@ -1653,7 +1665,7 @@
 
         \begin{table}[!ht]
           \centering
-          \resizebox{\textwidth}{!}{\begin{tabular}{|c|c|}
+          \begin{tabular}{|c|c|}
           \hline
             log-likelihood & $-124565.0716$ \\ \hline
             AIC & $249138.1433$ \\ \hline
@@ -1661,7 +1673,7 @@
             Wald Test & $1966.6316$ \\ \hline
             Likelihood ratio test & $2022.9469$ \\ \hline
             Log rank test & $2011.5584$ \\ \hline
-          \end{tabular}}
+          \end{tabular}
           \caption{Cox PH Model parameters}
           \label{tab:cox-model-parameters}
         \end{table}
