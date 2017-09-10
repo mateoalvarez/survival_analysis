@@ -34,24 +34,24 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Censored and uncensored data\relax }}{47}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Variable density distributions\relax }}{63}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Variable density distributions\relax }}{64}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Transformed variable density distributions\relax }}{64}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Transformed variable density distributions\relax }}{65}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Kaplan-Meier survival curves for different amount of tags\relax }}{66}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Kaplan-Meier survival curves for different amount of tags\relax }}{67}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Execution on Spark, time results.\relax }}{68}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Execution on Spark, time results.\relax }}{69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{68}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{68}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{69}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Kaplan-Meier results of 5 iterations of the 30 executed\relax }}{69}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Kaplan-Meier results of 5 iterations of the 30 executed\relax }}{70}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Execution on Spark, time results.\relax }}{70}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Execution on Spark, time results.\relax }}{71}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{70}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Cox model}}}{71}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{70}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {KM model}}}{71}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
